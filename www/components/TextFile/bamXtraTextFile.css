@@ -1,0 +1,119 @@
+/* *************************************************************** */
+/* Styling of a BaM Xtra TextFile component                        */
+/* *************************************************************** */
+
+.bam-xtra-textfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+} 
+
+.bam-xtra-textfile #equations, 
+.bam-xtra-textfile #inputsparameters{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.bam-xtra-textfile #equations {
+    border-right: 1px solid var(--strong);
+}
+
+.bam-xtra-textfile #equations-title, 
+.bam-xtra-textfile #inputsparameters-title {
+    padding: 0.8rem;
+}
+
+.bam-xtra-textfile #inputsparameters-help {
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+/* *************************************************************** */
+/* Styling for the equation side content                           */
+/* *************************************************************** */
+
+.bam-textfile-equations {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bam-textfile-equation {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: baseline;
+    width: 100%;
+}
+
+.bam-textfile-equation > #output {
+    width: 5rem;
+}
+
+.bam-textfile-equation > #equation {
+    flex-grow: 1;
+}
+
+.bam-textfile-equation > #delete {
+    width: 2.5rem;
+}
+
+.bam-textfile-equation > #equation[nonvalid] {
+    border: 1px solid rgb(202, 33, 33);
+    
+}
+
+.bam-textfile-equation > #equation[nonvalid]:focus {
+    box-shadow: 0 0 2px 1px rgb(255, 93, 93);
+}
+
+/* *************************************************************** */
+/* Styling for the inputs/parameters side content                  */
+/* *************************************************************** */
+
+.bam-textfile-inputsparameters {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+.bam-textfile-inputsparameters #parameters,
+.bam-textfile-inputsparameters #inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 50%;
+    padding: 0.4rem;
+}
+
+.bam-textfile-inputsparameters button {
+    font-weight: bold;
+    margin-top: 0.2rem; 
+    margin-bottom: 0.2rem; 
+    padding: 0.2rem;
+}
+
+.bam-textfile-inputsparameters #variable-column-title {
+    text-align: center;
+    border-bottom: 1px solid  var(--strong);
+    margin-bottom: 0.3rem;
+}
+
+/* .bam-textfile-inputsparameters #variable {
+    background-color:  var(--verylight);
+    border: 1px solid  var(--strong);
+    border-radius: 2px;
+    margin-top: 0.2rem; 
+    margin-bottom: 0.2rem; 
+    padding: 0.2rem;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.bam-textfile-inputsparameters #variable:hover {
+    background-color: var(--light);
+} */

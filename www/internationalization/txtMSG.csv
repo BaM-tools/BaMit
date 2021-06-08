@@ -1,0 +1,35 @@
+key	en	fr
+textfile_eqname_invalidchar	Valid characters are: a-z A-Z 0-9 . _	Charactères valides:  a-z A-Z 0-9 . _
+textfile_eqname_startchar	Output name cannot start with 0-9 . _	Le nom de la variable de sortie ne peut pas commencer par 0-9 . _
+textfile_eqform_invalidchar	Valid characters are: a-z A-Z 0-9 . _ * ^ ( ) / -	Charactères valides:  a-z A-Z 0-9 . _ * ^ ( ) / -
+textfile_outputname	Output name for Eq. #	Le nom de la variable de sortie de l'Eq. #
+textfile_outputnameinvalid	 is invalid.	 n'est pas valide.
+textfile_atleaseoneeq	At least one equation/formula is required!	Au moins une équation/formule est requise!
+textfile_atleaseonepar	At least one parameter is required!	Au moins un paramètre est requis!
+textfile_atleaseoneinput	At least one input variable is required!	Au moins une variable d'entrée est requise!
+ask_project_name	Enter the project name:	Entrez le nom du projet:
+ask_project_rename	Change project name:	Changer le nom du projet:
+ask_delete_project	Are you sure you want to delete this project?	Êtes-vous sûr de vouloir supprimer ce projet?
+not_implemented	Sorry, this isn't implemented yet.	"Désolé, ceci n'est pour l'instant pas implémenté. "
+warning_project_loss	This action will delete the current project! Do you want to proceed?	Cette action supprimera le projet en cours! Êtes-vous sûr de vouloir continuer?
+warning_delete_project	Are you sure to want to delete the current project?	Êtes-vous sûr de vouloir supprimer ce projet?
+warning_reset_project	Are you sure to want to reset the current project?	Êtes-vous sûr de vouloir réinitialiser ce projet?
+file_too_big	One (or more) of the files you tried to imported was ignored due to its too large size.	Un (ou plus) des fichiers que vous avez essayé d'importer a été ignoré en raison de sa taille trop importante.
+run_config_ok	BaM configuration valid.	 La configuration de BaM est valide.
+run_par_init_missing	initiale guess missing or invalid.	valeur initiale manquante ou non valide.
+run_par_distpar_missing	disitribution's parameters missing or invalid.	paramètres de la distribution manquants ou non valides.
+run_data_missing	vector of data missing.	vecteur de donnée manquant.
+run_data_lengthissue	Vectors of data of different lengths.	Vecteurs de donnée de tailles différentes.
+run_data_onelengthissue	vectors of data of different lengths.	vecteurs de donnée de tailles différentes.
+run_data_difflength	Vectors associated with inputs/outpus don't have the same length.	 Les vecteurs associées aux variables de sorties et d'entrées n'ont pas les mêmes longueurs.
+run_remnant_missing	initiale guess(es) and/or distribution parameter(s) missing.	 valeur initiale(s) et/ou paramètre(s) de la distribution manquant(s).
+run_parameter	Parameter	 Paramètre
+run_input	Input variable	 Variable d'entrée
+run_output	Output variable	 Variable de sortie
+run_output_errormodel	Remnant error model of output variable	 Modèle d'erreur restante de la variable de sortie
+import_project_parseerror	An error occured while loading the project. Are you sure it is BaM project file?	 Une erreur est survenue lors de l'import du projet. Êtes-vous sûr qu'il s'agit d'un fichier projet BaM?
+import_project_toobig	This file is too big to be opened. Are you sure it is BaM project file?	 Ce fichier est trop gros pour être ouvert. Êtes-vous sûr qu'il s'agit d'un fichier projet BaM?
+run_warning_resultsloss	Current results will be lost. Do you want to proceed?	 Les résultats actuels seront perdus. Êtes-vous sûr de vouloir continuer?
+dataset_samefilename_warning	Datasets with same filename will be overwritten. Do you want to proceed?	 Les jeux de donnée avec le même nom seront écrasés. Êtes-vous sûr de vouloir continuer?
+run_isrunning	Please wait while BaM is running	 Veuillez patienter pendant que BaM travaille
+pred_ask_delete	Are you sure you want to delete this prediction?	 Êtes-vous sûr de vouloir supprimer cette prédiction?

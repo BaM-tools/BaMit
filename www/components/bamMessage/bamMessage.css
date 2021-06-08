@@ -1,0 +1,70 @@
+
+.bam-message-disabling-div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    /* opacity: 50%; */
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.bam-message {
+    z-index: 101;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 90%;
+    min-height: 100px;
+
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+
+    padding: 10px;
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    transition: width 400ms ease-out, left 400ms ease-out, padding 250ms ease-out, opacity 400ms ease-out;
+}
+.bam-message[center] {
+    bottom: 50%;
+}
+
+.bam-message[hide] {
+    opacity: 0;
+    padding: 0;
+    left: 50%;
+    width: 0;
+}
+.bam-message[hide] #message {
+    flex: none;
+}
+
+.bam-message[type="info"] {
+    background-color: var(--info);
+}
+
+.bam-message[type="warning"] {
+    background-color: var(--warning);
+}
+
+.bam-message[type="error"] {
+    background-color:  var(--error);
+}
+
+.bam-message #message {
+    flex-grow: 1;
+}
+/* .bam-message button {
+    flex-basis: 100px; 
+} */
+.bam-message input {
+    flex-basis: 500px; 
+}

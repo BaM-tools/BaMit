@@ -1,0 +1,88 @@
+.bam-select-dropdown {
+    position: relative;
+    margin: 0.4rem;
+    font-size: 0.9em;
+}
+
+.bam-select-dropdown button {
+    width: 100%;
+    margin: 0;
+    min-height: 2.1rem;
+    background-color: white;
+    text-align: left;
+}
+
+
+.bam-select-dropdown[open] .bam-select-dropdown-options  > button {
+    border: none;
+}
+
+.bam-select-dropdown[open] .bam-select-dropdown-options  > button[selected] {
+    background-color:  var(--light);
+}
+
+/* .bam-select-dropdown button .bam-select-dropdown-selected {
+    border: none;
+} */
+
+/* .bam-select-dropdown-selected {
+    background-color: white;
+    padding: 0.3rem;
+    cursor: pointer;
+    border: 1px solid var(--strong);
+    border-radius: 2px;
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+} */
+
+/* .bam-select-dropdown-selected:hover {
+    background-color: var(--light);
+} */
+
+.bam-select-dropdown .bam-select-dropdown-selected::after {
+    position: absolute;
+    content: "";
+    top: 0.9rem;
+    right: 0.6rem;
+    border: 4px solid transparent;
+    border-color: black transparent transparent transparent;
+}
+
+.bam-select-dropdown[open] .bam-select-dropdown-selected::after {
+    position: absolute;
+    content: "";
+    top: 0.6rem;
+    right: 0.6rem;
+    border: 4px solid transparent;
+    border-color:  transparent transparent black transparent;
+}
+
+
+.bam-select-dropdown .bam-select-dropdown-options {
+    display: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    border: 1px solid var(--strong);
+    background-color: white;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.bam-select-dropdown[open] .bam-select-dropdown-options {
+    display: block;
+}
+
+/* .bam-select-dropdown[open] .bam-select-dropdown-options > div {
+    padding: 0.3rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.bam-select-dropdown[open] .bam-select-dropdown-options  > div[selected] {
+    background-color:  var(--light);
+}
+.bam-select-dropdown[open] .bam-select-dropdown-options  > div:hover {
+    background-color:  var(--regular);
+} */

@@ -1,0 +1,58 @@
+.bam-variable {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    
+}
+.bam-variable #uncertainty_btn {
+    width: 7rem;
+}
+
+.bam-variable #name {
+    font-weight: bold;
+    text-align: center;
+    width: 5rem;
+}
+
+.bam-variable #values-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.bam-variable[visible] #values-panel {
+    border: 1px solid var(--strong);
+    padding: 0.4rem;
+    margin: 0.4rem;
+    padding-right: 0;
+}
+.bam-variable #uncertainty-panel {
+    display: none;
+}
+.bam-variable[visible] #uncertainty-panel {
+    display: block;
+}
+
+.bam-variable #values-panel #select-div {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+}
+
+.bam-variable #values-panel #select-div #select-name {
+    display: none;
+}
+.bam-variable[visible] #values-panel #select-div #select-name {
+    display: block;
+    width: 7rem;
+    padding: 0.2rem;
+}
+
+.bam-variable #values-panel #select-div #value-select, 
+ .bam-variable #values-panel #select-div #u-select, 
+ .bam-variable #values-panel #select-div #b-select,
+ .bam-variable #values-panel #select-div #bindex-select {
+    flex-grow: 1;
+}
+
+

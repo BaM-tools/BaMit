@@ -1,0 +1,108 @@
+.bam-results {
+    display:flex;
+    flex-direction: column;
+}
+
+/* .bam-results .tab-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.bam-results .tab-buttons button {
+    height: 100%;
+    margin: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid  var(--strong);
+}
+
+.bam-results .tab-buttons button[opened] {
+    background-color: var(--verystrong);
+}
+ */
+
+/* ************************************************* */
+/* select buttons (FIXME: this should be elsewhere since it could be used elsewere)*/
+
+.bam-results .select-btn {
+    box-sizing: border-box;
+    padding: 0.4rem;
+    width: 100%;
+    background-color: var(--light);
+    cursor: pointer;
+}
+.bam-results .select-btn:hover {
+    background-color: var(--regular);
+}
+.bam-results .select-btn[selected] {
+    background-color: var(--verystrong);
+}
+
+/* .bam-results-tab-content button {
+    box-sizing: border-box;
+    width: calc(100% - 0.8rem);
+} */
+
+/* ************************************************* */
+/* tabs */
+
+/* .bam-tab {
+    border-top: 1px solid var(--verystrong);
+} */
+
+/* parameter tab */
+.bam-results-tab-content-parameters{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    flex-wrap: nowrap;
+
+}
+.bam-results-tab-content-parameters .par-config{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 0.4rem;
+}
+.bam-results-tab-content-parameters .par-plots{
+    padding: 0.4rem;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto;
+}
+
+.bam-results-tab-content-parameters .par-name {
+    font-weight: bold;
+    text-align: center;
+}
+/* log tab */
+.bam-results-tab-content-log {
+    padding: 0.4rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.bam-results-tab-content-log > p {
+    margin: 0;
+    font-family: monospace;
+    white-space: pre;
+}
+/* files/table tab */
+.bam-results-tab-content-files  {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+.bam-results-tab-content-files .file-select  {
+    padding: 0.4rem;
+    width: 20%;
+}
+
+.bam-results-tab-content-files .file-display  {
+    width: 80%;
+    padding: 0.4rem;
+}

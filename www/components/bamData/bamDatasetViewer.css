@@ -1,0 +1,121 @@
+.bam-dataset-viewer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100%;
+    max-height: 30rem;
+}
+
+.bam-dataset-viewer #shadow {
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* box-shadow: inset 0 0 1px 1px var(--verystrong); */
+    border-top: 1px solid var(--strong);
+    border-bottom: 1px solid var(--strong);
+    pointer-events: none;
+    z-index: 96;
+}
+
+.bam-dataset-viewer > #title{
+    border-top: 1px solid var(--strong);
+    background-color: var(--regular);
+    /* padding-left: 0.4rem; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+}
+
+/* .bam-dataset-viewer > #title > button {
+    width: 15rem;
+} */
+
+/* .bam-dataset-viewer > #title > div {
+    text-align: center;
+    flex-grow: 1;
+} */
+
+
+.bam-dataset-viewer > #data{
+    flex-grow: 1;
+    /* max-height: 30rem; */
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.bam-dataset-viewer > #data table{
+    width: 100%;
+}
+
+.bam-dataset-viewer #data-header {
+    top: 0;
+    position: sticky;
+    z-index: 95;
+    background-color: white;
+}
+.bam-dataset-viewer #data-header > tr {
+    background-color: var(--regular);
+    border-bottom: 1px solid var(--strong);
+    overflow: hidden;
+}
+
+.bam-dataset-viewer > #data >#data-table tr {
+	overflow: hidden;
+}
+.bam-dataset-viewer > #data >#data-table tr:nth-child(even) {
+	background-color: white
+}
+.bam-dataset-viewer > #data >#data-table tr:nth-child(odd) {
+   background-color: var(--verylight);
+}
+.bam-dataset-viewer > #data >#data-table tr:hover {
+    background-color: var(--light);
+}
+
+/* ********************************************************** */
+/* new approach using divs DOM element instead of table/tr/td */
+.bam-dataset-viewer .dataset-table-main {
+    overflow-y: scroll;
+}
+.bam-dataset-viewer .dataset-table-main .dataset-table-header {
+    background-color: var(--strong);
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    top: 0;
+    position: sticky;
+}
+.bam-dataset-viewer .dataset-table-main .dataset-table-data {
+    display: flex;
+    flex-direction: column;
+}
+.bam-dataset-viewer .dataset-table-main .dataset-table-data .row {
+    background-color: white;
+    border-top: 1px solid var(--verystrong);
+    display: flex;
+    flex-direction: row;
+}
+.bam-dataset-viewer .dataset-table-main .dataset-table-data .row:last-child {
+    border-bottom: 1px solid var(--verystrong);
+}
+.bam-dataset-viewer .dataset-table-main .dataset-table-data .row:nth-child(even) {
+    background-color: var(--verylight);
+}
+
+.bam-dataset-viewer .dataset-table-main .cell{
+    overflow: hidden;
+    padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+.bam-dataset-viewer .dataset-table-data .cell:hover{
+    border-left: 1px solid var(--verystrong);
+    border-right: 1px solid var(--verystrong);
+    background-color: var(--regular);
+}

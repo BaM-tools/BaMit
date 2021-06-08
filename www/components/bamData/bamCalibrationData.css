@@ -1,0 +1,46 @@
+.bam-calibration-data {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    /* grid-template-areas: 
+        "datasets mapping"
+        "viewer viewer"
+    ; */
+    grid-template-areas: 
+        "datasets mapping"
+        "viewer mapping"
+    ;
+}
+
+.bam-calibration-data #datasets {
+    grid-area: datasets;
+}
+.bam-calibration-data #mapping {
+    grid-area: mapping;
+    border-left: 1px solid var(--strong);
+}
+.bam-calibration-data #viewer {
+    grid-area: viewer;
+    padding: 0.4rem;
+}
+.bam-calibration-data #mapping #mapping-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bam-calibration-data #mapping #mapping-header > div {
+    /* padding: 0.4rem; */
+    padding: 0.8rem;
+}
+
+
+.bam-calibration-data #mapping #inputs,
+.bam-calibration-data #mapping #outputs {
+    margin: 0.4rem;
+}
+.bam-calibration-data #mapping #header {
+    text-align: center;
+    border-bottom: 1px solid var(--strong);
+    margin-top: 0.4rem;
+    margin-bottom: 0.1rem;
+}

@@ -1,0 +1,40 @@
+key	en	fr
+Gaussian	Gaussian	Gaussienne
+Uniform	Uniform	Uniforme
+Triangle	Triangle	Triangle
+LogNormal	Log-normal	Log-normale
+Exponential	Exponential	Exponentielle
+GPD	Generalized Pareto	Pareto généralisée
+Gumbel	Gumbel	Gumbel
+GEV	Generalized Extreme Value	Extremum Généralisée
+Inverse_Chi2	Inverse Chi-2	Chi-2 inversée
+PearsonIII	Pearson III	Pearson III
+Geometric	Geometric	Géometrique
+Poisson	Poisson	Poisson
+Binomial	Binomial	Binomiale
+NegBinomial	Negative binomial	Binomiale négative
+FlatPrior	Flat prior	Prior plat
+FlatPrior+	Positive flat prior	Prior plat positif
+FlatPrior-	Negative flat prior	Prior plat négatif
+FIX	Fixed parameter	Paramètre fixé
+Linear	Linear	Linéaire
+Constant	Constant	Constant
+mean	Mean	Moyenne
+sd	Standard-deviation	Écart type
+lowBound	Lower bound	Limite inférieure
+highBound	Higher bound	Limite supérieure
+peak	Peak	Pic
+meanlog	Log-mean	Moyenne Log
+sdlog	Log-standard-deviation	Écart type Log
+threshold	Threshold	Seuil
+scale	Scale	Dispersion
+shape	Shape	Forme
+location	Location	Position
+dof	Degree of freedom	Degré de liberté
+prob	Success probability	Probabilité de succés
+rate	Rate	Taux
+ntrials	Number of trials	Nombre d'essais
+nfails	Number of failures	Nombre d'échecs
+meanlogexcess	meanlogexcess	meanlogexcess
+sdlogexcess	sdlogexcess	sdlogexcess
+pvalue	Parameter value	Valeur du paramètre

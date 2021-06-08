@@ -1,0 +1,213 @@
+.bam-side-panel {
+    position: relative;
+    background-color: rgb(230, 244, 255);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    /* padding-top: 8px;
+    padding-bottom: 8px; */
+    /* min-height: 100%; */
+    height: 100%;
+    border-right: 1px solid rgb(152, 209, 255);
+    box-sizing: border-box;
+
+    transition: width 300ms;
+}
+
+.bam-side-panel[collapsed] {
+    width: 40px;
+}
+
+.bam-side-panel #bam-sidepanel-collapsebtn {
+    height: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.bam-side-panel #bam-sidepanel-collapsebtn:hover {
+    background-color: rgb(152, 209, 255);
+}
+.bam-side-panel #bam-sidepanel-collapsebtn::after {
+    position: absolute;
+    content: "";
+    /* top: 16px; */
+    top: 8px;
+    right: 6.5px;
+    border: 12px solid transparent;
+    border-color: transparent black transparent  transparent;
+}
+
+.bam-side-panel[collapsed] #bam-sidepanel-collapsebtn::after {
+    border-color: transparent  transparent  transparent black;
+}
+
+
+/* ********************************************************************* */
+
+
+#bam-sidepanel-content #header {
+    margin-top: 32px;
+    /* border-top: 2px solid rgb(152, 209, 255); */
+    background-color: rgb(152, 209, 255);
+    width: 100%;
+    padding: 4px;
+    /* margin-bottom: 4px; */
+    box-sizing: border-box;
+}
+
+
+#bam-sidepanel-content #title {
+    /* font-style: oblique; */
+    font-size: 16px;
+}
+
+/* #bam-modelpicker { */
+#bam-sidepanel-content #content {
+    border-bottom: 1px solid rgb(152, 209, 255);
+    display: block;
+}
+
+.bam-side-panel button {
+    background-color: rgb(230, 244, 255);
+    border: none;
+    border-top: 1px solid rgb(152, 209, 255);
+    /* border-bottom: 1px solid rgb(152, 209, 255); */
+    border-radius: 0;
+    margin: 0px;
+    width: 100%
+}
+.bam-side-panel input {
+    border: none;
+    border-top: 1px solid rgb(152, 209, 255);
+    border-radius: 0;
+    margin: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* ********************************************************************* */
+/* For language picker */
+
+
+#bam-languagepicker #content {
+    display: flex;
+    justify-content: flex-start;
+    border: none;
+    padding-left: 4px;
+}
+#bam-languagepicker img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    /* padding: 4px; */
+    margin: 4px;
+    cursor: pointer;
+}
+
+#bam-languagepicker img:hover {
+    /* box-shadow: 0 0 16px 2px rgb(152, 209, 255); */
+    box-shadow: 0 0 4px 0px black;
+}
+
+/* ********************************************************************* */
+/* bam project manager */
+
+#bam-sidepanel-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    /* height: 100%; */
+}
+
+#bam-projectmanager {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    /* height: 100%; */
+}
+
+#bam-projectmanager #content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    /* height: 100%; */
+}
+/* #bam-projectmanager #content #bam-projectmanager-list { */
+#bam-projectmanager-list {
+    background-color: white;
+    border-top: 1px solid rgb(152, 209, 255);
+    border-bottom: 1px solid rgb(152, 209, 255);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    padding: 16px;
+    /* flex: 1 1 auto; */
+    overflow-y: auto;
+    min-height: 0px;
+    max-height: 400px;
+}
+
+/* ********************************************************************* */
+/* main panel */
+
+.bam-main-panel {
+    flex-grow: 1;
+    padding: 8px;
+    /* overflow-y: scroll; */
+    overflow-y: auto;
+}
+
+/* .bam-div-title {
+    padding: 8px;
+} */
+
+/* ********************************************************************* */
+/* bam intro */
+
+.bam-shinierbam-intro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    box-sizing: border-box;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    opacity: 100%;
+    transition: opacity 500ms ease-out;
+}
+
+.bam-shinierbam-intro #bam-shinierbam-text {
+    /* display: table-cell; */
+    vertical-align: middle;
+    color: rgb(152, 209, 255);
+    font-size: 120px;
+    font-weight: bold;
+    opacity: 0%;
+    transition: opacity 500ms ease-in;
+}
+
+
+.bam-shinierbam-intro #bam-shinierbam-text[show] {
+    opacity: 100%;
+}
+
+.bam-shinierbam-intro[hide] {
+    opacity: 0%;
+}

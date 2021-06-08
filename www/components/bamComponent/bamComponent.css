@@ -1,0 +1,168 @@
+/* *************************************************************** */
+/* General styling of a BaM component                              */
+/* *************************************************************** */
+
+.bam-component  {
+    border: 2px solid black;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.bam-component[maximized] {
+    background-color: white;
+    position: absolute;
+    z-index: 90;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+}
+
+.bam-component[maximized] > .bam-component-content{
+    height: calc(100% - 1.5em - 4px);
+    overflow-y: auto;
+}
+
+.bam-component[hidden] {
+    display: none
+}
+.bam-component[oudated]  {
+    border: 2px solid var(--warning)
+}
+.bam-component[invalid]  {
+    border: 2px solid var(--error)
+}
+
+/* FIXME: this should not be here */
+.bam-component[invalid] #bam-xtra-applybutton {
+    border: 1px solid var(--error)
+}
+/* FIXME: this should not be here */
+/* .bam-component[invalid]  > .bam-component-content > #bam-xtra-content-bottom  {
+    border-top: 1px solid var(--error)
+} */
+
+.bam-component > .bam-component-header {
+    position: relative;
+    background-color: var(--verystrong);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1rem;
+    height: 1.5rem;
+}
+
+/* .bam-component > .bam-component-content {
+    background-color: white;
+} */
+
+/* ********************** */
+/* BaM component messages */
+.bam-component > .bam-component-messages {
+    border-top: 1px solid var(--verystrong);
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+}
+.bam-component > .bam-component-messages[hidden] {
+    display: none;
+}
+.bam-component > .bam-component-messages > div[warning] {
+    color: var(--warning);
+}
+.bam-component > .bam-component-messages > div[error] {
+    color: var(--error);
+}
+
+/* .bam-component[minimized] > .bam-component-content{
+    display: none;
+} */
+
+.bam-component .bam-component-actions {
+    padding: 0.2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+.bam-component .bam-component-actions > div {
+    width: 0.9rem;
+    height: 0.8rem;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.bam-component .bam-component-actions > div:hover {
+    border-width: 2px;
+}
+.bam-component[maximized] .bam-component-actions > div {
+    margin-top: 0.4rem;
+    height: 0.4rem;
+}
+.bam-component[maximized] .bam-component-actions > div:hover {
+    border-width: 2px;
+}
+
+/* 
+.bam-component  >  #bam-component-header > #bam-component-showhide {
+    cursor: pointer;
+    background-color: transparent;
+    height: 1rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.bam-component  >  #bam-component-header > #bam-component-showhide::after {
+    position: absolute;
+    content: "";
+    top: 0.15rem;
+    right: 0.65rem;
+    border: 8px solid transparent;
+    border-color: transparent transparent black transparent;
+    
+}
+
+.bam-component[collapsed] > #bam-component-header > #bam-component-showhide::after {
+    position: absolute;
+    content: "";
+    top: 0.6rem;
+    right: 0.65rem;
+    border: 8px solid transparent;
+    border-color: black transparent transparent transparent;
+} */
+
+
+.bam-component > .bam-component-header > .bam-component-title {
+    font-weight: bold;
+    padding: 0.2rem;
+}
+
+
+
+/* *************************************************************** */
+/* Styling of a BaM Xtra component                                 */
+/* *************************************************************** */
+
+/* .bam-component > #bam-component-content > #bam-xtra-content-top {
+    background-color: white;
+} */
+
+/* FIXME: These should not be placed here */
+.bam-component .bam-xtra-content #bam-xtra-content-bottom {
+    /* background-color: white; */
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid  var(--strong);
+}
+.bam-component .bam-xtra-content #bam-xtra-content-bottom {
+    /* background-color: white; */
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid  var(--strong);
+}
+.bam-component .bam-xtra-content {
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}

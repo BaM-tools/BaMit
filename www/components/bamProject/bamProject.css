@@ -1,0 +1,86 @@
+.bam-project {
+    position: relative;
+    height: 100%;
+}
+
+/* *********************** */
+/* Components main section */
+
+.bam-project-components {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15rem;
+    right:0;
+    padding: 2px;
+    overflow-y: scroll;
+}
+
+/* ****************** */
+/* Project side panel */
+
+.bam-project-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 15rem;
+
+    background-color: var(--verystrong);
+    /* border-bottom: 2px solid black; */
+}
+
+.bam-project-panel .project-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* emphesize title and other stuff */
+.bam-project-panel .emphasize {
+    font-weight: bold;
+}
+.bam-project-panel .space-sides {
+    padding: 0.4rem;
+}
+.bam-project-panel .space-above {
+    margin-top: 0.8rem;
+}
+
+/* clickable */
+
+.bam-project-panel .clickable  {
+    position: relative;
+    padding: 0.4rem;
+    background-color: var(--verystrong);
+    border-bottom: 1px solid var(--light);
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.bam-project-panel .clickable[selected] {
+    background-color: var(--regular);
+}
+.bam-project-panel .clickable:first-child {
+    border-top: 1px solid var(--light);
+}
+.bam-project-panel .clickable:hover{
+    background-color: var(--strong);
+
+}
+.bam-project-panel .clickable-navigation:hover::after{
+    margin:0;
+    position: absolute;
+    content: "";
+    top: calc(50% - 6px);
+    right: 0px;
+    border: 6px solid transparent;
+    border-color: transparent transparent transparent black;
+}

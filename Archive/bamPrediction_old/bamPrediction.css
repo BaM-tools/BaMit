@@ -1,0 +1,26 @@
+.bam-prediction {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "config config"
+    "datasets mapping";
+}
+
+.bam-prediction .pred-config {
+    grid-area: config;
+    border-bottom: 1px solid var(--strong);
+}
+.bam-prediction .pred-datasets {
+    grid-area: datasets;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    border-right: 1px solid var(--strong);
+}
+.bam-prediction .pred-mapping {
+    grid-area: mapping;
+    padding: 0.4rem;
+}
+

@@ -1,0 +1,69 @@
+/* ********************************************** */
+/* Configuration tab */
+.bam-prediction-configuration {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "actions actions"
+    "datasets mappingconfig"
+    "run run";
+}
+
+/* actions */
+.bam-prediction-configuration .pred-actions {
+    grid-area: actions;
+    padding: 0.4rem;
+    border-bottom: 1px solid var(--strong);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+/* datasets */
+.bam-prediction-configuration .pred-datasets {
+    grid-area: datasets;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    border-right: 1px solid var(--strong);
+}
+
+/* mapping and config */
+.bam-prediction-configuration .pred-mapping-config {
+    grid-area: mappingconfig;
+    display: flex;
+    flex-direction: column;
+}
+.bam-prediction-configuration .pred-mapping-config .pred-mapping {
+    display: flex;
+    flex-direction: column;
+    padding: 0.4rem;
+}
+.bam-prediction-configuration .pred-mapping-config .pred-mapping .pred-mapping-header{
+    padding: 0.4rem;
+}
+.bam-prediction-configuration .pred-mapping-config .pred-type {
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--strong);
+    margin-top: 0.4rem;
+}
+.bam-prediction-configuration .pred-mapping-config .pred-type .pred-type-header {
+    padding: 0.4rem;
+}
+
+/* run run */
+.bam-prediction-configuration .pred-run {
+    grid-area: run;
+    border-top: 1px solid var(--strong);
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+
+/* ********************************************** */
+/* result tab */

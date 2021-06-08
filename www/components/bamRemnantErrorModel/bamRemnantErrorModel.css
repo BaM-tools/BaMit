@@ -1,0 +1,102 @@
+.bam-remnant-errors {
+    display: flex;
+    flex-direction: column;
+    padding: 0.4rem;
+}
+
+.bam-remnant-errors .headers {
+    display: grid;
+    grid-template-columns: 5em 10em 5em 10em 10em auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        " . model para para para para"
+        " . .    .     init dist pars";
+    margin-top: 0.4rem;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+.bam-remnant-errors .headers .header-model {
+    grid-area: model;
+}
+
+.bam-remnant-errors .headers .header-parameters {
+    grid-area: para;
+}
+
+.bam-remnant-errors .headers .header-initial {
+    grid-area: init;
+}
+
+.bam-remnant-errors .headers .header-distribution {
+    grid-area: dist;
+}
+
+.bam-remnant-errors .headers .header-distparameters {
+    grid-area: pars;
+}
+
+/* .bam-remnant-errors > .headers > .columns {
+    display: grid;
+    grid-template-columns: 5em 15em 15em auto;
+} */
+
+.bam-remnant-errors > .headers .underlined {
+    text-align: center;
+    margin: 0.4rem;
+    margin-bottom: 0.2rem;
+    border-bottom: 1px solid var(--strong);
+}
+
+.bam-remnant-errors > .headers .no-underlined {
+    text-align: center;
+    margin: 0.4rem;
+    margin-bottom: 0.2rem;
+    /* border-bottom: 1px solid var(--strong); */
+}
+
+/* ***************************************************** */
+/* For a given remnant error model (bamErrorModel class) */
+
+.bam-error-model {
+    display: grid;
+    grid-template-columns: 5em 10em auto;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+.bam-error-model .parameters {
+    border-left: 1px solid var(--strong);
+}
+
+/* .bam-error-model {
+    border: 1px solid var(--strong);
+    border-top: none;
+}
+
+.bam-error-model:first-child {
+    border-top: 1px solid var(--strong);
+} */
+
+.bam-error-model:last-child {
+    margin-bottom: 0;
+}
+
+.bam-error-model .model {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bam-error-model .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.bam-error-model .name > span {
+    text-align: center;
+    font-weight: bold;
+}
+
+

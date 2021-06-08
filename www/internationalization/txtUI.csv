@@ -1,0 +1,81 @@
+key	en	fr
+new_project	New BaM project	Nouveau projet BaM
+textfile	TextFile	TextFile
+apply	Apply	Appliquer
+baratin	BaRatin (mock-up)	BaRatin (maquette)
+modeldefinition	Model definition	Définition du modèle
+projectmanagement	Project(s):	Projet(s):
+project_content	Project's content:	Contenu du projet:
+import_project	Load BaM project	Charger un projet BaM
+export_project	Save project	Sauvegarder le projet
+reset_project	Reset project	Réinitialiser le projet
+delete_project	Delete project	Supprimer le projet
+rename_project	Rename project	Renommer le projet
+duplicate_project	Duplicate project	Dupliquer le projet
+textfile_eq_header	Define your equation(s):	Définissez votre/vos equation(s):
+textfile_addeq	Add an equation	Ajoutez une équation
+xtra_applybtn	Apply	Appliquer
+textfile_ip_header	Identify the model's inputs from its parameters:	Différenciez les variables d'entrées du modèle de ses paramètres: 
+variable_parameters	Parameters	Paramètres
+variable_inputs	Input variables	Variables d'entrées
+variable_outputs	Output variables	Variables de sortie
+variable_value	Value: 	Valeur: 
+variable_std	Standard-deviation: 	Écart-type: 
+textfile_ip_header_help	Click a parameter or input to change its category.	Cliquez sur un paramètre ou une variable d'entrèe pour le/la changer de catégorie.
+yes	Yes	Oui
+no	No	Non
+project_name	Project name	Nom du projet
+model_type	Model type	Type de modèle
+xtra_textfile_title	TextFile model definition	Définition du modèle TextFile
+priors_title	Parameters	Paramètres
+priors_header	Specify the model's parameter prior distributions:	Spécifiez les valeurs a priori des paramètres du modèle:
+priors_initial	Initial guess	Valeur initiale
+priors_distribution	Distribution	Distribution
+priors_distparameters	Distribution's parameter(s)	Paramètre(s) de la distribution
+remnanterror_title	Remnant errors model(s)	Modèle(s) des erreurs réstantes
+remnanterror_header	Change the remnant error models and their parameters (Note: default values should be used in most cases).	Modifier les modèles d'erreur réstante et leurs paramètres (Note: les valeurs par défaut devraient être utilisées dans la plupart des cas).
+remnanterror_header_details	For an output variable <span style='font-weight: bold'>Y</span>, a linear model (resp. a constant model) leads to the error term  <span style='font-weight: bold'>e</span> sampled in the normal distribution <span style='font-weight: bold'>N(0, g1*Y+g2)</span> (resp.  <span style='font-weight: bold'>N(0, g1)</span>).	Pour une variable de sortie <span style='font-weight: bold'>Y</span>, un modèle linéair (resp. un modèle constant) amène à un terme d'erreur <span style='font-weight: bold'>e</span> échantilloné dans une distribution normale <span style='font-weight: bold'>N(0, g1*Y+g2)</span> (resp.  <span style='font-weight: bold'>N(0, g1)</span>).
+remnanterror_model	Error model	Modèle d'erreur
+remnanterror_parameters	Error model's parameter(s)	Paramètre(s) du modèle d'erreur
+caldata_title	Calibration data	Données de calage
+caldata_mapper_header	Map each input/output variable to a dataset and column:	Associez chaque variable d'entrée/sortie à un jeu de donnée et colonne:
+datasets_import_title	Import one or more dataset(s):	Importer un ou plusieurs jeu(x) de données:
+datasets_import_help_a	Drag & drop one or more text/csv file(s) or browse your computer to select it/them	Glissez & lachez un/des fichier(s) text/csv ou recherchez le(s) sur votre ordinateur
+datasets_import_help_b	An optional but recommended single header row	Une seul ligne de titre, optionnelle mais recommandée
+datasets_import_help_c	Valid delimitors: ‘,’ ‘\t’ ‘|’ or ‘;’	Délimiteurs valides: ‘,’ ‘\t’ ‘|’ ou ‘;’ 
+datasets_import_help_d	Missing value(s): any non-numeric value or -9999	Valeur(s) manquante(s): toute valeur non numérique ou -9999
+datasets_import_help_e	Comment(s): anything following ‘#’	Commentaire(s): tout ce qui suit ‘#’
+datasets_preview	Preview dataset	Apercu
+datasets_delete	Delete dataset	Supprimer
+datasets_viewer_close	Close preview	Fermer l'apercu
+import_dataset	Browse your computer	Rechercher sur votre ordinateur
+run_title	Calibration	Calibration
+run_runbam	Run BaM: calibration	Executer BaM: calibration
+run_config_status	BaM configuration status: 	État de la configuration de BaM:
+run_run_status	Messages of BaM last run:	Messages de la dernière éxecution de BaM :
+results_title	BaM calibration results	Résultats de la calibration de BaM
+results_param_tab	Parameters	Paramètres
+results_files_tab	Result files	Fichiers résultat
+results_log_tab	BaM log	Log de BaM
+ok	OK	OK
+cancel	Cancel	Annuler
+variable_withuncertainty	+ Uncertainties	+ Incertitudes
+variable_withoutuncertainty	- Uncertainties	- Incertitudes
+display_trace	Display traces	Afficher les traces
+display_density	Display densities	Afficher les densités
+prediction_master_title	Prediction(s)	Prédiction(s)
+prediction_master_addpred	Add a new prediction	Ajouter un nouvelle prédiction
+prediction_add	+ add a prediction	+ ajouter une prédiction
+prediction_name	Prediction's name	Nom de la prédiction
+prediction_none	No prediction	Aucune prédiction
+prediction_delete_btn	Delete this prediction	Supprimer cette prédiction
+prediction_rename_btn	Rename this prediction 	Renommer cette prédiction 
+prediction_select_type	Select the type of prediction:  	Selectionner le type de prédiction: 
+prediction_run_btn	Run BaM: prediction  	Executer BaM: prédiction
+prediction_title	Prediction: 	Prédiction: 
+prediction_config_tab	Prediction configuration	Configuration de la prédiction
+prediction_result_tab	Prediction results	Résultats de la prédiction
+prediction_type_maxpost	Maxpost only (no uncertainty)	Maxpost seulement (pas d'incertitude)
+prediction_type_param	Parametric uncertainty (no structural uncertainty)	Incertitude paramètrique seulement (pas d'incertitude structurelle)
+prediction_type_total	Parametric and structural uncertainty	Incertitude paramètrique et structurelle
+prediction_type_prior	Prior parametric uncertainty (before calibration)	Incertitude paramétrique a priori (avant calibration)
