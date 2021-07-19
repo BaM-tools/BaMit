@@ -57,9 +57,9 @@ server <- function(input, output, session) {
         message(" > RBaM configuration: Run")
         RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
         pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
-        # workspace=workspace)
-        workspace=workspace, consoleOutputFilepath=file.path(workspace, "stdout.log"))
-        # RBaM_runExe(workspace)
+        workspace=workspace, run=FALSE)
+        # workspace=workspace, consoleOutputFilepath=file.path(workspace, "stdout.log"))
+        RBaM_runExe(workspace)
         print(config$monitoring)
         print(config$monitoring$mcmc)
         session$sendCustomMessage("bam_monitoring_calibration", list(i=0, x=config$monitoring$mcmc))
@@ -123,5 +123,6 @@ server <- function(input, output, session) {
 # options(browser = "C:/Program Files (x86)/Mozilla Firefox/firefox.exe")
 
 # install.packages("C:/Users/ivan.horner/Documents/Forges/BaM/trunk/R/RBaM_Compiled/Windows_R_4.0.2/RBaM_0.1.0.tar.gz", repos=NULL)
-
+# shiny::runApp(getwd(), launch.browser = FALSE)
+NULL
 shinyApp(htmlTemplate(file.path("www",'index.html')), server, options=list(launch.browser = TRUE, port=5003))

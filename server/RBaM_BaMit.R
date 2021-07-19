@@ -124,30 +124,31 @@ RBaM_configuration <- function(config, workspace) {
    return(list(bam=configuration, monitoring=monitoring_config))
 }
 
-# RBaM_runExe <- function(workspace){
-#     exedir  <- file.path(path.package("RBaM"), "bin")
-#     exename <- "BaM"
-#     saveWD  <- getwd() # remember current working dir
-#     message(getwd())
-#     setwd(exedir) # need to set working dir to the exe dir
-#     message(getwd())
-#     os  <- Sys.info()["sysname"] # determine OS
-#     cmd <- ifelse(os == "Windows",
-#                 paste0(exename, ".exe"), # Windows command
-#                 paste0("echo 'trying...'; ./", exename)    # Linux command
-#                 # paste0("echo Irstea69 | sudo -S ./", exename)    # Linux command   echo mypassword | sudo -S command
-#     )
-#     message(cmd)
-#     # call BaM asynchronoustly i.e. on a separate process to free R
-#     # store console output into a file
-#     # this is also used to detect when BaM calibration is done
-#     console_file <- file.path(workspace, "bam_console.txt")
-#     # run exe (note: input=" " is necessary to close the process it finishes)
-#     system2(cmd, stdout = console_file, stderr = console_file, wait = FALSE, input = " ") 
-#     message(getwd())
-#     setwd(saveWD) # move back to initial working directory
-#     message(getwd())
-# }
+RBaM_runExe <- function(workspace){
+    exedir  <- file.path(path.package("RBaM"), "bin")
+    exename <- "BaM"
+    saveWD  <- getwd() # remember current working dir
+    message(getwd())
+    setwd(exedir) # need to set working dir to the exe dir
+    message(getwd())
+    os  <- Sys.info()["sysname"] # determine OS
+    cmd <- ifelse(os == "Windows",
+                paste0(exename, ".exe"), # Windows command
+                paste0("echo 'trying...'; ./", exename)    # Linux command
+                # paste0("echo Irstea69 | sudo -S ./", exename)    # Linux command   echo mypassword | sudo -S command
+    )
+    message(cmd)
+    # call BaM asynchronoustly i.e. on a separate process to free R
+    # store console output into a file
+    # this is also used to detect when BaM calibration is done
+    # console_file <- file.path(workspace, "bam_console.txt")
+    console_file <- file.path(workspace, "stdout.log")
+    # run exe (note: input=" " is necessary to close the process it finishes)
+    system2(cmd, stdout = console_file, stderr = console_file, wait = FALSE, input = " ") 
+    message(getwd())
+    setwd(saveWD) # move back to initial working directory
+    message(getwd())
+}
 
 RBaM_readResultFile <- function(workspace, filename) {
     tryCatch({
