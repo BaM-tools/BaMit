@@ -2,6 +2,7 @@ sample_data/*
 www/bam_workspace/*
 speed_test_MCMC_monitoring.xlsx
 image_sources/*
+test-data/*
 *.docx
 *.xlsx
 *.zip
