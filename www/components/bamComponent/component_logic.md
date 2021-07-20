@@ -65,7 +65,7 @@ get() {
 }
 ```
 
-```r
+```R
 RBaM_getLogFile <- function(workspace) {
     con <- file(file.path(workspace, "stdout.log"))
     log <- tryCatch({
