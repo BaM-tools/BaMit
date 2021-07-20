@@ -13,7 +13,7 @@ En l’état, *BaMit* permet :
  * de spécifier les *a priori* associés aux paramètres ;
  * d’importer (et de visualiser) des jeux de données et de spécifier les données de calage ;
  * de modifier, si besoin, les modèles d’erreurs associés aux variables de sortie ;
- * de lancer BaM pour ajuster le modèle ;
+ * de lancer *BaM* pour ajuster le modèle ;
  * de visualiser les distributions des paramètres *a posteriori*, c’est-à-dire après calage, de visualiser et de télécharger les fichiers résultats de calibration ;
  * de prédire les valeurs des variables de sortie à partir du modèle calé et des valeurs des variables d’entrées (plusieurs jeux de données peuvent être utilisés pour cela). Les résultats de ces prédictions peuvent être ensuite téléchargés.
 
@@ -26,12 +26,12 @@ En l’état, *BaMit* permet :
 Il est possible de créer un nouveau projet en choisissant un type de modèle ou en chargeant un projet que vous auriez préalablement enregistré.
 Un projet est constitué d'un ensemble de **composants** qui permette de configurer *BaM*.
 Ces **composants** sont: 
-* **[Définition du modèle](#présentation-des-modèles)** : C'est le seul composant qui est spécifique au type de modèle choisie.
+* **[Définition du modèle](#présentation-des-modèles)** : composant permettant de configurer le modèle choisie lors de la création du projet; c'est le seul composant qui est spécifique au type de modèle choisie.
 * **[Paramètres](#paramètre)** : composant permettant de définit les distributions *a priori* des paramètres du modèle.
 * **[Données de calage](#données-de-calage)** : composant permettant de spécifier les données à utiliser dans le calage du modèle. 
 * **[Modèle(s) des erreurs réstantes](#modèles-des-erreurs-réstantes)** : composant permettant de modifier les modèles des erreurs restantes associées aux variables de sortie (optionnelle).
 * **[Calibration](#calibration)** : composant permettant de lancer *BaM* pour calibrer le modèle.
-* **[Résultat de la calibration de BaM](#résultat-de-la-calibration-de-bam)** : composant permettant de visualiser et de télécharger les résultat de la calibration du modèle
+* **[Résultat de la calibration de *BaM*](#résultat-de-la-calibration-de-bam)** : composant permettant de visualiser et de télécharger les résultat de la calibration du modèle
 * **Prédiction(s)**
 * **Prédiction**
 
@@ -102,13 +102,13 @@ Une barre de progression permet de suivre l'avancé des calcules.
 
 # Résultat de la calibration de *BaM*
 
-A la fin de la calibration du modèle par BaM, un nouvel onglet, présentant les résultats et permettant de les télécharger, est ajouté. Il comporte 3 onglets : 
+A la fin de la calibration du modèle par *BaM*, un nouvel onglet, présentant les résultats et permettant de les télécharger, est ajouté. Il comporte 3 onglets : 
 * **Paramètres**:
 L’onglet « Paramètres » permet de visualiser les « traces » (série d’échantillons) des simulations MCMC pour chaque paramètre ou bien les densités *a posteriori*.
 * **Fichiers résultats**
 Cet onglet permet d’avoir un aperçu des différents fichiers résultats et de télécharger les fichiers résultats, soit séparement, soit tous ensemble dans une archive .zip.
 * **Log de *BaM***
-Cet onglet permet de voir les sorties de la console de BaM (comme si BaM avait été exécuté en ligne de commande). Cet onglet est surtout utile en cas de plantage de BaM pour en identifier la cause.
+Cet onglet permet de voir les sorties de la console de *BaM* (comme si *BaM* avait été exécuté en ligne de commande). Cet onglet est surtout utile en cas de plantage de *BaM* pour en identifier la cause.
 
 ![Résultat de la calibration](help/rescal_fr.png)
 
