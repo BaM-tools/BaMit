@@ -61,8 +61,8 @@ Ce composant vous permet de spécifier des *a priori* à chacun des paramètres 
 Pour chaque paramètre, il est nécessaire de spécifier (1) une valeur initiale, (2) une distribution et (3) les paramètres de la distribution (s’il y en a).
  
 Dans l'exemple ci-dessous, il y a deux paramètres :
- * paramètre a : une valeur initiale de 10 et une distribution Gaussienne de moyenne 10 et d’écart-type 5 ;
- * paramètre b : une valeur initiale de 0 et une distribution Uniforme avec pour bornes inférieures et supérieures, -10 et +10, respectivement.
+ * paramètre `a` : une valeur initiale de 10 et une distribution Gaussienne de moyenne 10 et d’écart-type 5 ;
+ * paramètre `b` : une valeur initiale de 0 et une distribution Uniforme avec pour bornes inférieures et supérieures, -10 et +10, respectivement.
 
 ![Paramètres](help/parameters_fr.png)
 

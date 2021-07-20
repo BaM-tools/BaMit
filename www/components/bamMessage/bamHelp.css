@@ -22,12 +22,27 @@
     padding: 2rem;
     /* padding-top: 0;
     margin-top: 5rem; */
+    line-height: 1.5;
+}
+
+.bam-help-content > :first-child {
+    margin-top: 0 !important;
+}
+
+.bam-help-content > h1, .bam-help-content > h2 {
+    border-bottom: 1px solid #ebedef;
+    padding-bottom: .3em;
 }
 
 code {
+    background-color: rgba(27,31,35,0.05);
+    color: #24292e;
+    border-radius: 6px;
+    padding: .2em .4em;
+    margin: 0;
     font-family: 'Courier New', Courier, monospace;
     color: rgb(77, 77, 77);
-    font-size: larger;
+    font-size: 85%;
 }
 
 img {
