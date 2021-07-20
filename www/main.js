@@ -134,10 +134,12 @@ function loadApp() {
     dom_options.id = "bam-main-options";
     const dom_get_started = document.createElement("button");
     dom_get_started.className = "bam-btn-simple";
-    dom_get_started.textContent = "Getting started";
+    bamI.set(dom_get_started).key("help_button").text().apply();
+    // dom_get_started.textContent = "Getting started";
     const help = new bamHelp();
     dom_get_started.addEventListener("click", function() {
-        help.show();
+        console.log("Clicked!")
+        help.show(bamI.getLanguage());
     })
     dom_options.appendChild(dom_get_started);
     for (let l in LANGUAGES) {

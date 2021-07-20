@@ -16,10 +16,8 @@ BaMit a été développé avec pour objectif d’être intuitif, simple à prend
  * de prédire les valeurs des variables de sortie à partir du modèle calé et des valeurs des variables d’entrées (plusieurs jeux de données peuvent être utilisés pour cela). Les résultats de ces prédictions peuvent être ensuite téléchargés.
 Une présentation pas-à-pas de ces différents aspects de BaMit est proposée dans la section qui suit sous la forme d’un tutoriel.
 
-
-
 # Présentation pas-à-pas
-Pour la présentation de l’interface graphique web BaMit, nous avons choisis un modèle fictif simple (et inutil) permettant d’illustrer efficacement les différents aspects de BaMit. Il s’agit d’un modèle linéaire `y=a*x+b où` *a priori* `a` vaut 10 +/- 5 (intervalle de confiance à 95%) et `b` est compris entre -5 et +5. Les données utilisées sont également complétement fictives.
+Pour la présentation de l’interface graphique web BaMit, nous avons choisis un modèle fictif simple (et inutil) permettant d’illustrer efficacement les différents aspects de BaMit. Il s’agit d’un modèle linéaire ```y=a*x+b``` où *a priori* `a` vaut 10 +/- 5 (intervalle de confiance à 95%) et `b` est compris entre -5 et +5. Les données utilisées sont également complétement fictives.
 
 ## Création et chargement d’un projet BaM
 Au lancement de BaMit, l’utilisateur a le choix entre créer un nouveau projet (1) ou charger un projet préalablement enregistré (2). Notez également qu’il est possible de changer de langue à tout moment (3).

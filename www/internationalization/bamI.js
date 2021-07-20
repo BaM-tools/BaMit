@@ -168,6 +168,14 @@ bamI = function(){
     }
 
     /**
+     * @description get the current language key
+     * @returns language key
+     */
+    obj.getLanguage = function() {
+        return language;
+    }
+
+    /**
      * @description update all HTMLElements that have been internationalized using bamI.
      * It uses the bami attribute that has been added to all internationalized DOM element to
      * search the whole page DOM tree.

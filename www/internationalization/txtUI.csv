@@ -79,3 +79,5 @@ prediction_type_maxpost	Maxpost only (no uncertainty)	Maxpost seulement (pas d'i
 prediction_type_param	Parametric uncertainty (no structural uncertainty)	Incertitude paramètrique seulement (pas d'incertitude structurelle)
 prediction_type_total	Parametric and structural uncertainty	Incertitude paramètrique et structurelle
 prediction_type_prior	Prior parametric uncertainty (before calibration)	Incertitude paramétrique a priori (avant calibration)
+help_button	Help	Aide
+close	Close	Fermer
