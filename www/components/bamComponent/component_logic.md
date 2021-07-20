@@ -1,9 +1,9 @@
 This files explains the logic of bam components.
-It is intended for the developers of *BaMit*
+It is intended for the developers of *BaMit*.
 Since *BaMit* was developped using no framework (e.g. React, Vue, Svelte, etc.), the application reactivity and state is managed manually.
 It relies on callbacks and several class methods:
 * Callbacks are functions defined in parent components, typically the bamProject component, that communicate change of one child component to other children components and are executed by the child component. The main callback used throughout the application is *onChangeCallback* triggered any time a component state changes.
-* The main methods (or functions) that manage the state of the components are the `set` and `get` function that are used set or get the state of the components.
+* The main methods (or functions) that manage the state of the components are the `set` and `get` functions that are used set or get the state of the components.
 
 # structure of *BaMit*
 
@@ -31,43 +31,43 @@ When the `set` function is called, there are several steps:
 
 Here is the actual code of the function:
 ```js
-    set(config) {
-        let self = this;
-        for (let p in config) {
-            if (!this.parameters[p]) {
-                this.parameters[p] = new bamParameter(); 
-                this.parameters[p].setParent(this.dom_bam_priors);
-                this.parameters[p].onChangeCallback = function() {
-                    self.onChange();
-                }
-            }
-            this.parameters[p].set(config[p]);
-        }
-        for (let p in this.parameters) {
-            if (!config[p]) {
-                this.parameters[p].delete();
-                delete this.parameters[p];
+set(config) {
+    let self = this;
+    for (let p in config) {
+        if (!this.parameters[p]) {
+            this.parameters[p] = new bamParameter(); 
+            this.parameters[p].setParent(this.dom_bam_priors);
+            this.parameters[p].onChangeCallback = function() {
+                self.onChange();
             }
         }
-        this.onChange();
+        this.parameters[p].set(config[p]);
     }
+    for (let p in this.parameters) {
+        if (!config[p]) {
+            this.parameters[p].delete();
+            delete this.parameters[p];
+        }
+    }
+    this.onChange();
+}
 ```
 The call to the `onChange` function is explained in the next section.
 
 The `get` function of the bamPrior component simply loops over all the parameters it contains, call the `get` method on the corresponding bamParameter components to store the result in an array that is eventually returned. The actual code is:
 ```js
-    get() {
-        const config = {};
-        for (let p in this.parameters) {
-            config[p] = this.parameters[p].get();
-        }
-        return config;
+get() {
+    const config = {};
+    for (let p in this.parameters) {
+        config[p] = this.parameters[p].get();
     }
+    return config;
+}
 ```
 
 # onChange logic
 
-Most component classes have an onChange function used to:
+Most component classes have an ``onChange`` function used to:
 1. makes some component level changes associated with some component state change; it is usually used to make sure the component is up-to-date if any aspect of its state depends on other aspect of its state.
 2. manage error messages
 3. verify that the component is not outdated
