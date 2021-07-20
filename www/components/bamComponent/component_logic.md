@@ -65,22 +65,6 @@ get() {
 }
 ```
 
-```R
-RBaM_getLogFile <- function(workspace) {
-    con <- file(file.path(workspace, "stdout.log"))
-    log <- tryCatch({
-            readLines(con)
-        }, error = function(error) {
-            list()
-        }, warning = function(warning) {
-            list(5)
-        }
-    )
-    close(con)
-    return(log)
-}
-```
-
 # onChange logic
 
 Most component classes have an ``onChange`` function used to:
