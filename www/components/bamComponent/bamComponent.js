@@ -143,11 +143,13 @@ class bamComponent {
             dom_message.style.justifyContent = "space-between";
             dom_message.style.alignItems = "center";
             const dom_txt = document.createElement("div");
-            // FIXME: internationalization missing
-            dom_txt.textContent = "La configuration a été modifiés sans que ces modifications aient été prises en compte!"
+            // dom_txt.textContent = "La configuration a été modifiés sans que ces modifications aient été prises en compte!"
+            bamI.set(dom_txt).key("config_has_changed_message_warning").text().apply()
+            
             const dom_btn = document.createElement("button");
             dom_btn.className = "bam-btn-simple";
-            dom_btn.textContent = "Annuler les modifications";
+            // dom_btn.textContent = "Annuler les modifications";
+            bamI.set(dom_btn).key("config_has_changed_cancel").text().apply()
             dom_btn.addEventListener("click", function() {
                 // console.log("checkConfigOutdating-cancel: " + self.title_key)
                 // console.log(self.uptodate_config)

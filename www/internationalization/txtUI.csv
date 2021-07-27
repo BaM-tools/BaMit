@@ -45,8 +45,9 @@ datasets_import_help_b	An optional but recommended single header row	Une seul li
 datasets_import_help_c	Valid delimitors: ‘,’ ‘\t’ ‘|’ or ‘;’	Délimiteurs valides: ‘,’ ‘\t’ ‘|’ ou ‘;’ 
 datasets_import_help_d	Missing value(s): any non-numeric value or -9999	Valeur(s) manquante(s): toute valeur non numérique ou -9999
 datasets_import_help_e	Comment(s): anything following ‘#’	Commentaire(s): tout ce qui suit ‘#’
-datasets_preview	Preview dataset	Apercu
-datasets_delete	Delete dataset	Supprimer
+datasets_download	Download	Télécharger
+datasets_preview	Preview	Apercu
+datasets_delete	Delete	Supprimer
 datasets_viewer_close	Close preview	Fermer l'apercu
 import_dataset	Browse your computer	Rechercher sur votre ordinateur
 run_title	Calibration	Calibration

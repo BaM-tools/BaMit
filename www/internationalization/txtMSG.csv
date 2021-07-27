@@ -33,3 +33,5 @@ run_warning_resultsloss	Current results will be lost. Do you want to proceed?	 L
 dataset_samefilename_warning	Datasets with same filename will be overwritten. Do you want to proceed?	 Les jeux de donnée avec le même nom seront écrasés. Êtes-vous sûr de vouloir continuer?
 run_isrunning	Please wait while BaM is running	 Veuillez patienter pendant que BaM travaille
 pred_ask_delete	Are you sure you want to delete this prediction?	 Êtes-vous sûr de vouloir supprimer cette prédiction?
+config_has_changed_message_warning	Configuration has changed but these changes haven't been taken into account!	 La configuration a été modifiés sans que ces modifications aient été prises en compte!
+config_has_changed_cancel	Cancel changes	 Annuler les modifications
