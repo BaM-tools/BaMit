@@ -9,14 +9,15 @@ server <- function(input, output, session) {
     # ***
     # workspace management: (1) remove old workspace (2) create new workspace 
     all_workspaces <- list.dirs(file.path(getwd(), "www", "bam_workspace"), recursive=FALSE)
-    workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 60 * 24 # number of minutes after which folders should be removed
+    # workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 60 * 24 # number of minutes after which folders should be removed
+    workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 1 # number of minutes after which folders should be removed
     delete_success <- unlink(all_workspaces[workspaces_to_delete], recursive=TRUE)
     workspace <- file.path(getwd(), "www", "bam_workspace", randomString(7))
     
     # currently disabled for easier debugging
     # sessionid <- "HYLPXWD"
     # workspace <- file.path(getwd(), "www", "bam_workspace", sessionid)
-
+    message("WORKSPACE: ", workspace)
     # ***
     # BaM catalogue: model, distributions (and their parameters)
     catalogue <- RBaM::getCatalogue()
@@ -60,19 +61,17 @@ server <- function(input, output, session) {
         workspace=workspace, run=FALSE)
         # workspace=workspace, consoleOutputFilepath=file.path(workspace, "stdout.log"))
         RBaM_runExe(workspace)
-        print(config$monitoring)
-        print(config$monitoring$mcmc)
-        session$sendCustomMessage("bam_monitoring_calibration", list(i=0, x=config$monitoring$mcmc))
+        session$sendCustomMessage("bam_monitoring_calibration", list(i=0))
     })
 
     # ===============================================================
     # listener for when BaM is running calibration to moniror BaM progress
     # observeEvent(input$bam_mcmc_monitoring_in, eval(bam_mcmc_monitoring_in_expr))
     observeEvent(input$bam_monitoring_calibration, {
-        x <- input$bam_monitoring_calibration$x
-        i <- RBaM_monitorCalibration(workspace, x);
+        message(" > bam_monitoring_calibration")
+        i <- RBaM_monitorCalibration(workspace);
         message("  > progress: ", floor(i), "% ==> ", i);
-        session$sendCustomMessage("bam_monitoring_calibration", list(i=i, x=x))
+        session$sendCustomMessage("bam_monitoring_calibration", list(i=i))
         if (i==100L) {
             # FIXME: manage BaM error
             results <- RBaM_getCalibrationResults(workspace);
@@ -83,21 +82,33 @@ server <- function(input, output, session) {
     # ===============================================================
     # listener for when Run BaM for prediction is clicked
     observeEvent(input$run_prediction, {
-        print(str(input$run_prediction))
+        message(" > run_prediction")
+        # print(str(input$run_prediction))
         # session$sendCustomMessage("bam_monitoring_prediction", list(i=0))
-        # monitoring_prediction <- RBaM_configuration(input$run_prediction, workspace)$prediction
-        # # session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=monitoring_prediction))
-        # RBaM_runExe(workspace)
+        config <- RBaM_configuration(input$run_prediction, workspace)
+        RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
+        pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
+        workspace=workspace, run=FALSE)
+        message("-------------------------------")
+        print(str(config$monitoring))
+        # session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
+        session$sendCustomMessage("bam_monitoring_prediction", list(i=0, name=config$monitoring$pred$name))
+        RBaM_runExe(workspace)
     })
 
     # ===============================================================
     # listener for when BaM is running prediction to moniror BaM progress
     observeEvent(input$bam_monitoring_prediction, {
-        i <- RBaM_monitorPrediction(workspace);
-        session$sendCustomMessage("bam_monitoring_prediction", list(i=i))
-        if (i==100L) {
-            # results <- RBaM_getPredictionResults(workspace);
-            # session$sendCustomMessage("prediction_results", results)
+        message(" > bam_monitoring_prediction")
+        data <- input$bam_monitoring_prediction
+        data$i <- RBaM_monitorPrediction(workspace, data$name);
+        print(str(data))
+        session$sendCustomMessage("bam_monitoring_prediction", data)
+        if (data$i==101L) {
+            results <- RBaM_getPredictionResults(workspace, data$config);
+            print("RESULTS!")
+            print(paste0("prediction_results: ", data$name))
+            session$sendCustomMessage(paste0("prediction_results: ", data$name), results)
         }
 
         # message("  > progress: ", floor(i), "% ==> ", i);

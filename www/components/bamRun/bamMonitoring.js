@@ -13,18 +13,17 @@ class bamMonitoring {
         dom_pb.id = "pb";
         dom_pb_container.append(dom_pb);
 
-        let self = this;
+        // let self = this;
         this.bamMsg = null;
         this.startTime = null;
 
-        Shiny.addCustomMessageHandler("bam_monitoring_calibration", function(data) {
-            // console.log(data);
+        Shiny.addCustomMessageHandler("bam_monitoring_calibration", (data) => {
             if (data.i === 0) {                
-                self.initCalibrationMoniroting()
+                this.initMoniroting()
             } else if (data.i === 100) {
                 // destroy monitoring message
-                self.bamMsg.destroy(0);
-                self.bamMsg = null;
+                this.bamMsg.destroy(0);
+                this.bamMsg = null;
                 return;
             } else {
                 dom_pb_text.textContent = bamI.getText("run_isrunning") + ": " + Math.round(data.i) + "%";
@@ -37,20 +36,22 @@ class bamMonitoring {
             }, 250)
         })
 
-        Shiny.addCustomMessageHandler("bam_monitoring_prediction", function(data) {
-            // console.log(data);
+        Shiny.addCustomMessageHandler("bam_monitoring_prediction", (data) => {
+            console.log("bam_monitoring_prediction");
+            console.log(data);
             if (data.i === 0) {                
-                self.initCalibrationMoniroting()
-                dom_pb_text.textContent = bamI.getText("run_isrunning");
-                dom_pb.style.width = 100 + "%"
+                this.initMoniroting()
             } else if (data.i === 100) {
+                dom_pb_text.textContent = bamI.getText("run_isrunning") + ": " + Math.round(data.i) + "% (" + bamI.getText("run_isrunning_envelops") + ")";
+                dom_pb.style.width = Math.round(data.i) + "%"
+            } else if (data.i === 101) {
                 // destroy monitoring message
-                self.bamMsg.destroy(0);
-                self.bamMsg = null;
+                this.bamMsg.destroy(0);
+                this.bamMsg = null;
                 return;
             } else {
-                dom_pb_text.textContent = bamI.getText("run_isrunning");
-                dom_pb.style.width = 100 + "%"
+                dom_pb_text.textContent = bamI.getText("run_isrunning") + ": " + Math.round(data.i) + "%";
+                dom_pb.style.width = Math.round(data.i) + "%"
             }
             setTimeout(function() {
                 data.r = Math.random(); // to make sure message is sent.
@@ -83,7 +84,7 @@ class bamMonitoring {
         // })
     }
 
-    initCalibrationMoniroting() {
+    initMoniroting() {
         console.log("Starting monitoring")
         this.bamMsg = new bamMessage({
             type: "info",
