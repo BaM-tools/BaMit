@@ -1,0 +1,41 @@
+.bam-dataset-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.bam-dataset-container > div {
+    display: flex;
+    align-items: center;
+}
+
+.bam-dataset-container img {
+    width: 20px;
+    height: 20px;
+    margin: 0.5rem;
+}
+.bam-dataset-container button > img {
+    /* width: 25px;
+    height: 25px; */
+    margin: 0;
+    shape-rendering: optimizeQuality;
+}
+.bam-dataset-container button:hover svg {
+    stroke: blue;
+}
+.bam-dataset-container button {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.bam-dataset-container > div > div{
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+.bam-dataset-container .size{
+    color: grey;
+    /* flex-shrink: 0; */
+    white-space: nowrap;
+}

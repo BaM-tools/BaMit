@@ -15,7 +15,7 @@
 }
 
 
-.bam-datasets #bam-datasets-list {
+.bam-datasets .bam-datasets-list {
     /* max-height: 15rem; */
     flex-grow: 1;
     background-color: white;
@@ -25,7 +25,7 @@
     padding: 0.4rem;
 }
 
-.bam-datasets #bam-datasets-list > div {
+.bam-datasets .bam-datasets-list > div {
     background-color: var(--verylight);
     display: flex;
     justify-content: space-between;
@@ -37,7 +37,7 @@
     /* cursor: pointer; */
 }
 
-.bam-datasets #bam-datasets-list > div:hover {
+.bam-datasets .bam-datasets-list > div:hover {
     background-color: var(--light);
 }
 
