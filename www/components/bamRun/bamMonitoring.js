@@ -37,8 +37,8 @@ class bamMonitoring {
         })
 
         Shiny.addCustomMessageHandler("bam_monitoring_prediction", (data) => {
-            console.log("bam_monitoring_prediction");
-            console.log(data);
+            // console.log("bam_monitoring_prediction");
+            // console.log(data);
             if (data.i === 0) {                
                 this.initMoniroting()
             } else if (data.i === 100) {

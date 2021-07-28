@@ -92,7 +92,7 @@ server <- function(input, output, session) {
         message("-------------------------------")
         print(str(config$monitoring))
         # session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
-        session$sendCustomMessage("bam_monitoring_prediction", list(i=0, name=config$monitoring$pred$name))
+        session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
         RBaM_runExe(workspace)
     })
 
@@ -101,14 +101,14 @@ server <- function(input, output, session) {
     observeEvent(input$bam_monitoring_prediction, {
         message(" > bam_monitoring_prediction")
         data <- input$bam_monitoring_prediction
-        data$i <- RBaM_monitorPrediction(workspace, data$name);
+        data$i <- RBaM_monitorPrediction(workspace, data$config$name);
         print(str(data))
         session$sendCustomMessage("bam_monitoring_prediction", data)
         if (data$i==101L) {
             results <- RBaM_getPredictionResults(workspace, data$config);
             print("RESULTS!")
-            print(paste0("prediction_results: ", data$name))
-            session$sendCustomMessage(paste0("prediction_results: ", data$name), results)
+            print(paste0("prediction_results: ", data$config$name))
+            session$sendCustomMessage(paste0("prediction_results: ", data$config$name), results)
         }
 
         # message("  > progress: ", floor(i), "% ==> ", i);

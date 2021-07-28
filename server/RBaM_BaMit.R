@@ -243,8 +243,8 @@ RBaM_writeMCMC <- function(data, workspace) {
 }
 
 RBaM_monitorCalibration <- function(workspace) {
-    log <- RBaM_getLogFile(workspace)
-    if (length(log)==0L) {
+    # log <- RBaM_getLogFile(workspace)
+    # if (length(log)==0L) {
         progress <- tryCatch({
             p <- readLines(file.path(workspace, "Config_MCMC.txt.monitor"))
             ifelse(length(p)>0L, p, "0/100")
@@ -254,48 +254,49 @@ RBaM_monitorCalibration <- function(workspace) {
         progress <- strsplit(progress, "/")[[1]]
         progress <- sapply(progress, as.numeric)
         i <- unname(progress[1] / progress[2] * 100)[1]
-    } else {
-        i <- 100; 
-    }
+    # } else {
+    #     i <- 100; 
+    # }
     # i <- 100; # DEBUG: override everything
     return(i);
 }
 
-RBaM_monitorCalibrationOLD <- function(workspace, config) {
-    log <- RBaM_getLogFile(workspace)
-    if (length(log)==0L) {
-        n_th <- 14.003 * config + 20004; # empirical estimation of file size when complete
-        n_ac <- tryCatch(file.size(file.path(workspace, "Results_MCMC.txt")),
-                         error=function(e) 1, warning=function(w) 1)
-        i <- n_ac / n_th * 100
-        i <- ifelse(is.na(i), 1, i)
-        i <- ifelse(i>100, 99.99, i)
-    } else {
-        i <- 100; 
-    }
-    # i <- 100; # DEBUG: override everything
-    return(i);
-}
+# RBaM_monitorCalibrationOLD <- function(workspace, config) {
+#     log <- RBaM_getLogFile(workspace)
+#     if (length(log)==0L) {
+#         n_th <- 14.003 * config + 20004; # empirical estimation of file size when complete
+#         n_ac <- tryCatch(file.size(file.path(workspace, "Results_MCMC.txt")),
+#                          error=function(e) 1, warning=function(w) 1)
+#         i <- n_ac / n_th * 100
+#         i <- ifelse(is.na(i), 1, i)
+#         i <- ifelse(i>100, 99.99, i)
+#     } else {
+#         i <- 100; 
+#     }
+#     # i <- 100; # DEBUG: override everything
+#     return(i);
+# }
 
 RBaM_monitorPrediction <- function(workspace, name) {
-    log <- RBaM_getLogFile(workspace)
-    if (length(log)==0L) {
+    # log <- RBaM_getLogFile(workspace)
+    # if (length(log)==0L) {
         progress <- tryCatch({
             p <- readLines(file.path(workspace, paste0("Pred_", name, "_config.txt.monitor")))
             ifelse(length(p)>0L, p, "0/100")
         }, error = function(error) {
             "0/100"
         })
-        print(str(progress))
+        # print(str(progress))
         progress <- strsplit(progress, "/")[[1]]
-        print(str(progress))
+        # print(str(progress))
         progress <- sapply(progress, as.numeric)
-        print(str(progress))
+        # print(str(progress))
         i <- unname(progress[1] / progress[2] * 100)[1]
-        print(str(i))
-    } else {
-        i <- 101; 
-    }
+        if (progress[1] == progress[2] + 1) return(101)
+        # print(str(i))
+    # } else {
+        # i <- 101; 
+    # }
     # i <- 100; # DEBUG: override everything
     return(i);
 }
