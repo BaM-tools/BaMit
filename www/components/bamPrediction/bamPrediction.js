@@ -21,6 +21,7 @@ class bamPrediction extends bamComponent {
         this.dom_tabs = new bamTabs() 
         this.dom_tabs.setParent(this.dom_content)
 
+        // CONFIGURATION
         this.prediction_config = new bamPredictionConfiguration();
         const prediction_config_tab = this.dom_tabs.newTab();
         // prediction_config_tab.getButton().textContent = "Configuration";
@@ -49,11 +50,15 @@ class bamPrediction extends bamComponent {
         }
         prediction_config_tab.getButton().click();
 
+        // RESULTS
         this.prediction_files = new bamPredictionResultFiles();
         const prediction_files_tab = this.dom_tabs.newTab();
         // prediction_files_tab.getButton().textContent = "Result files";
         bamI.set(prediction_files_tab.getButton()).key("prediction_result_tab").text().apply();
         prediction_files_tab.setContent(this.prediction_files.getDOM());
+
+        // monitoring
+        this.bamMonitor = new bamMonitoring();
 
     }
 
@@ -82,9 +87,20 @@ class bamPrediction extends bamComponent {
         this.dom_header_custom.textContent = name;
         if (this.dom_header_custom_external) this.dom_header_custom_external.textContent = name;
         this.prediction_config.setPredictionName(name);
+        this.setBAMdoneListener() // FIXME: done this way, there might be many unused listeners if users keeps renaming the component...
+        this.prediction_files.setPredictionName(name)
     }
     getPredictionName() {
         return this.prediction_name;
+    }
+    setBAMdoneListener() {
+        const listener_name = "prediction_results: "+this.prediction_name
+        Shiny.addCustomMessageHandler(listener_name, (data) => {
+            console.log("################################################")
+            console.log("listener_name", listener_name)
+            console.log("data", data)
+            this.prediction_files.set(data)
+        })
     }
     // launch(config) {
     //     console.log(config);

@@ -5,6 +5,8 @@
 //     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
 //     return confirmationMessage;                            //Webkit, Safari, Chrome
 // });
+// CURRENT PROJECT NAME (so it is accessible everywhere) // FIXME: not an ideal solution, but works well
+let PROJECT_NAME
 
 // Object containing all distribution and all possible BaM model
 // (Result in R from RBaM::getCatalogue())

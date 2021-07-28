@@ -129,16 +129,17 @@ class bamProject {
             // define what happen when BaM calibration is run
             // with the callback when BaM calibration is done.
             this.bam_runcalib.onRunBamCallback = function() {
-                // const BaM_config = self.getBaMconfig();    // FIXME: instead I should use the method of each individual component
                 const BaM_config = {};
                 BaM_config.xtra             = self.bam_xtra.getBaMconfig();
                 BaM_config.parameters       = self.bam_priors.getBaMconfig();
                 BaM_config.calibration_data = self.bam_data.getBaMconfig();
                 BaM_config.remnant_errors   = self.bam_remnant.getBaMconfig();
                 BaM_config.project          = {doCalib: true, doPred: false}
+                BaM_config.r = Math.random()
                 console.log(BaM_config)
                 // Shiny.setInputValue("run_calibration", BaM_config); 
                 Shiny.onInputChange("run_calibration", BaM_config); 
+                // this sets the default component state (I case it gets outdated)
                 self.bam_priors.setConfig();
                 self.bam_data.setConfig();   
                 self.bam_remnant.setConfig();
@@ -168,6 +169,12 @@ class bamProject {
                 this.bam_priors.setConfig(config.validated.priors);    // FIXME: I should have the saved config instead!
                 this.bam_data.setConfig(config.validated.data);        // FIXME: I should have the saved config instead!
                 this.bam_remnant.setConfig(config.validated.remnant);  // FIXME: I should have the saved config instead!
+                
+                // FIXME: I should do this if and only if the model has been calibrated and I actually have
+                // a result component
+                // this.bam_priors.setConfig()
+                // this.bam_data.setConfig()
+                // this.bam_remnant.setConfig()
             }
         } else {
             this.bam_priors.set(config.xtra.parameters);
@@ -188,7 +195,7 @@ class bamProject {
             // only set from xtra component
             this.bam_results.set({parameters: config.xtra.parameters, outputs: config.xtra.inputs});
         }
-        this.bam_results.set(config.calib_res);
+        // this.bam_results.set(config.calib_res);
         if (!this.bam_predictions) {
             this.bam_predictions = new bamPredictionMaster();
             this.bam_projectUI.addComponent(this.bam_predictions);
@@ -199,6 +206,7 @@ class bamProject {
                     config.prediction = prediction.getBaMconfig();
                     config.project = {doCalib: false, doPred: true}
                     // Shiny.setInputValue("run_prediction", config); 
+                    console.log("config", config)
                     Shiny.onInputChange("run_prediction", config); 
                     prediction.setConfig();
                 }
@@ -219,6 +227,7 @@ class bamProject {
 
     setModelName(name) {
         this.name = name;
+        PROJECT_NAME = name
         this.bam_projectUI.setModelName(name)
     }
     setModelType(modelid) {

@@ -17,7 +17,6 @@
 class bamResults extends bamComponent {
     constructor() {
         super();
-        let self = this;
         this.title_key = "results_title"
 
         // tab system
@@ -36,7 +35,8 @@ class bamResults extends bamComponent {
         result_parameters_tab.getButton().click();
 
         // file tab
-        this.result_files = new bamResultsFiles();
+        // this.result_files = new bamResultsFiles();
+        this.result_files = new bamCalibResultsFiles();
         const result_files_tab = this.dom_tabs.newTab();
         // result_files_tab.getButton().textContent = "Result files";
         bamI.set(result_files_tab.getButton()).key("results_files_tab").text().apply();
@@ -52,6 +52,7 @@ class bamResults extends bamComponent {
 
 
     getBaMconfig() {
+        console.log(this.result_files.get())
         return this.result_files.get().mcmc;
     }
 
