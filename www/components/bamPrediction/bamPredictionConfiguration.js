@@ -128,7 +128,6 @@ class bamPredictionConfiguration {
         this.dom_pred_run_launch = document.createElement("button");
         bamI.set(this.dom_pred_run_launch).key("prediction_run_btn").text().apply();
         this.dom_pred_run_launch.addEventListener("click", function() {
-            console.log("run prediction")
             self.onRunPredictionCallback(self.getBaMconfig());
         });
         this.dom_pred_run.append(this.dom_pred_run_launch);
@@ -146,55 +145,6 @@ class bamPredictionConfiguration {
         this.prediciton_name = name;
     }
 
-    // update(inputs) {
-    //     let self = this;
-    //     // add the proper variables to the prediction configuration 
-    //     // according to the specification of the model i.e. the number/names of input variables
-    //     const mapping_options = this.datasets.getDatasetsMappingOptions(false);
-    //     for (let input of inputs) {
-    //         console.log(input)
-    //         if (!this.inputs[input]) {
-    //             this.inputs[input] = new bamVariable(input, false, false);
-    //             this.inputs[input].setParent(this.dom_pred_mapping_inputs)
-    //             // this.inputs[input].updateMappingOptions(this.dom_pred_datasets_manager.get());
-    //             this.inputs[input].update(mapping_options);
-    //             this.inputs[input].onChangeCallback = function() {
-    //                 self.onChange();
-    //             }
-    //         }
-    //     }
-    //     // delete the variables that no longer exist in case of changes
-    //     for (let input in this.inputs) {
-    //         if (inputs.indexOf(input) === -1) {
-    //             this.inputs[input].delete();
-    //             delete this.inputs[input];
-    //         }
-    //     }
-    //     this.onChange();
-    // }
-    // getValidityStatus() {
-    //     // rules are: 
-    //     // > all input variables have been specified
-    //     // > length of all variables are equal
-    //     const status = {inputs:{}, length: null};
-    //     const variable_lengths = [];
-    //     for (let input in this.inputs) {
-    //         let mapping = this.inputs[input].getMapping();
-    //         status.inputs[input] = this.inputs[input].getValidityStatus();
-    //         variable_lengths.push(this.datasets.getVariableLength(mapping.v));
-    //     }
-    //     status.length = Math.min(...variable_lengths) === Math.max(...variable_lengths)
-    //     return status;
-    // }
-    // onChange() {
-    //     const status = this.getValidityStatus()
-    //     if (isStatusValid(status)) {
-    //         this.dom_pred_run_launch.disabled = false;
-    //     } else {
-    //         this.dom_pred_run_launch.disabled = true;
-    //     }
-    //     this.onChangeCallback(status);
-    // }
     onChange() {
 
     }
@@ -207,21 +157,7 @@ class bamPredictionConfiguration {
         const pred_type = this.dom_pred_type_select.getSelected().key;
         return {inputs: inputs, pred_type: pred_type};
     }
-    // const datasets = this.datasets.get();
-    //     const inputs = {};
-    //     const outputs = {};
-    //     for (let v in this.inputs) {
-    //         inputs[v] = this.inputs[v].get();
-    //     }
-    //     for (let v in this.outputs) {
-    //         outputs[v] = this.outputs[v].get();
-    //     }
-    //     const out = {
-    //         datasets: datasets,
-    //         inputs: inputs, 
-    //         outputs: outputs
-    //     };
-    //     return out;
+
     get() {
         // get returns mapping for each input, the datasets, and the type of prediction
         const datasets = this.datasets.get();

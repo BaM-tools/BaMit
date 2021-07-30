@@ -141,7 +141,6 @@ class bamXtraTextFile extends bamXtra {
         this.clearMessages("error");
         let n_eqs = 0;
         for (let e of config.equations) {
-            console.log(e)
             if (e !== undefined) {
                 if (!isNaN(parseInt(e.defined_name))) {
                     this.addThreePartsErrorMessage("textfile_outputname", config.equations.indexOf(e)+1, "textfile_outputnameinvalid")

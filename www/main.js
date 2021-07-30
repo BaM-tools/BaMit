@@ -140,7 +140,6 @@ function loadApp() {
     // dom_get_started.textContent = "Getting started";
     const help = new bamHelp();
     dom_get_started.addEventListener("click", function() {
-        console.log("Clicked!")
         help.show(bamI.getLanguage());
     })
     dom_options.appendChild(dom_get_started);

@@ -55,7 +55,6 @@ class dataFileParser {
 // FIXME: I should make my own parser... I only use a tiny bit of Papa.parse capabilities...
 // export default async function parseFile(file, config={}) {
 async function parseFile(file, config={}) {
-    // console.log('##########################################################')
     return new Promise((resolve, reject) => {
         Papa.parse(file, {
             comments: "#",
@@ -77,7 +76,6 @@ async function parseFile(file, config={}) {
                         data[header[k]] = Array(raw_data.length - 1);
                     }
                 }
-                // console.log("raw_data", raw_data)
                 // create the final dataset
                 for (let i = (1 - anyFloat); i < raw_data.length; i++) {
                     for (let j = 0; j < header.length; j++) {

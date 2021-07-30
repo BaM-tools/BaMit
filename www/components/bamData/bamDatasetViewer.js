@@ -41,61 +41,6 @@ class bamDatasetViewer {
         dom_title.append(dom_name);
         dom_title.append(dom_destroy);
 
-        // main div containing the data: header + all the rows
-        // const dom_data = document.createElement("div");
-        // dom_data.id = "data";
-        // let keys = Object.keys(dataset.data);
-
-        // // header table
-        // const dom_table_header = document.createElement("table");
-        // dom_table_header.id = "data-header";
-        // const dom_table_header_tr = document.createElement("tr");
-        // for (let j = 0; j < keys.length; j++) {
-        //     let td = document.createElement("td");
-        //     td.textContent = keys[j];
-        //     td.style.width = 100 / keys.length + "%";
-        //     dom_table_header_tr.append(td);
-        // }
-        // dom_table_header.append(dom_table_header_tr);
-        // dom_data.append(dom_table_header);
-
-        // // to resize header column according to body column size
-        // // this will only work to some extent and won't be supported by
-        // // old browser or Edge for examples
-        // var ro;
-        // if (typeof ResizeObserver === "function") {
-        //     ro = new ResizeObserver(entries => {
-        //         const tds = dom_table_header_tr.querySelectorAll("td")
-        //         for (let e of entries) {
-        //             let k = +e.target.id;
-        //             tds[k].style.width = e.contentRect.width + "px";
-        //         }
-        //     })
-        // }
-
-        // // body table
-        // const dom_table_data = document.createElement("table");
-        // dom_table_data.id = "data-table";
-        // const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
-        // console.log(n_data_to_display);
-        // // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
-        // for (let i = 0; i < n_data_to_display; i++) {
-        //     let tr = document.createElement("tr");
-        //     for (let j = 0; j < keys.length; j++) {
-        //         let td = document.createElement("td");
-        //         td.textContent = dataset.data[keys[j]][i];
-        //         td.style.width = 100 / keys.length + "%";
-        //         tr.append(td);
-        //         if (i === 0 && ro) {
-        //             td.id = j;
-        //             ro.observe(td)
-        //         }
-        //     }
-        //     dom_table_data.append(tr);
-        // }
-        // dom_data.append(dom_table_data);
-
-        // const dom_data = this.tableVersion(dataset);
         const dom_data = this.divVersion(dataset);
         this.dom_wrapper.append(dom_title);
         this.dom_wrapper.append(dom_data);
@@ -143,7 +88,6 @@ class bamDatasetViewer {
         const dom_table_data = document.createElement("div");
         dom_table_data.className = "dataset-table-data";
         const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
-        console.log(n_data_to_display);
         // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
         for (let i = 0; i < n_data_to_display; i++) {
             let dom_row = document.createElement("div");
@@ -203,7 +147,6 @@ class bamDatasetViewer {
         const dom_table_data = document.createElement("table");
         dom_table_data.id = "data-table";
         const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
-        console.log(n_data_to_display);
         // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
         for (let i = 0; i < n_data_to_display; i++) {
             let tr = document.createElement("tr");

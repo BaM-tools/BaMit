@@ -22,7 +22,6 @@ class bamProject {
 
         let self = this;
         this.bam_projectUI.onSaveCallback = function() {
-            console.log("saving")
             let config = self.get(); //FIXME
             if (config.xtra !== undefined) {
                 const a = document.createElement("a");
@@ -136,7 +135,6 @@ class bamProject {
                 BaM_config.remnant_errors   = self.bam_remnant.getBaMconfig();
                 BaM_config.project          = {doCalib: true, doPred: false}
                 BaM_config.r = Math.random()
-                console.log(BaM_config)
                 // Shiny.setInputValue("run_calibration", BaM_config); 
                 Shiny.onInputChange("run_calibration", BaM_config); 
                 // this sets the default component state (I case it gets outdated)
@@ -184,6 +182,7 @@ class bamProject {
     }
     // AFTER CALIBRATION SECTION CONFIGURATION
     setAfterCalibrationSection(config) {
+        consqol
         let self = this;
         if (!this.bam_results) {
             this.bam_results = new bamResults();
@@ -206,7 +205,6 @@ class bamProject {
                     config.prediction = prediction.getBaMconfig();
                     config.project = {doCalib: false, doPred: true}
                     // Shiny.setInputValue("run_prediction", config); 
-                    console.log("config", config)
                     Shiny.onInputChange("run_prediction", config); 
                     prediction.setConfig();
                 }

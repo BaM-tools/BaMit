@@ -47,12 +47,6 @@ class bamPriors extends bamComponent {
 
     }
 
-    // checkConfigOutdating(current_config) {
-    //     console.log(" +++++++++++++++ ")
-    //     console.log(current_config)
-    //     console.log(this.uptodate_config)
-    //     super.checkConfigOutdating(current_config)
-    // }
 
     onChange() {
         const config = this.get();

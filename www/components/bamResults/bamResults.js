@@ -52,7 +52,6 @@ class bamResults extends bamComponent {
 
 
     getBaMconfig() {
-        console.log(this.result_files.get())
         return this.result_files.get().mcmc;
     }
 

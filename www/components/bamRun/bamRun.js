@@ -78,10 +78,6 @@ class bamRun extends bamComponent {
         return {};
     }
     set(config) {
-        console.log(config)
     }
-
-    
-
 }
 

@@ -47,7 +47,6 @@ plot = function() {
             const xAxis = container.append("g")
                 .attr("transform", "translate(0, " + h + ")")
                 .call(d3.axisBottom(xScale))
-            console.log([d3.min(x), d3.max(x)])
         }
         if (y) {
             const yAxis = container.append("g")

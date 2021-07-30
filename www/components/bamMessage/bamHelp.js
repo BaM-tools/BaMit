@@ -31,14 +31,12 @@ class bamHelp {
         this.parent = parent;
     }
     show(language) {
-        console.log("language", language)
         if (this.parent) this.parent.append(this.dom_content_main);
         this.dom_content_main.style.display = "block";
         if (Object.keys(this.marked_documents).indexOf(language)===-1) language="fr"
         this.dom_markedcontent.innerHTML = this.marked_documents[language]
     }
     hide() {
-        console.log("hide...")
         if (this.parent) this.parent.removeChild(this.dom_content_main);
         this.dom_content_main.style.display = "none";
     }

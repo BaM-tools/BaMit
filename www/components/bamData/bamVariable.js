@@ -140,8 +140,6 @@ class bamVariable {
     }
 
     updateMappingOptions(mapping_options) {
-        // console.log(this.name);
-        // console.log(mapping_options);
 
         let options = [];     // all the mapping options
         let options_in = [];  // those that need to be added

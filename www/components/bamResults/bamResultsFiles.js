@@ -20,15 +20,12 @@ class bamResultsFiles {
     }
 
     async setupDOM() {
-        console.log("this.files", this.files)
-
         this.dom_panel_files.innerHTML = ""
 
         const zip = new JSZip();
         for (let f of this.files) {
             const dataset = new bamDataset(f.name+".txt", f.data, {
                 preview: () => {
-                    console.log("preview ", f.name+".txt" )
                     this.dom_panel_data.innerHTML = "";
                     new bamDatasetViewer(f, this.dom_panel_data, () => {
                         this.dom_panel_data.innerHTML = "";

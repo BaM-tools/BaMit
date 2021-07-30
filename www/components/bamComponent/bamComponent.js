@@ -84,10 +84,6 @@ class bamComponent {
     /**
      * @param {object} val
      */
-    // set uptodate_config(val) {
-    //     console.log("uptodate_config SET method: " + this.title_key);
-    //     console.log(val);
-    // }
     getUptodateConfig(current_config) {
         if (this.uptodate_config === undefined) {
             // 1/ it doesn't have and uptodate config
@@ -125,18 +121,12 @@ class bamComponent {
             }
             // in all othercases, config is an actual config object
         }
-        // console.log(config);
         this.uptodate_config = JSON.parse(JSON.stringify(config)); // make a deep copy
-        // console.log(this.uptodate_config);
         this.checkConfigOutdating();
     }
     checkConfigOutdating() {
         const config = this.get();
         let self = this;
-        // console.log("checkConfigOutdating: " + this.title_key)
-        // console.log(config)
-        // console.log(this.uptodate_config)
-        // console.log(areConfigurationsIdentical(this.uptodate_config, config))
         if (this.uptodate_config && !areConfigurationsIdentical(this.uptodate_config, config)) {
             const dom_message = document.createElement("div");
             dom_message.style.display = "flex";
@@ -151,8 +141,6 @@ class bamComponent {
             // dom_btn.textContent = "Annuler les modifications";
             bamI.set(dom_btn).key("config_has_changed_cancel").text().apply()
             dom_btn.addEventListener("click", function() {
-                // console.log("checkConfigOutdating-cancel: " + self.title_key)
-                // console.log(self.uptodate_config)
                 self.set(self.getConfig()) // this assumes the component actually has a set method.
                 dom_message.remove();
             })

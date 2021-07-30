@@ -37,8 +37,6 @@ class bamMonitoring {
         })
 
         Shiny.addCustomMessageHandler("bam_monitoring_prediction", (data) => {
-            // console.log("bam_monitoring_prediction");
-            // console.log(data);
             if (data.i === 0) {                
                 this.initMoniroting()
             } else if (data.i === 100) {
@@ -60,38 +58,14 @@ class bamMonitoring {
             }, 250)
         })
 
-        // calibration monitoring handler
-        // Shiny.addCustomMessageHandler("bam_mcmc_monitoring_out", function(data) {
-        //     if (!data.done) {
-        //         // text and appearance of message
-        //         dom_pb_text.textContent = bamI.getText("run_isrunning") + ": " + Math.round(data.i / data.n * 100) + "%";
-        //         dom_pb.style.width = Math.round(data.i / data.n * 100) + "%"
-
-        //         let timeout = 500; // interval for checking progress
-        //         if (data.done) timeout = 0;
-        //         data.r = Math.random() // randome value to make sure the message is sent out
-        //         setTimeout(function() {
-        //             Shiny.setInputValue("bam_mcmc_monitoring_in", data)
-        //         }, timeout)
-        //     } else {
-        //         // self.dom_wrapper.remove(); // need this?
-        //         self.bamMsg.destroy(0); // remove the monitoring user message
-        //         self.bamMsg = null;
-        //         console.log(data)
-        //         if (self.onDoneCallback) self.onDoneCallback(data)
-        //         console.log(" --> Time taken: " + (performance.now() - self.startTime) + " milliseconds.")
-        //     }
-        // })
     }
 
     initMoniroting() {
-        console.log("Starting monitoring")
         this.bamMsg = new bamMessage({
             type: "info",
             custom: this.dom_wrapper,
             auto_destroy: false
         })
-        // this.onDoneCallback = onDoneCallback;
         this.startTime = performance.now()
     }
 

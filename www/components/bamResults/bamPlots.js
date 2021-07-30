@@ -159,24 +159,8 @@ class bamPlotDensity extends bamPlot {
         // this.activeTooltip()
     }
 
-    // activeTooltip(activate=true)  {
-    //     // const tooltip = document.createElement("div");
-    //     // tooltip.style.position = "abolute";
-    //     let self = this
-    //     this.container.on("mousemove", function(e) {
-    //         const ix = self.xScale.invert(d3.pointer(e, self.container.node())[0]);
-    //         const iy = self.yScale.invert(d3.pointer(e, this)[1]);
-    //         console.log(ix, iy)
-    //     })
-    //     // this.container.on("mouseleave", function(e) {
-    //     //     const ix = self.xScale.invert(d3.pointer(e, self.container.node())[0]);
-    //     //     const iy = self.yScale.invert(d3.pointer(e, self.container.node())[1]);
-    //     //     console.log(ix, iy)
-    //     // })
-    // }
     
     axis() {
-        console.log("here I have")
         this.xAxisGen = d3.axisBottom(this.xScale).ticks(4)
         this.yAxisGen = d3.axisLeft(this.yScale).ticks(0)
     }

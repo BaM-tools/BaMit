@@ -48,11 +48,7 @@ class bamResultsParameters {
         return this.dom_content;
     }
     update(trace, density) {
-        // console.log(trace)
-        // console.log(density)
-        // const logpost_trace = trace.LogPost
-        
-
+        // useless?
     }
 
     plotTrace() {

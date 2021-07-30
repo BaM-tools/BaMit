@@ -20,28 +20,7 @@ class bamPredictionMaster extends bamComponent {
 
         this.dom_add_new_prediction.addEventListener("click", function() {
             askForPredictionNameInput(function(value) {
-                console.log("the entered prediction name is " + value)
                 self.addPrediction({name: value, inputs: self.inputs});
-                // const pred = new bamPrediction();
-                // pred.setPredictionName(value);
-                // pred.onDeletePredictionCallback = function() {
-                //     self.onDeletePredictionCallback(pred)
-                //     delete self.predictions[pred.getPredictionName()];
-                // }
-                // pred.onRenamePredictionCallback = function() {
-                //     askForPredictionNameInput(function(new_name) {
-                //         delete self.predictions[pred.getPredictionName()];
-                //         pred.setPredictionName(new_name);
-                //         self.predictions[pred.getPredictionName()] = pred;
-                //     },
-                //     Object.keys(self.predictions), pred.getPredictionName())
-                // }
-                // // pred.onRunPredictionCallback = function() {
-                // //     const config = pred.get();
-                // //     console.log(config);
-                // // }
-                // self.onAddPredictionCallback(pred);
-                // self.predictions[pred.getPredictionName()] = pred;
             },
             Object.keys(self.predictions), "")
         })
@@ -64,21 +43,12 @@ class bamPredictionMaster extends bamComponent {
             },
             Object.keys(self.predictions), pred.getPredictionName())
         }
-        // pred.onRunPredictionCallback = function() {
-        //     const config = pred.get();
-        //     console.log(config);
-        // }
+
         pred.set(config);
         this.onAddPredictionCallback(pred);
         this.predictions[pred.getPredictionName()] = pred;
     }
 
-    // update(inputs) {
-    //     // this.inputs = inputs;
-    //     // for (let pred in this.predictions) {
-    //     //     this.predictions[pred].update(inputs);
-    //     // }
-    // }
     onChange() {
 
     }
@@ -98,7 +68,6 @@ class bamPredictionMaster extends bamComponent {
         if (config.predictions) {
             for (let p in config.predictions) {
                 this.addPrediction(config.predictions[p]);
-                // this.predictions[p].set(config.predictions[p]);
             }
         }
     }

@@ -53,7 +53,6 @@ class bamDatasets {
         function readAndParseFile(files) {
             let toobig = [];
             for (let f of files) { // for each file
-                console.log(f);
                 if (f.size < 10000000) { // check size
                 // if (f.size < 100000000000000) { // check size
                     if (self.datasets[f.name]) {
@@ -138,48 +137,12 @@ class bamDatasets {
         parent.append(this.dom_wrapper)
     }
 
-    // parseDataset(file) {
-    //     let self = this;
-    //     Papa.parse(file, {
-    //         comments: "#",
-    //         skipEmptyLines: true,
-    //         complete: function(results) {
-    //             let raw_data = results.data;
-    //             // is there any float in the first row: if yes, no headers and generate headers
-    //             const anyFloat = raw_data[0].map( (x) => (parseFloat(x) || parseFloat(x) === 0)).reduce((sum, val) => (sum || val) ? true : false)
-    //             let data = {};
-    //             let header = [];
-    //             if (anyFloat) {
-    //                 for (let k = 0; k < raw_data[0].length; k++) {
-    //                     header.push("#" + (k+1))
-    //                     data[header[k]] = Array(raw_data.length);
-    //                 }
-    //             } else {
-    //                 for (let k = 0; k < raw_data[0].length; k++) {
-    //                     header.push(raw_data[0][k])
-    //                     data[header[k]] = Array(raw_data.length - 1);
-    //                 }
-    //             }
-    //             for (let i = (1 - anyFloat); i < raw_data.length; i++) {
-    //                 for (let j = 0; j < header.length; j++) {
-    //                     let tmp = parseFloat(raw_data[i][j]); 
-    //                     if (tmp === -9999) tmp = NaN;
-    //                     if (isNaN(tmp)) tmp = null;
-    //                     data[header[j]][i - (1 - anyFloat)] = tmp;
-    //                 }
-    //             }
-    //             self.addDataset({name: file.name, data: data});
-    //         }
-    //     })
-    // }
 
     addDataset(new_dataset) {
-        console.log("NEW DATASET ==> ", new_dataset)
         this.datasets[new_dataset.name] = new bamDataset(new_dataset.name, new_dataset.data,  
             {
                 preview: () => {
                     const data = this.datasets[new_dataset.name].get()
-                    console.log("data", data)
                     this.onDisplayDatasetCallback(data)
                 },
                 delete: () => {
@@ -194,62 +157,6 @@ class bamDatasets {
         this.dom_wrapper.querySelector(".bam-datasets-list").append(this.datasets[new_dataset.name].getDOM()) 
         this.onChange();
     }
-
-    // addDatasetOLD(new_dataset) {
-    //     console.log("NEW DATASET ==> ", new_dataset)
-    //     // FIXME: a dataset might need to be its own object/class
-    //     let self = this;
-
-    //     // add dataset to the dataset list
-    //     this.datasets[new_dataset.name] = {};
-    //     this.datasets[new_dataset.name].name = new_dataset.name
-    //     this.datasets[new_dataset.name].data = new_dataset.data
-
-    //     // create the DOM element associated with the dataset
-    //     const dataset_div = document.createElement("div");
-    //     this.dom_wrapper.querySelector(".bam-datasets-list").append(dataset_div) 
-    //     // dataset_div.addEventListener("click", function() {
-    //     //     // when clicked, display dataset in viewer
-    //     //     if (self.onDisplayDatasetCallback) self.onDisplayDatasetCallback(self.datasets[new_dataset.name])
-    //     //     // self.displayDataset(new_dataset.name); 
-    //     // })
-    //     const dataset_name = document.createElement("div"); // div where name and dim are displayed
-    //     const dataset_btns = document.createElement("div"); // div where buttons are stored
-    //     const dataset_preview_btn = document.createElement("button"); // button to delete dataset
-    //     dataset_preview_btn.className = "bam-btn-simple";
-    //     // dataset_preview_btn.textContent = "preview file";
-    //     bamI.set(dataset_preview_btn).key("datasets_preview").text().apply();
-    //     dataset_preview_btn.addEventListener("click", function() {
-    //         self.onDisplayDatasetCallback(self.datasets[new_dataset.name])
-    //     })
-    //     const dataset_delete_btn = document.createElement("button"); // button to delete dataset
-    //     dataset_delete_btn.className = "bam-btn-simple";
-    //     // dataset_delete_btn.textContent = "remove file";
-    //     bamI.set(dataset_delete_btn).key("datasets_delete").text().apply();
-    //     dataset_delete_btn.addEventListener("click", function() {
-    //         self.onDeleteDatasetCallback(new_dataset.name);
-    //         self.datasets[new_dataset.name].dom.remove();
-    //         delete self.datasets[new_dataset.name];
-    //         self.onChange();
-    //     })
-    //     dataset_btns.append(dataset_preview_btn);
-    //     dataset_btns.append(dataset_delete_btn);
-    //     dataset_div.append(dataset_name);
-    //     dataset_div.append(dataset_btns);
-    //     this.datasets[new_dataset.name].dom = dataset_div; // store the dataset DOM element
-
-    //     // compute the dataset dimensions and update the dataset DOM element
-    //     const dataset_dim = {
-    //         ncol: Object.keys(new_dataset.data).length,
-    //         nrow: new_dataset.data[Object.keys(new_dataset.data)[0]].length
-    //     }
-    //     dataset_name.textContent = new_dataset.name + " [" + dataset_dim.nrow + "x" + dataset_dim.ncol + "]";
-    //     this.datasets[new_dataset.name].dim = dataset_dim // store the dataset dimensions
-
-    //     // display the newly imported data set and trigger onChange()
-    //     // if (this.onDisplayDatasetCallback) this.onDisplayDatasetCallback(this.datasets[new_dataset.name])
-    //     this.onChange();
-    // }
 
     onChange() {
         if (this.onChangeCallback) this.onChangeCallback();
@@ -334,7 +241,6 @@ class bamDatasets {
      */
     getDatasetsMappingOptions(whole_file_option=false) {
         const mapping_codes = [];
-        console.log(this.datasets)
         for (let dataset_name in this.datasets) {
             // let dataset_variables = Object.keys(this.datasets[dataset_name].data);
             let dataset_variables = this.datasets[dataset_name].getDataHeaders();

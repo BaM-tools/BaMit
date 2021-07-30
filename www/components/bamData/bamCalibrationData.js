@@ -50,8 +50,6 @@ class bamCalibrationData extends bamComponent {
         this.datasets.setParent(dom_datasets);
         this.datasets.onDisplayDatasetCallback = function(dataset) {
             let name = dom_viewer.querySelector("#name");
-            if (name) console.log(name.textContent)
-            // console.log(dataset.name)
             if (name && name.textContent === dataset.name) return;
             dom_viewer.innerHTML = "";
             new bamDatasetViewer(dataset, dom_viewer)
@@ -59,10 +57,6 @@ class bamCalibrationData extends bamComponent {
         this.datasets.onDeleteDatasetCallback = function(to_delete_dataset_name) {
             // FIXME: here, if the dataset is disaplayed in the viewer, the viewer should close.
             //        this is currently brocken for an unkown reason...
-            // let name = dom_viewer.querySelector("#name");
-            // if (name) console.log(name.textContent)
-            // console.log(dataset.name)
-            // if (name && name.textContent === dataset.name) dom_viewer.innerHTML = "";
             let name = dom_viewer.querySelector("#name");
             if (name && name.textContent === to_delete_dataset_name) {
                 dom_viewer.innerHTML = "";
@@ -71,7 +65,6 @@ class bamCalibrationData extends bamComponent {
         };
         this.datasets.onChangeCallback = function() {
             const mapping_options = self.datasets.getDatasetsMappingOptions(false);
-            // console.log(mapping_options)
             for (let v in self.inputs) {
                 self.inputs[v].updateMappingOptions(mapping_options);
             }
@@ -116,30 +109,7 @@ class bamCalibrationData extends bamComponent {
         bamI.set(dom_mapping_outputs_header).key("variable_outputs").text().apply();
     }
 
-    // setConfig(config=null) {
-    //     console.log("++++++++++++++++ ")
-    //     console.log(config)
-    //     super.checkConfigOutdating(config);
-    // }
-    // checkConfigOutdating(config) {
-    //     console.log("---------------- ")
-    //     console.log(config)
-    //     console.log(this.uptodate_config)
-    //     if (config.datasets) {
-    //         if (config.datasets["reg_sample_short.txt"].dom) {
-    //             throw "ISSUE HERE"
-    //         }
-    //     }
-    //     super.checkConfigOutdating(config); 
-    // }
-
     onChange() {
-        // const status = this.getValidityStatus()
-        // if (isStatusValid(status)) {
-        //     this.validated = true;
-        // } else {
-        //     this.validated = false;
-        // }
         const config = this.get();
         this.errorMessageManagement(config);
         this.checkConfigOutdating();
@@ -243,7 +213,6 @@ class bamCalibrationData extends bamComponent {
                 outputs[m][v] = this.datasets.getVariable(mapping_codes[m])
             }
         }
-        // console.log(outputs.v.P1);
         return {inputs: inputs, outputs: outputs};
     }
     get() { 
@@ -264,8 +233,6 @@ class bamCalibrationData extends bamComponent {
         return out;
     }
     set(config) {
-        console.log("***********************");
-        console.log(config);
         // set dataset
         this.datasets.set(config.datasets)
         const mapping_options = this.datasets.getDatasetsMappingOptions(false);

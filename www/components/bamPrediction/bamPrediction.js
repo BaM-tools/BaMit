@@ -35,11 +35,6 @@ class bamPrediction extends bamComponent {
         }
         this.prediction_config.onRunPredictionCallback = function(config) {
             self.onRunPredictionCallback()
-            // config.name = self.prediction_name;
-            // console.log("this.prediction_config.onRunPredictionCallback:")
-            // console.log(config)
-            // Shiny.setInputValue("run_prediction", config);
-            // self.launch(config);
         }
         this.prediction_config.onChangeCallback = function(status) {
             if (isStatusValid(status)) {
@@ -83,7 +78,6 @@ class bamPrediction extends bamComponent {
     }
     setPredictionName(name) {
         this.prediction_name = name;
-        // console.log(this.dom_header_custom.textContent);
         this.dom_header_custom.textContent = name;
         if (this.dom_header_custom_external) this.dom_header_custom_external.textContent = name;
         this.prediction_config.setPredictionName(name);
@@ -102,15 +96,9 @@ class bamPrediction extends bamComponent {
             this.prediction_files.set(data)
         })
     }
-    // launch(config) {
-    //     console.log(config);
-    //     config.name = this.prediction_name;
-    //     Shiny.setInputValue("run_prediction", config);
-    // }
+
     update(inputs) {
-        console.log(inputs);
         this.prediction_config.update(inputs);
-        // this.tabs.config.update(inputs);
     }
     onChange() {
 

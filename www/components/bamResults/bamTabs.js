@@ -35,9 +35,6 @@ class bamTabs {
         if (typeof ResizeObserver === "function") {
             this.resizeObserver = new ResizeObserver(entries => {
                 self.setContentHeight();
-                // for (let e of entries) {
-                //     console.log(e)
-                // }
             })
         }
 
@@ -88,8 +85,6 @@ class bamTabs {
             }            
         })
         this.dom_tabulation_content.style.height = maxHeight + "px";
-        // console.log(maxHeight)
-        // console.log(this.dom_tabulation_content)
     }
 }
 

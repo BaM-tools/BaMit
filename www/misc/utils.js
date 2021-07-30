@@ -16,18 +16,11 @@ function bamProcessArrayFromR(data) {
 }
 
 function areConfigurationsIdentical(config1, config2) {
-    // console.log("-----------------")
-    // console.log(config1)
-    // console.log(config2)
     if (Object.prototype.toString.call(config1) === '[object Object]' && 
         Object.prototype.toString.call(config2) === '[object Object]') {
-        // console.log("--> object")
         let keys1 = Object.keys(config1);
         let keys2 = Object.keys(config2);
-        // console.log(keys1)
-        // console.log(keys2)
         for (let key of keys1) {
-            // console.log(key)
             if (keys2.indexOf(key) === -1) {
                 return false;
             }
@@ -38,7 +31,6 @@ function areConfigurationsIdentical(config1, config2) {
         }
     } else if (Object.prototype.toString.call(config1) === '[object Array]' && 
                Object.prototype.toString.call(config2) === '[object Array]') {
-        // console.log("--> array")
         let n = config1.length;
         if (config2.length !== n) {
             return false;
@@ -50,7 +42,6 @@ function areConfigurationsIdentical(config1, config2) {
             }
         }
     } else {
-        // console.log("--> misc")
         if (config1 != config2) {
             return false;
         }
@@ -140,7 +131,7 @@ function askForInput(message, callback, options = {placeholder:null, default_val
         if (options.validation_function) {
             errorMessage = options.validation_function(value)
             if (errorMessage) {
-                console.log(errorMessage)
+                console.error(errorMessage)
                 dom_error_message.textContent = errorMessage;
                 return; 
             }
