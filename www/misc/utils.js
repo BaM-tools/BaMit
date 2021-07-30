@@ -119,7 +119,7 @@ function askForInput(message, callback, options = {placeholder:null, default_val
     if (options.default_value) dom_nameinput.value = options.default_value;
     dom_nameinput.style.width = "200px";
     dom_nameinput.onkeypress = function(e) {
-        if (e.keyCode == 13) dom_validatebtn.click();
+        if (e.key === "Enter") dom_validatebtn.click();
     }
     dom_nameinput.classList.add("bam-message-focus");
 
@@ -131,7 +131,6 @@ function askForInput(message, callback, options = {placeholder:null, default_val
         if (options.validation_function) {
             errorMessage = options.validation_function(value)
             if (errorMessage) {
-                console.error(errorMessage)
                 dom_error_message.textContent = errorMessage;
                 return; 
             }
