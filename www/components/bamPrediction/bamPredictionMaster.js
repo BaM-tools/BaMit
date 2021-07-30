@@ -28,25 +28,27 @@ class bamPredictionMaster extends bamComponent {
     }
 
     addPrediction(config) {
-        let self = this;
-        const pred = new bamPrediction();
-        // pred.setPredictionName(config.name);
-        pred.onDeletePredictionCallback = function() {
-            self.onDeletePredictionCallback(pred)
-            delete self.predictions[pred.getPredictionName()];
+        const pred_name = config.name
+        let pred
+        if (!this.predictions.hasOwnProperty(pred_name)) {
+            pred = new bamPrediction();
+            // pred.setPredictionName(config.name);
+            pred.onDeletePredictionCallback = () => {
+                this.onDeletePredictionCallback(pred)
+                delete this.predictions[pred.getPredictionName()];
+            }
+            pred.onRenamePredictionCallback = () => {
+                askForPredictionNameInput((new_name) => {
+                    delete this.predictions[pred.getPredictionName()];
+                    pred.setPredictionName(new_name);
+                    this.predictions[new_name] = pred;
+                },
+                Object.keys(this.predictions), pred.getPredictionName())
+            }
+            this.predictions[pred_name] = pred;
+            this.onAddPredictionCallback(pred);
         }
-        pred.onRenamePredictionCallback = function() {
-            askForPredictionNameInput(function(new_name) {
-                delete self.predictions[pred.getPredictionName()];
-                pred.setPredictionName(new_name);
-                self.predictions[pred.getPredictionName()] = pred;
-            },
-            Object.keys(self.predictions), pred.getPredictionName())
-        }
-
-        pred.set(config);
-        this.onAddPredictionCallback(pred);
-        this.predictions[pred.getPredictionName()] = pred;
+        this.predictions[pred_name].set(config)
     }
 
     onChange() {
@@ -64,6 +66,9 @@ class bamPredictionMaster extends bamComponent {
         return config;
     }
     set(config) {
+        console.log("####################################################")
+        console.log(this.predictions)
+        console.log(config.predictions)
         this.inputs = config.inputs;
         if (config.predictions) {
             for (let p in config.predictions) {

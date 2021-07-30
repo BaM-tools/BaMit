@@ -115,10 +115,9 @@ class bamProject {
             this.bam_projectUI.addComponent(this.bam_runcalib);
             // if any change occurs in one of the updstream component
             // check the validity to enable/disable run model button
-            let self = this;
-            let onChangeCallback = function() {
-                self.bam_runcalib.setCalibrationValidity(
-                    self.bam_data.isvalid && self.bam_priors.isvalid && self.bam_remnant.isvalid
+            let onChangeCallback = () => {
+                this.bam_runcalib.setCalibrationValidity(
+                    this.bam_data.isvalid && this.bam_priors.isvalid && this.bam_remnant.isvalid
                 )
             }
             this.bam_data.onChangeCallback = onChangeCallback
@@ -127,28 +126,28 @@ class bamProject {
             
             // define what happen when BaM calibration is run
             // with the callback when BaM calibration is done.
-            this.bam_runcalib.onRunBamCallback = function() {
+            this.bam_runcalib.onRunBamCallback = () => {
                 const BaM_config = {};
-                BaM_config.xtra             = self.bam_xtra.getBaMconfig();
-                BaM_config.parameters       = self.bam_priors.getBaMconfig();
-                BaM_config.calibration_data = self.bam_data.getBaMconfig();
-                BaM_config.remnant_errors   = self.bam_remnant.getBaMconfig();
+                BaM_config.xtra             = this.bam_xtra.getBaMconfig();
+                BaM_config.parameters       = this.bam_priors.getBaMconfig();
+                BaM_config.calibration_data = this.bam_data.getBaMconfig();
+                BaM_config.remnant_errors   = this.bam_remnant.getBaMconfig();
                 BaM_config.project          = {doCalib: true, doPred: false}
                 BaM_config.r = Math.random()
                 // Shiny.setInputValue("run_calibration", BaM_config); 
                 Shiny.onInputChange("run_calibration", BaM_config); 
                 // this sets the default component state (I case it gets outdated)
-                self.bam_priors.setConfig();
-                self.bam_data.setConfig();   
-                self.bam_remnant.setConfig();
+                this.bam_priors.setConfig();
+                this.bam_data.setConfig();   
+                this.bam_remnant.setConfig();
             }
 
-            Shiny.addCustomMessageHandler("calibration_results", function(data) {
+            Shiny.addCustomMessageHandler("calibration_results", (data) => {
                 const names = {
                     parameters: config.xtra.parameters,
                     inputs:     config.xtra.inputs,
                     outputs:    config.xtra.outputs,
-                    // remnant:    self.bam_remnant.get()
+                    // remnant:    this.bam_remnant.get()
                 }
                 if (!config.calib_res) {
                     config.calib_res = {data: data, names: names}
@@ -156,7 +155,9 @@ class bamProject {
                     config.calib_res.data = data;
                     // config.calib_res.names = names;
                 }
-                self.setAfterCalibrationSection(config)
+                // Here, I cannot use config has it might no longer be uptodate...
+                const new_config = this.get()
+                this.setAfterCalibrationSection(new_config)
             })
         }
         if (config.priors && config.data && config.remnant) {
@@ -182,7 +183,8 @@ class bamProject {
     }
     // AFTER CALIBRATION SECTION CONFIGURATION
     setAfterCalibrationSection(config) {
-        consqol
+        console.log("config", config);
+        console.trace()
         let self = this;
         if (!this.bam_results) {
             this.bam_results = new bamResults();
