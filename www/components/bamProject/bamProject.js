@@ -124,8 +124,7 @@ class bamProject {
             this.bam_priors.onChangeCallback = onChangeCallback
             this.bam_remnant.onChangeCallback = onChangeCallback
             
-            // define what happen when BaM calibration is run
-            // with the callback when BaM calibration is done.
+            // define what happen when BaM calibration is asked to run
             this.bam_runcalib.onRunBamCallback = () => {
                 const BaM_config = {};
                 BaM_config.xtra             = this.bam_xtra.getBaMconfig();
@@ -141,23 +140,45 @@ class bamProject {
                 this.bam_data.setConfig();   
                 this.bam_remnant.setConfig();
             }
-
-            Shiny.addCustomMessageHandler("calibration_results", (data) => {
-                const names = {
-                    parameters: config.xtra.parameters,
-                    inputs:     config.xtra.inputs,
-                    outputs:    config.xtra.outputs,
-                    // remnant:    this.bam_remnant.get()
+            // define what happen when BaM calibration is finished
+            this.bam_runcalib.onBaMcalibrationDone = () => {
+                // Shiny.setInputValue("bam_calibration_results", Math.random()); 
+                Shiny.onInputChange("bam_calibration_results", Math.random());
+            }
+            let n_bam_calibration_results = 0
+            Shiny.addCustomMessageHandler("bam_calibration_results", (data) => {
+                if (n_bam_calibration_results>10) {
+                    // FIXME: internationalization
+                    new bamMessage({
+                        message: "An error occured while trying to read BaM result files...",
+                        type: "error",
+                        timeout: 3000,
+                    })
+                    n_bam_calibration_results = 0
+                    return
                 }
-                if (!config.calib_res) {
-                    config.calib_res = {data: data, names: names}
+                if (!data.mcmc) {
+                    n_bam_calibration_results++
+                    setTimeout(() => {
+                        // Shiny.setInputValue("bam_calibration_results", Math.random()); 
+                        Shiny.onInputChange("bam_calibration_results", Math.random());
+                    }, 250)
+                    
                 } else {
-                    config.calib_res.data = data;
-                    // config.calib_res.names = names;
+                    n_bam_calibration_results = 0
+                    const names = {
+                        parameters: config.xtra.parameters,
+                        inputs:     config.xtra.inputs,
+                        outputs:    config.xtra.outputs,
+                        // remnant:    this.bam_remnant.get()
+                    }
+                    const calib_res =  {data: data, names: names}
+                    // Here, I cannot use the original config has it might no longer be uptodate...
+                    const new_config = this.get()
+                    new_config.calib_res = calib_res
+                    this.setAfterCalibrationSection(new_config)
+
                 }
-                // Here, I cannot use config has it might no longer be uptodate...
-                const new_config = this.get()
-                this.setAfterCalibrationSection(new_config)
             })
         }
         if (config.priors && config.data && config.remnant) {
@@ -183,8 +204,8 @@ class bamProject {
     }
     // AFTER CALIBRATION SECTION CONFIGURATION
     setAfterCalibrationSection(config) {
-        console.log("config", config);
-        console.trace()
+        console.log("#########################################")
+        console.log("config", config)
         let self = this;
         if (!this.bam_results) {
             this.bam_results = new bamResults();
@@ -194,6 +215,7 @@ class bamProject {
             this.bam_results.set(config.calib_res);
         } else {
             // only set from xtra component
+            console.error("I think this should never happend...")
             this.bam_results.set({parameters: config.xtra.parameters, outputs: config.xtra.inputs});
         }
         // this.bam_results.set(config.calib_res);
@@ -220,7 +242,9 @@ class bamProject {
             this.bam_predictions.set(config.predictions);
         } else {
             // only set from xtra component
-            this.bam_predictions.set({inputs: config.xtra.inputs});
+            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+            // console.log({inputs: config.xtra.inputs, outputs: config.xtra.outputs})
+            this.bam_predictions.set({inputs: config.xtra.inputs, outputs: config.xtra.outputs})
         }
         this.bam_projectUI.scrollToEnd();
     }
@@ -235,6 +259,7 @@ class bamProject {
         this.bam_projectUI.setModelType(modelid)
     }
     getBaMconfig() {
+        // const config = {project_name: this.name};
         const config = {};
         config.xtra = this.bam_xtra.getBaMconfig();
         if (this.bam_priors) config.parameters = this.bam_priors.getBaMconfig();

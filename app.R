@@ -61,7 +61,7 @@ server <- function(input, output, session) {
         workspace=workspace, run=FALSE)
         # workspace=workspace, consoleOutputFilepath=file.path(workspace, "stdout.log"))
         RBaM_runExe(workspace)
-        session$sendCustomMessage("bam_monitoring_calibration", list(i=0))
+        session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
     })
 
     # ===============================================================
@@ -69,14 +69,37 @@ server <- function(input, output, session) {
     # observeEvent(input$bam_mcmc_monitoring_in, eval(bam_mcmc_monitoring_in_expr))
     observeEvent(input$bam_monitoring_calibration, {
         message(" > bam_monitoring_calibration")
-        i <- RBaM_monitorCalibration(workspace);
-        message("  > progress: ", floor(i), "% ==> ", i);
-        session$sendCustomMessage("bam_monitoring_calibration", list(i=i))
-        if (i==100L) {
-            # FIXME: manage BaM error
-            results <- RBaM_getCalibrationResults(workspace);
-            session$sendCustomMessage("calibration_results", results)
-        }
+        data <- input$bam_monitoring_calibration
+        data$i <- RBaM_monitorCalibration(workspace);
+        message("  > progress: ", floor(data$i), "% ==> ", data$i);
+        print(data)
+        session$sendCustomMessage("bam_monitoring_calibration", data)
+
+        # if (data$i==100L) {
+        #     # FIXME: manage BaM error
+        #     # FIXME: here, results files might not be accessible yet leading to
+        #     # results list being invalid (empty)... I should wait for the files to be ready
+        #     # the safer way to do so would be to have a specific socket call to ask for results
+        #     # which is repeated as long as the results are not ready with a threshold limit...
+        #     # NOTE: the same issue affect prediction results...
+        #     # NOTE: this issue is difficult to reproduce since it only occurs when the end of BaM execution
+        #     # is in sync with the reading of the results files...
+        #     results <- RBaM_getCalibrationResults(workspace);
+        #     session$sendCustomMessage("calibration_results", results)
+        # }
+    })
+
+    # ===============================================================
+    # listener for when BaM is running calibration to moniror BaM progress
+    # observeEvent(input$bam_mcmc_monitoring_in, eval(bam_mcmc_monitoring_in_expr))
+    observeEvent(input$bam_calibration_results, {
+        message(" > bam_calibration_results")
+        # f <- list.files(workspace)
+        # print(f)
+        # unlink(file.path(workspace, f))
+        # print(list.files(workspace))
+        results <- RBaM_getCalibrationResults(workspace);
+        session$sendCustomMessage("bam_calibration_results", results)
     })
 
     # ===============================================================
@@ -106,6 +129,7 @@ server <- function(input, output, session) {
         session$sendCustomMessage("bam_monitoring_prediction", data)
         if (data$i==101L) {
             results <- RBaM_getPredictionResults(workspace, data$config);
+            results$name <- data$config$name
             print("RESULTS!")
             print(paste0("prediction_results: ", data$config$name))
             session$sendCustomMessage(paste0("prediction_results: ", data$config$name), results)

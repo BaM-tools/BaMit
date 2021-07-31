@@ -39,10 +39,9 @@ class bamRun extends bamComponent {
         this.dom_run_btn = document.createElement("button");
         this.dom_run_btn.id = "run"
         bamI.set(this.dom_run_btn).key("run_runbam").text().apply();
-        let self = this;
-        this.dom_run_btn.addEventListener("click", function() {
-            self.onRunBamCallback()
-            self.bamMonitor.onRunBamDoneCallback = self.onRunBamDoneCallback; // FIXME: this is never set... should I remove this?
+        this.dom_run_btn.addEventListener("click", () => {
+            this.onRunBamCallback()
+            this.bamMonitor.onBaMcalibrationDone = this.onBaMcalibrationDone; 
         })
         dom_actions_div.append(this.dom_run_btn);
 
