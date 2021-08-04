@@ -1,0 +1,87 @@
+
+/* .table-viewer-main { */
+    /* position: relative; */
+/* } */
+.table-viewer-data {
+    position: relative;
+    /* max-height: 800px; */
+    /* overflow-y: hidden;
+    overflow-x: auto; */
+    overflow: auto;
+    border: 1px solid black;
+}
+/* .table-viewer-scroll {
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+} */
+.table-viewer-topleft-corner {
+    background-color: lightgray;
+    /* background-color: rgb(241, 102, 102); */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+}
+.table-viewer-headers {
+    
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.table-viewer-row-numbers {
+    display: grid;
+    grid-template-columns: max-content;
+    position: absolute;
+    top: 25px;
+    left: 0;
+}
+
+.table-viewer-table {
+    display: grid;
+    padding-top: 25px;
+}
+
+.table-viewer-content-cell, .table-viewer-header-cell, .table-viewer-rownumber-cell  {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    height: 15px;
+}
+.table-viewer-content-cell {
+    background-color: rgb(255, 255, 255);
+}
+.table-viewer-content-cell[odd] {
+    background-color: rgb(250, 250, 250);
+}
+.table-viewer-header-cell {
+    background-color: lightgray;
+}
+.table-viewer-rownumber-cell {
+    background-color: lightgray;
+    text-align: center;
+}
+
+
+.table-viewer-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25em;
+}
+
+.table-viewer-footer button {
+    cursor: pointer;
+    margin: 0 0.25em;
+}
+.table-viewer-footer input {
+    width: 50px;
+}
+.table-viewer-footer span {
+    margin: 0 0.25em;
+}
