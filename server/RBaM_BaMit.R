@@ -96,9 +96,11 @@ RBaM_configuration <- function(config, workspace) {
 
         X <- processData(config$prediction$inputs)
         predFile <- paste0("Pred_", config$prediction$name, "_config.txt")
-        inputFiles <- paste0('Pred_', config$prediction$name,'_input_', 1:length(X), '.txt')
-        spagFiles <- paste0('Pred_', config$prediction$name,'_output_', outputName,  "_spagh.txt")
-        envFiles  <- paste0('Pred_', config$prediction$name,'_output_', outputName,  "_env.txt")
+        inputFiles <- paste0('pred_', config$prediction$name,'_input_', 1:length(X), '.txt')
+        # spagFiles <- paste0('pred_', config$prediction$name,'_output_', outputName,  "_spagh")
+        # envFiles  <- paste0('pred_', config$prediction$name,'_output_', outputName,  "_env")
+        spagFiles <- paste0(config$prediction$name,'_', outputName,  "_spagh")
+        envFiles  <- paste0(config$prediction$name,'_', outputName,  "_env")
         pred <- RBaM::prediction(X=X, 
                                  data.dir=workspace,
                                  data.fnames=inputFiles, fname=predFile,
@@ -117,7 +119,7 @@ RBaM_configuration <- function(config, workspace) {
     message(" > RBaM configuration: monitoring")
     # 10000 below stands for the number of MCMC samples
     mon_mcmc <- (1 + length(config$parameters) + sum(vapply(config$remnant_errors, function(O) return(length(O$parameters)), numeric(1L)))) * 10000
-    # pred config is still under development
+    # pred config for monitoring and result files retrieval
     mon_pred <- list(n=0, spaghFiles=c(), envFiles=c(), inputFiles=c(), name="")
     if (config$project$doPred) {
         mon_pred <- list(n = nrow(X) * nrow(MCMC), spagFiles=spagFiles, envFiles=envFiles, inputFiles=inputFiles, name=config$prediction$name)

@@ -47,6 +47,7 @@ class bamMonitoring {
                 // destroy monitoring message
                 this.bamMsg.destroy(0);
                 this.bamMsg = null;
+                this.onBaMpredictionDone(data.config)
                 return;
             } else {
                 dom_pb_text.textContent = bamI.getText("run_isrunning") + ": " + Math.round(data.i) + "%";

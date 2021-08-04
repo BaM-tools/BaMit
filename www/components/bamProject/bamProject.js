@@ -22,7 +22,9 @@ class bamProject {
 
         let self = this;
         this.bam_projectUI.onSaveCallback = function() {
-            let config = self.get(); //FIXME
+            let config = self.get(); 
+            console.log("===========================")
+            console.log("config", config)
             if (config.xtra !== undefined) {
                 const a = document.createElement("a");
                 a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(config)));
@@ -231,6 +233,11 @@ class bamProject {
                     // Shiny.setInputValue("run_prediction", config); 
                     Shiny.onInputChange("run_prediction", config); 
                     prediction.setConfig();
+                }
+                prediction.onBaMpredictionDone = (pred_config) => {
+                    console.log("## onBaMpredictionDone ##", pred_config)
+                    // Shiny.setInputValue("bam_prediction_results",  {name: prediction_id, r:Math.random()}); 
+                    Shiny.onInputChange("bam_prediction_results", {config: pred_config, r:Math.random()}); 
                 }
                 self.bam_projectUI.scrollToComponent(prediction);
             }

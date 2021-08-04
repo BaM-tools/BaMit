@@ -15,6 +15,10 @@ class bamResultsFiles {
         this.all_results = all_results
 
     }
+    // setNames(name, all_results) {
+    //     this.name = name
+    //     this.all_results = all_results
+    // }
     getDOM() {
         return this.dom_content;
     }
@@ -38,7 +42,7 @@ class bamResultsFiles {
         }
 
         const zip_file = await zip.generateAsync({type: "blob"})
-        zip_file.name = `${this.all_results}.zip`
+        zip_file.name = `${this.name}_${this.all_results}.zip`
         const zip_dataset = new bamFile(zip_file, {
             download: true
         })
@@ -46,26 +50,19 @@ class bamResultsFiles {
     }
     
     get() {
-        // return {
-        //     mcmc: this.mcmc.data,
-        //     residuals: this.residuals.data, 
-        //     summary: this.summary.data
-        // }
         return this.files
     }
     set(config) {
         // config must be an array!
         this.files = config // a file should look like: {name: "mcmc", data: mcmc_data}
-        // this.mcmc = {name: "mcmc", data: config.mcmc};
-        // this.residuals = {name: "residuals", data: config.residuals};
-        // this.summary = {name: "summary", data: config.summary};
+        console.log("this.files", this.files)
         this.setupDOM()
     }
 }
 
 class bamCalibResultsFiles extends bamResultsFiles {
     constructor() {
-        super(PROJECT_NAME, `${PROJECT_NAME}_all_calibration_results`)
+        super(PROJECT_NAME, `calibration_results`)
     }
     
     get() {
@@ -76,6 +73,8 @@ class bamCalibResultsFiles extends bamResultsFiles {
         }
     }
     set(config) {
+        // console.log("************************************")
+        // console.log("config", config)
         const mcmc = {name: `${this.name}_mcmc`, data: config.mcmc};
         const residuals = {name: `${this.name}_residuals`, data: config.residuals};
         const summary = {name: `${this.name}_summary`, data: config.summary};
@@ -90,23 +89,31 @@ class bamCalibResultsFiles extends bamResultsFiles {
 
 class bamPredResultsFiles extends bamResultsFiles {
     constructor(pred_name) {
-        super(PROJECT_NAME, `${PROJECT_NAME}_${pred_name}_all_pred_results`)
-        this.pred_name = pred_name
+        super(PROJECT_NAME, `${pred_name}_results`)
     }
-    
-    get() {
-        return { 
-            envelops: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_envelops`)[0].data,
-            spagettis: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_spagettis`)[0].data, 
-        }
-    }
+    // get() {
+    //     // return { 
+    //     //     envelops: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_envelops`)[0].data,
+    //     //     spagettis: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_spagettis`)[0].data, 
+    //     // }
+    // }
     set(config) {
-        const envelops = {name: `${this.name}_${this.pred_name}_envelops`, data: config.envelops};
-        const spagettis = {name: `${this.name}_${this.pred_name}_spagettis`, data: config.spagettis};
-        super.set([
-            envelops, 
-            spagettis,
-        ])
+        // const envelops = {name: `${this.name}_${this.pred_name}_envelops`, data: config.envelops};
+        // const spagettis = {name: `${this.name}_${this.pred_name}_spagettis`, data: config.spagettis};
+        // super.set([
+        //     envelops, 
+        //     spagettis,
+        // ])
+        // const files = 
+        // console.log("************************************")
+        // console.log("config", config)
+        const files = []
+        for (let f of config) {
+            f.name = `${this.name}_${f.original_name}`
+            files.push(f)
+        }
+        super.set(files)
+
     }
 }
 

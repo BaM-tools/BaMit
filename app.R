@@ -127,13 +127,13 @@ server <- function(input, output, session) {
         data$i <- RBaM_monitorPrediction(workspace, data$config$name);
         print(str(data))
         session$sendCustomMessage("bam_monitoring_prediction", data)
-        if (data$i==101L) {
-            results <- RBaM_getPredictionResults(workspace, data$config);
-            results$name <- data$config$name
-            print("RESULTS!")
-            print(paste0("prediction_results: ", data$config$name))
-            session$sendCustomMessage(paste0("prediction_results: ", data$config$name), results)
-        }
+        # if (data$i==101L) {
+        #     results <- RBaM_getPredictionResults(workspace, data$config);
+        #     results$name <- data$config$name
+        #     print("RESULTS!")
+        #     print(paste0("prediction_results: ", data$config$name))
+        #     session$sendCustomMessage(paste0("prediction_results: ", data$config$name), results)
+        # }
 
         # message("  > progress: ", floor(i), "% ==> ", i);
         # session$sendCustomMessage("bam_monitoring_prediction", list(i=i, config=input$bam_monitoring_prediction$config))
@@ -142,8 +142,21 @@ server <- function(input, output, session) {
         #     session$sendCustomMessage("calibration_results", results)
         # }
     })
+    observeEvent(input$bam_prediction_results, {
+        message(" > bam_prediction_results")
+        data <- input$bam_prediction_results
+        # f <- list.files(workspace)
+        # print(f)
+        # unlink(file.path(workspace, f))
+        # print(list.files(workspace))
 
+        results <- RBaM_getPredictionResults(workspace, data$config);
+        results$name <- data$config$name
+        print("RESULTS!")
+        print(paste0("prediction_results: ", data$config$name))
+        session$sendCustomMessage(paste0("prediction_results: ", data$config$name), list(config=data$config, results=results))
 
+    })
     # for developing the Result component
     observeEvent(input$ask_for_current_bam_results, eval(ask_for_current_bam_results_expr))
 

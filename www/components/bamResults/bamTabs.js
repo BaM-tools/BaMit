@@ -1,20 +1,3 @@
-class bamTabOLD {
-    constructor(parent) {
-        this.dom_main = document.createElement("div");
-        this.dom_main.className = "bam-tab"
-        this.setParent(parent);
-    }
-    setParent(parent) {
-        parent.append(this.dom_main)
-    }
-    show() {
-        this.dom_main.style.display = "block"
-    }
-    hide() {
-        this.dom_main.style.display = "none"
-    }
-}
-
 class bamTabs {
     constructor() {
         this.dom_main = document.createElement("div");

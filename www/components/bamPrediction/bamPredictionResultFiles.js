@@ -15,10 +15,12 @@ class bamPredictionResultFiles {
     setupDOM() {
         this.dom_wrapper.innerHTML = ""
         const result_files = new bamPredResultsFiles(this.pred_name)
-        result_files.set({
-            envelops: this.config.outputs_env,
-            spagettis: this.config.outputs_spag
-        })
+        // result_files.set({
+        //     envelops: this.config.outputs_env,
+        //     spagettis: this.config.outputs_spag
+        // })
+        result_files.set(this.config.files)
+        this.dom_wrapper.append(result_files.getDOM())
     }
     getDOM() {
         return this.dom_wrapper;

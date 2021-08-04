@@ -35,6 +35,7 @@ class bamPrediction extends bamComponent {
         }
         this.prediction_config.onRunPredictionCallback = function(config) {
             self.onRunPredictionCallback()
+            self.bamMonitor.onBaMpredictionDone = self.onBaMpredictionDone
         }
         this.prediction_config.onChangeCallback = function(status) {
             if (isStatusValid(status)) {
@@ -47,14 +48,15 @@ class bamPrediction extends bamComponent {
 
         // RESULTS
         this.prediction_files = new bamPredictionResultFiles();
-        const prediction_files_tab = this.dom_tabs.newTab();
+        this.prediction_files_tab = this.dom_tabs.newTab();
         // prediction_files_tab.getButton().textContent = "Result files";
-        bamI.set(prediction_files_tab.getButton()).key("prediction_result_tab").text().apply();
-        prediction_files_tab.setContent(this.prediction_files.getDOM());
+        bamI.set(this.prediction_files_tab.getButton()).key("prediction_result_tab").text().apply();
+        this.prediction_files_tab.setContent(this.prediction_files.getDOM());
 
         // monitoring
         this.bamMonitor = new bamMonitoring();
 
+        this.n_pred_results_get_attempt = 0
     }
 
     // setParent is redefined here to handle the custom component name
@@ -87,19 +89,57 @@ class bamPrediction extends bamComponent {
     getPredictionName() {
         return this.prediction_name;
     }
+
     setBAMdoneListener() {
         const listener_name = "prediction_results: "+this.prediction_name
         Shiny.addCustomMessageHandler(listener_name, (data) => {
             console.log("################################################")
             console.log("listener_name", listener_name)
             console.log("data", data)
-            this.prediction_files.set(data)
+            const files = []
+            let error = false
+            if (data.results.outputs_env.length===0 || data.results.outputs_spag.length===0) {
+                error = true
+            }
+            for (let f in data.results.outputs_env) {
+                files.push({original_name: f, data: data.results.outputs_env[f], type: "env"})
+            }
+            for (let f in data.results.outputs_spag) {
+                files.push({original_name: f, data: data.results.outputs_spag[f], type: "spag"})
+            }
+            console.log("files", files)
+            console.log("error", error)
+            if (error) {
+                if (this.n_pred_results_get_attempt>10) {
+                    // FIXME: internationalization
+                    new bamMessage({
+                        message: "An error occured while trying to read BaM result files...",
+                        type: "error",
+                        timeout: 3000,
+                    })
+                    this.n_pred_results_get_attempt = 0
+                    return
+                }
+                setTimeout(()=>{
+                    this.n_pred_results_get_attempt++
+                    // Shiny.setInputValue("bam_prediction_results",  {name: data.config, r:Math.random()}); 
+                    Shiny.onInputChange("bam_prediction_results", {config: data.config, r:Math.random()}); 
+                }, 250)
+            } else {
+                this.n_pred_results_get_attempt = 0
+                this.prediction_files.set({
+                    inputs: this.inputs, 
+                    outputs: this.outputs,
+                    files: files
+                })
+                this.prediction_files_tab.getButton().click()
+            }
         })
     }
 
-    update(inputs) {
-        this.prediction_config.update(inputs);
-    }
+    // update(inputs) {
+    //     this.prediction_config.update(inputs);
+    // }
     onChange() {
 
     }
@@ -112,12 +152,27 @@ class bamPrediction extends bamComponent {
         return config;
     }
     get() {
-        const config = this.prediction_config.get();
-        config.name = this.getPredictionName();
+        const config = {
+            // ...this.prediction_config.get(),
+            config: this.prediction_config.get(),
+            name: this.getPredictionName(),
+            inputs: this.inputs,
+            outputs: this.outputs,
+        }
         return config;
     }
     set(config) {
+        // 
+        console.log("************************")
+        console.log("config", config)
         this.setPredictionName(config.name);
-        this.prediction_config.set(config);
+        this.inputs = config.config.inputs
+        this.outputs = config.config.outputs
+        this.prediction_config.set({
+            inputs: config.config.inputs,
+            datasets: config.config.datasets,
+            pred_type: config.config.pred_type
+        });
+        // this.prediction_results.set(config);
     }
 }

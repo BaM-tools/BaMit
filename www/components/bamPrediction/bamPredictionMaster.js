@@ -3,7 +3,6 @@ class bamPredictionMaster extends bamComponent {
         super();
 
         this.title_key = "prediction_master_title";
-        let self = this;
 
         this.dom_predictionmaster = document.createElement("div")
         this.dom_predictionmaster.className = "bam-prediction-master";
@@ -18,11 +17,11 @@ class bamPredictionMaster extends bamComponent {
         // this.dom_add_new_prediction.textContent = "Add a new prediction";
         this.dom_predictionmaster.append(this.dom_add_new_prediction)
 
-        this.dom_add_new_prediction.addEventListener("click", function() {
-            askForPredictionNameInput(function(value) {
-                self.addPrediction({name: value, inputs: self.inputs});
+        this.dom_add_new_prediction.addEventListener("click", () => {
+            askForPredictionNameInput((value) => {
+                this.addPrediction({name: value, config: {inputs: this.inputs, outputs: this.outputs}});
             },
-            Object.keys(self.predictions), "")
+            Object.keys(this.predictions), "")
         })
         this.predictions = {};
     }
@@ -48,6 +47,8 @@ class bamPredictionMaster extends bamComponent {
             this.predictions[pred_name] = pred;
             this.onAddPredictionCallback(pred);
         }
+        console.log("!!!!!!!!!!!!!!!!!!!")
+        console.log("config", config)
         this.predictions[pred_name].set(config)
     }
 
@@ -58,8 +59,11 @@ class bamPredictionMaster extends bamComponent {
 
     }
     get() {
-        const config = {predictions: {}};
-        config.inputs = this.inputs;
+        const config = {
+            predictions: {},
+            inputs: this.inputs,
+            outputs:  this.outputs
+        };
         for (let p in this.predictions) {
             config.predictions[p] = this.predictions[p].get();
         }
@@ -67,9 +71,10 @@ class bamPredictionMaster extends bamComponent {
     }
     set(config) {
         console.log("####################################################")
-        console.log(this.predictions)
-        console.log(config.predictions)
+        console.log("this.predictions", this.predictions)
+        console.log("config", config)
         this.inputs = config.inputs;
+        this.outputs = config.outputs;
         if (config.predictions) {
             for (let p in config.predictions) {
                 this.addPrediction(config.predictions[p]);

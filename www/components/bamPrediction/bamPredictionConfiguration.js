@@ -85,7 +85,7 @@ class bamPredictionConfiguration {
 
         const dom_pred_mapping_header = document.createElement("div");
         dom_pred_mapping_header.className = "pred-mapping-header";
-        dom_pred_mapping_header.textContent = "Map each input variable to a dataset and column:"
+        dom_pred_mapping_header.textContent = "Map each input variable to a dataset and column:" // FIXME: internationalization
         dom_pred_mapping.append(dom_pred_mapping_header);
 
         this.dom_pred_mapping_inputs = document.createElement("div");
@@ -121,6 +121,7 @@ class bamPredictionConfiguration {
         // **********************************************************
         // run prediction:
         // run button
+        // FIXME manage ready state of component! similarly to the runBaM component I guess
         this.dom_pred_run = document.createElement("div");
         this.dom_pred_run.className = "pred-run";
         this.dom_wrapper.append(this.dom_pred_run);
@@ -174,16 +175,17 @@ class bamPredictionConfiguration {
         return out;
     }
     set(config) {
-        let self = this;
-        this.datasets.set(config.datasets)
+        console.log("..................")
+        console.log("config", config)
+        this.datasets.set(config.datasets) // can be undefined...
         const mapping_options = this.datasets.getDatasetsMappingOptions(false);
         // set inputs
         for (let v in config.inputs) {
             if (!this.inputs[v]) {
                 this.inputs[v] = new bamVariable(false, false);
                 this.inputs[v].setParent(this.dom_pred_mapping_inputs);
-                this.inputs[v].onChangeCallback = function() {
-                    self.onChange();
+                this.inputs[v].onChangeCallback = () => {
+                    this.onChange();
                 }
             }
             // FIXME: this is weird... But I don't find any cleaner solution when a new/updated variable is
