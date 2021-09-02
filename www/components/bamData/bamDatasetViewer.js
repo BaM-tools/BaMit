@@ -18,7 +18,7 @@ class bamDatasetViewer {
         this.dom_wrapper.className = "bam-dataset-viewer";
         this.dom_wrapper.dataset_name = dataset.name; // keep the name of the dataset stored
 
-        // box shadow overlay
+        // box shadow overlay (obsolete?)
         const dom_shadow = document.createElement("div")
         this.dom_wrapper.append(dom_shadow)
         dom_shadow.id = "shadow"
@@ -41,9 +41,15 @@ class bamDatasetViewer {
         dom_title.append(dom_name);
         dom_title.append(dom_destroy);
 
-        const dom_data = this.divVersion(dataset);
+        // const dom_data = this.divVersion(dataset);
+
+
         this.dom_wrapper.append(dom_title);
-        this.dom_wrapper.append(dom_data);
+        // this.dom_wrapper.append(dom_data);
+
+        
+        const table_viewer = new TableViewer(dataset.data)
+        table_viewer.set(this.dom_wrapper, 400)
 
         parent.append(this.dom_wrapper);
 

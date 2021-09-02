@@ -1,22 +1,26 @@
-import "./tableViewer.css"
-export default class TableViewer {
+// import "./tableViewer.css"
+// export default class TableViewer {
+class TableViewer {
     constructor(data) {
         // retrieve data structure
         this.headers = Object.keys(data)
         this.ncol = this.headers.length
         this.nrow = data[this.headers[0]].length
         this.row_numbers = Array(this.nrow).fill(0).map((e, i)=>i+1)
-
+        const MAX_CELL = 1000
         this.n_data = this.ncol * this.nrow
-        this.max_row_per_page = this.nrow
+        this.max_row_per_page = this.nrow - 1
         console.log(this.n_data)
-        if (this.n_data > 2500) {
+        if (this.n_data > MAX_CELL) {
             this.max_row_per_page = 10
-            if (2500 / this.ncol > 10) {
-                this.max_row_per_page = Math.floor(2500 / this.ncol)
-            } 
+            // if (MAX_CELL / this.ncol > 10) {
+                this.max_row_per_page = Math.floor(MAX_CELL / this.ncol)
+            // } 
         }
         console.log(this.max_row_per_page)
+        console.log(this.nrow)
+        console.log(this.row_numbers)
+        console.log(this.ncol)
 
 
         // containers
@@ -70,18 +74,20 @@ export default class TableViewer {
             // this.dom_row_numbers.append(row_number_cell)
         }
         // table cells
-        this.table_cells = Array(this.ncol).fill(0).map(e=>Array(this.nrow))
-        for (let i=0; i < this.nrow; i++) {
-            let odd = i%2?false:true
-            for (let j = 0; j < this.ncol; j++) {
-                let cell = createContentCell(data[this.headers[j]][i])
-                cell.setAttribute("row", i)
-                cell.setAttribute("col", j)
-                if(odd) cell.setAttribute("odd", true)
-                this.table_cells[j][i] = cell
-                // this.dom_table.append(cell)
-            }
-        }
+        // this.table_cells = Array(this.ncol).fill(0).map(e=>Array(this.nrow))
+        // for (let i=0; i < this.nrow; i++) {
+        //     let odd = i%2?false:true
+        //     for (let j = 0; j < this.ncol; j++) {
+        //         let cell = createContentCell(data[this.headers[j]][i])
+        //         cell.setAttribute("row", i)
+        //         cell.setAttribute("col", j)
+        //         if(odd) cell.setAttribute("odd", true)
+        //         this.table_cells[j][i] = cell
+        //         // this.dom_table.append(cell)
+        //     }
+        // }
+        console.log("this.row_number_cells", this.row_number_cells)
+        // console.log("this.table_cells", this.table_cells)
 
         // add scroll listener
         this.dom_data.addEventListener("scroll", (e) => {
@@ -92,19 +98,44 @@ export default class TableViewer {
             this.dom_topleft_corner.style.transform = `translate(${left}px, ${top}px)`
         })
 
+
+        // for (let i=0; i < this.nrow; i++) {
+        //     let odd = i%2?false:true
+        //     for (let j = 0; j < this.ncol; j++) {
+        //         let cell = createContentCell(data[this.headers[j]][i])
+        //         cell.setAttribute("row", i)
+        //         cell.setAttribute("col", j)
+        //         if(odd) cell.setAttribute("odd", true)
+        //         this.table_cells[j][i] = cell
+        //         // this.dom_table.append(cell)
+        //     }
+        // }
+
+
+
         // handle page change
         this.footer.setOnChange((range) => {
             console.log("range", range)
 
             this.dom_row_numbers.innerHTML = ""
             this.dom_table.innerHTML = ""
+            this.table_cells = Array(this.ncol).fill(0).map(e=>Array(range.end - range.start))
+            let k = 0
             // row number cells
             for (let i=range.start-1; i < range.end; i++) {
+                
+                let odd = i%2?false:true
                 this.dom_row_numbers.append(this.row_number_cells[i])
                 for (let j = 0; j < this.ncol; j++) {
-                    this.dom_table.append(this.table_cells[j][i])
-                }
+                    let cell = createContentCell(data[this.headers[j]][i])
+                    cell.setAttribute("row", i)
+                    cell.setAttribute("col", j)
+                    if(odd) cell.setAttribute("odd", true)
+                    this.table_cells[j][k] = cell
 
+                    this.dom_table.append(cell)
+                }
+                k++
             }
             this.update()
         })
@@ -115,9 +146,10 @@ export default class TableViewer {
 
     set(parent, maxHeight) {
         this.dom.style.maxHeight = `${maxHeight}px`;
-        this.dom_data.style.maxHeight = `${maxHeight}px`;
+        this.dom_data.style.maxHeight = `${maxHeight - 50}px`;
         parent.append(this.dom)
         this.update()
+        
     }
 
     update() {
@@ -131,11 +163,12 @@ export default class TableViewer {
             this.dom_header.style.gridTemplateColumns = gridTemplateColumn
             this.dom_table.style.gridTemplateColumns = gridTemplateColumn
             
-
-            this.dom_table.style.paddingLeft = "50px" 
-            this.dom_header.style.paddingLeft = "50px" 
-            this.dom_row_numbers.style.gridTemplateColumns = "50px"
-            this.dom_topleft_corner.style.width = "50px"
+            const offset = "75px"
+            this.dom_table.style.paddingLeft = offset
+            this.dom_header.style.paddingLeft = offset
+            this.dom_row_numbers.style.gridTemplateColumns = offset
+            this.dom_topleft_corner.style.width = offset
+            
         })
     }
 }
@@ -247,6 +280,8 @@ class TableViewerFooter {
             n: rows_per_page,
             max: nrow,
         }
+
+        console.log("this.state", this.state)
         const applyChange = (start) => {
             if (start < 1) start = 1
             if (start > this.state.max - this.state.n) start = this.state.max - this.state.n
@@ -254,6 +289,8 @@ class TableViewerFooter {
             if (start !== this.state.start) {
                 this.state.start = start
                 this.state.end = start + this.state.n
+
+                console.log("this.state", this.state)
                 this.update()
             }
         }
