@@ -56,7 +56,9 @@ class bamPrediction extends bamComponent {
         // monitoring
         this.bamMonitor = new bamMonitoring();
 
+        // getting the results
         this.n_pred_results_get_attempt = 0
+        this.bam_waiting_results = undefined
     }
 
     // setParent is redefined here to handle the custom component name
@@ -89,57 +91,76 @@ class bamPrediction extends bamComponent {
     getPredictionName() {
         return this.prediction_name;
     }
-
+    initWaitingMessage() {
+        this.bam_waiting_results = new bamMessage({
+            message: "please wait while results are getting ready...", // FIXME: internationalization
+            auto_destroy: false 
+        })
+    }
     setBAMdoneListener() {
+        // two listeners:
+        // > one to say computation is done and I am waiting for the results
+        // > one to get the results
         const listener_name = "prediction_results: "+this.prediction_name
+        
+        const sendNewRequest = (config) => {
+            this.n_pred_results_get_attempt++
+            if (this.n_pred_results_get_attempt>12) {
+                if (this.bam_waiting_results) this.bam_waiting_results.destroy(0)
+                new bamMessage({
+                    message: "An error occured while trying to retrieve the results files...",
+                    type: "error",
+                    timeout: 4000,
+                })
+            }
+            setTimeout(() => (
+                Shiny.onInputChange("bam_prediction_results", {config: config, r:Math.random()})
+            ), 250)
+        }
         Shiny.addCustomMessageHandler(listener_name, (data) => {
-            console.log("################################################")
-            console.log("listener_name", listener_name)
-            console.log("data", data)
-            const files = []
-            let error = false
-            if (data.results.outputs_env.length===0 || data.results.outputs_spag.length===0) {
-                error = true
-            }
-            for (let f in data.results.outputs_env) {
-                files.push({original_name: f, data: data.results.outputs_env[f], type: "env"})
-            }
-            for (let f in data.results.outputs_spag) {
-                files.push({original_name: f, data: data.results.outputs_spag[f], type: "spag"})
-            }
-            console.log("files", files)
-            console.log("error", error)
-            if (error) {
-                if (this.n_pred_results_get_attempt>10) {
-                    // FIXME: internationalization
-                    new bamMessage({
-                        message: "An error occured while trying to read BaM result files...",
-                        type: "error",
-                        timeout: 3000,
-                    })
-                    this.n_pred_results_get_attempt = 0
-                    return
-                }
-                setTimeout(()=>{
-                    this.n_pred_results_get_attempt++
-                    // Shiny.setInputValue("bam_prediction_results",  {name: data.config, r:Math.random()}); 
-                    Shiny.onInputChange("bam_prediction_results", {config: data.config, r:Math.random()}); 
-                }, 250)
+            console.log(listener_name, data)
+        
+            if (!data.results) {
+                sendNewRequest(data.config)
             } else {
+                
+                // process results files
+                console.log("Results files are ready!")
+                const files = []
+                for (let key in data.results.inputs) {
+                    files.push({
+                        name: key,
+                        data: data.results.inputs[key], 
+                        type: "input"
+                    })
+                }
+                for (let key in data.results.outputs_env) {
+                    files.push({
+                        name: key,
+                        data: data.results.outputs_env[key], 
+                        type: "env"
+                    })
+                }
+                for (let key in data.results.outputs_spag) {
+                    files.push({
+                        name: key,
+                        data: data.results.outputs_spag[key], 
+                        type: "spag"
+                    })
+                }
                 this.n_pred_results_get_attempt = 0
+            
                 this.prediction_files.set({
                     inputs: this.inputs, 
                     outputs: this.outputs,
                     files: files
-                })
+                }, 0)
                 this.prediction_files_tab.getButton().click()
+                if (this.bam_waiting_results) this.bam_waiting_results.destroy(0)
             }
         })
     }
 
-    // update(inputs) {
-    //     this.prediction_config.update(inputs);
-    // }
     onChange() {
 
     }
@@ -153,7 +174,6 @@ class bamPrediction extends bamComponent {
     }
     get() {
         const config = {
-            // ...this.prediction_config.get(),
             config: this.prediction_config.get(),
             name: this.getPredictionName(),
             inputs: this.inputs,

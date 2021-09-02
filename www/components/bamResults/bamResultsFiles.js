@@ -28,6 +28,7 @@ class bamResultsFiles {
 
         const zip = new JSZip();
         for (let f of this.files) {
+            console.log("f => ", f)
             const dataset = new bamDataset(f.name+".txt", f.data, {
                 preview: () => {
                     this.dom_panel_data.innerHTML = "";
@@ -91,29 +92,8 @@ class bamPredResultsFiles extends bamResultsFiles {
     constructor(pred_name) {
         super(PROJECT_NAME, `${pred_name}_results`)
     }
-    // get() {
-    //     // return { 
-    //     //     envelops: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_envelops`)[0].data,
-    //     //     spagettis: this.files.filter(f=>f.name===`${this.name}_${this.pred_name}_spagettis`)[0].data, 
-    //     // }
-    // }
     set(config) {
-        // const envelops = {name: `${this.name}_${this.pred_name}_envelops`, data: config.envelops};
-        // const spagettis = {name: `${this.name}_${this.pred_name}_spagettis`, data: config.spagettis};
-        // super.set([
-        //     envelops, 
-        //     spagettis,
-        // ])
-        // const files = 
-        // console.log("************************************")
-        // console.log("config", config)
-        const files = []
-        for (let f of config) {
-            f.name = `${this.name}_${f.original_name}`
-            files.push(f)
-        }
-        super.set(files)
-
+        super.set(config)
     }
 }
 

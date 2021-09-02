@@ -41,7 +41,10 @@ class bamFile {
         if (this.actions.download) {
             this.dom_download_btn = document.createElement("button")
             this.dom_download_btn.className = "bam-btn-simple"
-            this.dom_download_btn.addEventListener("click", ()=>this.download())
+            
+            this.dom_download_btn.addEventListener("click", ()=>(
+                this.actions.download instanceof Function ? this.actions.download() : this.download()
+            ))
             bamI.set(this.dom_download_btn).key("datasets_download").text().attr("title").apply();
             // this.dom_download_btn.innerHTML = "<img src=\"/images/download.svg\"/>"
             this.dom_right.append(this.dom_download_btn)

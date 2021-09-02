@@ -105,8 +105,9 @@ class bamMessage {
     simpleMessage(config) {
 
         // **********************************************************
-        config.auto_destroy = true; // by default, the message auto-destroy
-
+        // config.auto_destroy = true; // by default, the message auto-destroy
+        if (config.auto_destroy === undefined ) config.auto_destroy = true;
+        
         // **********************************************************
         // simple text content
         const dom_message = document.createElement("div");

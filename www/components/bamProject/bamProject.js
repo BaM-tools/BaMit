@@ -238,6 +238,7 @@ class bamProject {
                     console.log("## onBaMpredictionDone ##", pred_config)
                     // Shiny.setInputValue("bam_prediction_results",  {name: prediction_id, r:Math.random()}); 
                     Shiny.onInputChange("bam_prediction_results", {config: pred_config, r:Math.random()}); 
+                    prediction.initWaitingMessage()
                 }
                 self.bam_projectUI.scrollToComponent(prediction);
             }

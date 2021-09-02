@@ -5,8 +5,6 @@ RBaM_configuration <- function(config, workspace) {
         message(paste0(" > RBaM configuration: creating wording directory '", workspace, "'"))
         dir.create(workspace, recursive = TRUE)
     }
-    # message(" > RBaM configuration: workspace cleanup")
-    # sapply(list.files(workspace), function(fn) file.remove(file.path(workspace, fn)))
 
     message(" > RBaM configuration: xtraModelInfo")
     str(config$xtra$xtra)
@@ -137,9 +135,6 @@ RBaM_configuration <- function(config, workspace) {
         doPred=config$project$doPred,
         workspace=workspace
     )
-    # print(str(configuration))
-    # message("RETURNED object: ")
-    # print(list(bam=configuration, monitoring=monitoring_config))
     return(list(bam=configuration, monitoring=monitoring_config))
 }
 
@@ -204,25 +199,20 @@ RBaM_getCalibrationResults <- function(workspace) {
 }
 
 RBaM_getPredictionResults <- function(workspace, config) {
-    print(config)
+
     inputs <- list()
     for (f in config$inputFiles) {
-        inputs[[config$inputFiles]] <- RBaM_readResultFile(workspace, config$inputFiles, FALSE)
+        inputs[[strsplit(f, ".", fixed=TRUE)[[1]][1]]] <- RBaM_readResultFile(workspace, f, FALSE)
     }
+
     outputs_env <- list()
     for (f in config$envFiles) {
-        outputs_env[[config$envFiles]] <- RBaM_readResultFile(workspace, config$envFiles, TRUE)
+        outputs_env[[f]] <- RBaM_readResultFile(workspace, f, TRUE)
     }
     outputs_spag<- list()
     for (f in config$spagFiles) {
-        outputs_spag[[config$spagFiles]] <- RBaM_readResultFile(workspace, config$spagFiles, FALSE)
+        outputs_spag[[f]] <- RBaM_readResultFile(workspace,f, FALSE)
     }
-    # mcmc <- RBaM_readResultFile(workspace, "Results_Cooking.txt");
-    # resi <- RBaM_readResultFile(workspace, "Results_Residuals.txt");
-    # summ <- RBaM_readResultFile(workspace, "Results_Summary.txt");
-    # log  <- RBaM_getLogFile(workspace)
-    # mcmc_density <- list();
-    
     return(list(inputs=inputs, outputs_env=outputs_env, outputs_spag=outputs_spag))
 }
 
@@ -245,92 +235,31 @@ RBaM_writeMCMC <- function(data, workspace) {
 }
 
 RBaM_monitorCalibration <- function(workspace) {
-    # log <- RBaM_getLogFile(workspace)
-    # if (length(log)==0L) {
-        progress <- tryCatch({
-            p <- readLines(file.path(workspace, "Config_MCMC.txt.monitor"))
-            ifelse(length(p)>0L, p, "0/100")
-        }, error = function(error) {
-            "0/100"
-        })
-        progress <- strsplit(progress, "/")[[1]]
-        progress <- sapply(progress, as.numeric)
-        i <- unname(progress[1] / progress[2] * 100)[1]
-    # } else {
-    #     i <- 100; 
-    # }
-    # i <- 100; # DEBUG: override everything
+    progress <- tryCatch({
+        p <- readLines(file.path(workspace, "Config_MCMC.txt.monitor"))
+        ifelse(length(p)>0L, p, "0/100")
+    }, error = function(error) {
+        "0/100"
+    })
+    progress <- strsplit(progress, "/")[[1]]
+    progress <- sapply(progress, as.numeric)
+    i <- unname(progress[1] / progress[2] * 100)[1]
     return(i);
 }
-
-# RBaM_monitorCalibrationOLD <- function(workspace, config) {
-#     log <- RBaM_getLogFile(workspace)
-#     if (length(log)==0L) {
-#         n_th <- 14.003 * config + 20004; # empirical estimation of file size when complete
-#         n_ac <- tryCatch(file.size(file.path(workspace, "Results_MCMC.txt")),
-#                          error=function(e) 1, warning=function(w) 1)
-#         i <- n_ac / n_th * 100
-#         i <- ifelse(is.na(i), 1, i)
-#         i <- ifelse(i>100, 99.99, i)
-#     } else {
-#         i <- 100; 
-#     }
-#     # i <- 100; # DEBUG: override everything
-#     return(i);
-# }
 
 RBaM_monitorPrediction <- function(workspace, name) {
-    # log <- RBaM_getLogFile(workspace)
-    # if (length(log)==0L) {
-        progress <- tryCatch({
-            p <- readLines(file.path(workspace, paste0("Pred_", name, "_config.txt.monitor")))
-            ifelse(length(p)>0L, p, "0/100")
-        }, error = function(error) {
-            "0/100"
-        })
-        # print(str(progress))
-        progress <- strsplit(progress, "/")[[1]]
-        # print(str(progress))
-        progress <- sapply(progress, as.numeric)
-        # print(str(progress))
-        i <- unname(progress[1] / progress[2] * 100)[1]
-        if (progress[1] == progress[2] + 1) return(101)
-        # print(str(i))
-    # } else {
-        # i <- 101; 
-    # }
-    # i <- 100; # DEBUG: override everything
+    progress <- tryCatch({
+        p <- readLines(file.path(workspace, paste0("Pred_", name, "_config.txt.monitor")))
+        ifelse(length(p)>0L, p, "0/100")
+    }, error = function(error) {
+        "0/100"
+    })
+    progress <- strsplit(progress, "/")[[1]]
+    progress <- sapply(progress, as.numeric)
+    i <- unname(progress[1] / progress[2] * 100)[1]
+    if (progress[1] == progress[2] + 1) return(101)
     return(i);
 }
-# RBaM_monitorPrediction <- function(workspace, config) {
-#     log <- RBaM_getLogFile(workspace)
-#     fs_spag <- file.size(file.path(workspace, config$config$spagFiles))
-#     fs_env  <- file.size(file.path(workspace, config$config$envFiles))
-#     fs_spag <- sum(sapply(fs_spag, function(e) if (is.na(e)) return(0) else return(e)))
-#     fs_env  <- sum(sapply(fs_env , function(e) if(is.na(e)) return(0) else return(e)))
-#     if (length(log)==0L) {
-#         # n_th    <- 15.218 * config$x + 107; # empirical estimation of file size when complete
-#         n_th    <- 17.144 * config$config$n + 1070; # empirical estimation of file size when complete
-#         n_ac    <- fs_spag + fs_env;
-#         i       <- n_ac / n_th * 100
-#         if (i > 100) i <- 99.99 # should not happen... but just in case
-#         if (i < config$i) i <- config$i
-#         # print(i);        
-#         i <- runif(1, 0, 100);
-#         message("-----")
-#         print(config$config$n)
-#         # print(i)
-#         print(fs_spag)
-#         print(fs_env)
-#     } else {
-#         message("+++++")
-#         print(config$config$n)
-#         print(fs_spag)
-#         print(fs_env)
-#         i <- 100; 
-#     }
-#     return(i);
-# }
 
 randomString <- function(n=10) {
     possible_characters <- LETTERS #c(letters, LETTERS, 0:9)

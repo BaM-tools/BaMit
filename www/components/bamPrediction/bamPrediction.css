@@ -67,3 +67,7 @@
 
 /* ********************************************** */
 /* result tab */
+
+.bam-prediction-result-files {
+    min-height: 30rem;
+}

@@ -5,6 +5,7 @@ server <- function(input, output, session) {
     # ===============================================================
     # Initialize session
     message(rep(".", 20))
+    message(rep(".", 20))
 
     # ***
     # workspace management: (1) remove old workspace (2) create new workspace 
@@ -12,12 +13,16 @@ server <- function(input, output, session) {
     # workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 60 * 24 # number of minutes after which folders should be removed
     workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 1 # number of minutes after which folders should be removed
     delete_success <- unlink(all_workspaces[workspaces_to_delete], recursive=TRUE)
-    workspace <- file.path(getwd(), "www", "bam_workspace", randomString(7))
+    workspace_id <- randomString(7)
+    workspace <- file.path(getwd(), "www", "bam_workspace", workspace_id)
     
     # currently disabled for easier debugging
-    # sessionid <- "HYLPXWD"
+    # workspace_id <- "HYLPXWD"
     # workspace <- file.path(getwd(), "www", "bam_workspace", sessionid)
+    message("WORKSPACE ID: ", workspace_id)
     message("WORKSPACE: ", workspace)
+    message(rep("-", 20))
+
     # ***
     # BaM catalogue: model, distributions (and their parameters)
     catalogue <- RBaM::getCatalogue()
@@ -59,7 +64,6 @@ server <- function(input, output, session) {
         RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
         pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
         workspace=workspace, run=FALSE)
-        # workspace=workspace, consoleOutputFilepath=file.path(workspace, "stdout.log"))
         RBaM_runExe(workspace)
         session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
     })
@@ -74,19 +78,6 @@ server <- function(input, output, session) {
         message("  > progress: ", floor(data$i), "% ==> ", data$i);
         print(data)
         session$sendCustomMessage("bam_monitoring_calibration", data)
-
-        # if (data$i==100L) {
-        #     # FIXME: manage BaM error
-        #     # FIXME: here, results files might not be accessible yet leading to
-        #     # results list being invalid (empty)... I should wait for the files to be ready
-        #     # the safer way to do so would be to have a specific socket call to ask for results
-        #     # which is repeated as long as the results are not ready with a threshold limit...
-        #     # NOTE: the same issue affect prediction results...
-        #     # NOTE: this issue is difficult to reproduce since it only occurs when the end of BaM execution
-        #     # is in sync with the reading of the results files...
-        #     results <- RBaM_getCalibrationResults(workspace);
-        #     session$sendCustomMessage("calibration_results", results)
-        # }
     })
 
     # ===============================================================
@@ -94,10 +85,6 @@ server <- function(input, output, session) {
     # observeEvent(input$bam_mcmc_monitoring_in, eval(bam_mcmc_monitoring_in_expr))
     observeEvent(input$bam_calibration_results, {
         message(" > bam_calibration_results")
-        # f <- list.files(workspace)
-        # print(f)
-        # unlink(file.path(workspace, f))
-        # print(list.files(workspace))
         results <- RBaM_getCalibrationResults(workspace);
         session$sendCustomMessage("bam_calibration_results", results)
     })
@@ -106,15 +93,10 @@ server <- function(input, output, session) {
     # listener for when Run BaM for prediction is clicked
     observeEvent(input$run_prediction, {
         message(" > run_prediction")
-        # print(str(input$run_prediction))
-        # session$sendCustomMessage("bam_monitoring_prediction", list(i=0))
         config <- RBaM_configuration(input$run_prediction, workspace)
         RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
         pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
         workspace=workspace, run=FALSE)
-        message("-------------------------------")
-        print(str(config$monitoring))
-        # session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
         session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
         RBaM_runExe(workspace)
     })
@@ -125,40 +107,20 @@ server <- function(input, output, session) {
         message(" > bam_monitoring_prediction")
         data <- input$bam_monitoring_prediction
         data$i <- RBaM_monitorPrediction(workspace, data$config$name);
-        print(str(data))
         session$sendCustomMessage("bam_monitoring_prediction", data)
-        # if (data$i==101L) {
-        #     results <- RBaM_getPredictionResults(workspace, data$config);
-        #     results$name <- data$config$name
-        #     print("RESULTS!")
-        #     print(paste0("prediction_results: ", data$config$name))
-        #     session$sendCustomMessage(paste0("prediction_results: ", data$config$name), results)
-        # }
-
-        # message("  > progress: ", floor(i), "% ==> ", i);
-        # session$sendCustomMessage("bam_monitoring_prediction", list(i=i, config=input$bam_monitoring_prediction$config))
-        # if (i==100L) {
-        #     results <- RBaM_getCalibrationResults(workspace);
-        #     session$sendCustomMessage("calibration_results", results)
-        # }
     })
     observeEvent(input$bam_prediction_results, {
         message(" > bam_prediction_results")
         data <- input$bam_prediction_results
-        # f <- list.files(workspace)
-        # print(f)
-        # unlink(file.path(workspace, f))
-        # print(list.files(workspace))
-
+        # attempt to get the results
         results <- RBaM_getPredictionResults(workspace, data$config);
-        results$name <- data$config$name
-        print("RESULTS!")
-        print(paste0("prediction_results: ", data$config$name))
+        # success is determined if none of the results/input files list is of length 0
+        success = !any(unlist(lapply(results, length))==0)
+        if (!success) results = FALSE
         session$sendCustomMessage(paste0("prediction_results: ", data$config$name), list(config=data$config, results=results))
-
     })
     # for developing the Result component
-    observeEvent(input$ask_for_current_bam_results, eval(ask_for_current_bam_results_expr))
+    # observeEvent(input$ask_for_current_bam_results, eval(ask_for_current_bam_results_expr))
 
 }
 
@@ -174,3 +136,7 @@ server <- function(input, output, session) {
 # shiny::runApp(getwd(), launch.browser = FALSE)
 NULL
 shinyApp(htmlTemplate(file.path("www",'index.html')), server, options=list(launch.browser = TRUE, port=5003))
+
+
+# bug list: 
+# > autoscroll when switching to max-size mode to list mode with predictions

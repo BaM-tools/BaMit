@@ -5,8 +5,9 @@ class bamPredictionResultFiles {
         this.dom_wrapper = document.createElement("div");
         this.dom_wrapper.className = "bam-prediction-result-files";
                 
-        this.dom_wrapper.textContent = "no results"
-
+        // this.dom_wrapper.textContent = "no results"
+        // this.dom_no_results = document.createElement("div");
+        // this.dom_no_results.textContent = "no results"
 
     }
     setPredictionName(name) {
@@ -15,10 +16,6 @@ class bamPredictionResultFiles {
     setupDOM() {
         this.dom_wrapper.innerHTML = ""
         const result_files = new bamPredResultsFiles(this.pred_name)
-        // result_files.set({
-        //     envelops: this.config.outputs_env,
-        //     spagettis: this.config.outputs_spag
-        // })
         result_files.set(this.config.files)
         this.dom_wrapper.append(result_files.getDOM())
     }

@@ -49,7 +49,6 @@ function areConfigurationsIdentical(config1, config2) {
     return true;
 }
 
-
 /**
  * @description check if a status is valid by recusirvely checking that all items that exist are set to 'true'
  * @param {object} status an object searched recursively for any element to be not 'true'
