@@ -18,7 +18,17 @@ class bamMonitoring {
         this.startTime = null;
 
         Shiny.addCustomMessageHandler("bam_monitoring_calibration", (data) => {
-            if (data.i === 0) {                
+            if (data.i === -1) {   
+                if (this.bamMsg) this.bamMsg.destroy(0);
+                this.bamMsg = null;
+                this.onBaMcalibrationDone(false)
+                new bamMessage({
+                    message: "An error occured while trying to calibrate model. See log tab for details.",
+                    type: "error",
+                    timeout: 5000,
+                }) 
+                return;
+            } else if (data.i === 0) {                
                 this.initMoniroting()
             } else if (data.i === 100) {
                 // destroy monitoring message

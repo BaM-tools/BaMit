@@ -234,6 +234,26 @@ RBaM_writeMCMC <- function(data, workspace) {
                quote=FALSE, sep = " ", na = "-9999", row.names = FALSE, col.names = TRUE);
 }
 
+
+# fp <- file.path(getwd(), "www/bam_workspace", "XETGJUX", "stdout.log")
+# fp <- file.path(getwd(), "www/bam_workspace", "WLUCOZL", "stdout.log")
+# log <- readLines(fp)
+# sapply(log, function(x) {return(grep("files", x, fixed=TRUE))})
+# grep("ERROR", log, fixed=TRUE)
+
+# grep("files", log[11], fixed=TRUE, value=TRUE)
+#  charmatch("f", log[11])
+RBaM_hasError <- function(workspace) {
+    f <- tryCatch({
+        readLines(file.path(workspace, "stdout.log"))
+    }, error = function(error) {
+        ""
+    })
+    print(f)
+    e <- grep("ERROR", f, fixed=TRUE)
+    return(length(e) > 0)
+}
+
 RBaM_monitorCalibration <- function(workspace) {
     progress <- tryCatch({
         p <- readLines(file.path(workspace, "Config_MCMC.txt.monitor"))
