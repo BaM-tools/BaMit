@@ -53,18 +53,12 @@ class bamResults extends bamComponent {
 
     onChange() {
         const config = this.get();
-        console.log("config", config)
-        
         let isValid = this.errorMessageManagement(config);
         if (this.onChangeCallback) this.onChangeCallback(isValid)
-        // this.checkConfigOutdating();
-        // if (this.onChangeCallback) this.onChangeCallback();
-        // return isValid
     }
 
     errorMessageManagement(config) {
         const mcmc  = config.data.mcmc
-        console.log("mcmc", mcmc)
         // must have several keys, and each key should be array of same length > 0
         this.clearMessages("error");
         let isValid = true

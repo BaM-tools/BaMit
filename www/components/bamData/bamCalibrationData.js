@@ -51,8 +51,6 @@ class bamCalibrationData extends bamComponent {
         this.datasets.onDisplayDatasetCallback = function(dataset) {
             let name = dom_viewer.querySelector("#name");
             if (name && name.textContent === dataset.name) return;
-            console.log("**************************")
-            console.log(dataset)
             dom_viewer.innerHTML = "";
             new bamDatasetViewer(dataset, dom_viewer)
         }

@@ -10,17 +10,17 @@ class TableViewer {
         const MAX_CELL = 1000
         this.n_data = this.ncol * this.nrow
         this.max_row_per_page = this.nrow - 1
-        console.log(this.n_data)
+        // console.log(this.n_data)
         if (this.n_data > MAX_CELL) {
             this.max_row_per_page = 10
             // if (MAX_CELL / this.ncol > 10) {
                 this.max_row_per_page = Math.floor(MAX_CELL / this.ncol)
             // } 
         }
-        console.log(this.max_row_per_page)
-        console.log(this.nrow)
-        console.log(this.row_numbers)
-        console.log(this.ncol)
+        // console.log(this.max_row_per_page)
+        // console.log(this.nrow)
+        // console.log(this.row_numbers)
+        // console.log(this.ncol)
 
 
         // containers
@@ -86,7 +86,7 @@ class TableViewer {
         //         // this.dom_table.append(cell)
         //     }
         // }
-        console.log("this.row_number_cells", this.row_number_cells)
+        // console.log("this.row_number_cells", this.row_number_cells)
         // console.log("this.table_cells", this.table_cells)
 
         // add scroll listener
@@ -115,7 +115,7 @@ class TableViewer {
 
         // handle page change
         this.footer.setOnChange((range) => {
-            console.log("range", range)
+            // console.log("range", range)
 
             this.dom_row_numbers.innerHTML = ""
             this.dom_table.innerHTML = ""
@@ -157,7 +157,7 @@ class TableViewer {
         const data_elements = this.header_cells.map((e, i) => {
             return [e, ...this.table_cells[i]]
         })
-        console.log("data_elements", data_elements)
+        // console.log("data_elements", data_elements)
         getSizes(data_elements).then((col_sizes, row_sizes) => {
             let gridTemplateColumn =  col_sizes.reduce((p, c)=>`${p} ${c}px`, "")
             this.dom_header.style.gridTemplateColumns = gridTemplateColumn
@@ -222,8 +222,8 @@ async function getSizes(elements) {
                 row_sizes = row_sizes.map(c=>{
                     return Math.max(...c)
                 })
-                console.log("col_sizes", col_sizes)
-                console.log("row_sizes", row_sizes)
+                // console.log("col_sizes", col_sizes)
+                // console.log("row_sizes", row_sizes)
                 resolve(col_sizes, row_sizes)
             } else {
                 n++
@@ -281,7 +281,7 @@ class TableViewerFooter {
             max: nrow,
         }
 
-        console.log("this.state", this.state)
+        // console.log("this.state", this.state)
         const applyChange = (start) => {
             if (start < 1) start = 1
             if (start > this.state.max - this.state.n) start = this.state.max - this.state.n
@@ -290,7 +290,7 @@ class TableViewerFooter {
                 this.state.start = start
                 this.state.end = start + this.state.n
 
-                console.log("this.state", this.state)
+                // console.log("this.state", this.state)
                 this.update()
             }
         }

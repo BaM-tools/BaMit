@@ -120,13 +120,10 @@ class bamPrediction extends bamComponent {
         }
         Shiny.addCustomMessageHandler(listener_name, (data) => {
             console.log(listener_name, data)
-        
             if (!data.results) {
                 sendNewRequest(data.config)
             } else {
-                
                 // process results files
-                console.log("Results files are ready!")
                 const files = []
                 for (let key in data.results.inputs) {
                     files.push({
@@ -165,18 +162,12 @@ class bamPrediction extends bamComponent {
     onChange() {
         const config = this.get()
         let isValid = this.errorMessageManagement(config.config)
-        console.log("NEW ==> ", config.config)
         this.checkConfigOutdating(config.config, (prevConfig) => {
-            console.log("OLD ==> ", config.config)
             this.prediction_config.set(prevConfig)
         });
         this.prediction_config.setPredictionValidity(isValid)
     }
     errorMessageManagement(config) {
-        console.log("+++++++++++++++++++++++++++++++++++++++++")
-        console.log("config", config)
-        console.log("this.calibration_valid", this.calibration_valid)
-
         this.clearMessages("error");
         let hasError = false;
         let variables_lengths = [];
@@ -202,14 +193,9 @@ class bamPrediction extends bamComponent {
         return !hasError;
     }
     setCalibrationValidity(isValid=false) {
-        // this.prediction_config.setPredictionValidity(isValid && false)
-        console.log("###>>> setCalibrationValidity ==> ", isValid)
         this.calibration_valid = isValid
         this.onChange()
     }
-    // setPredictionValidity(isValid=false) {
-    //     console.log("setPredictionValidity, isValid", isValid)
-    // }
     getValidityStatus() {
 
     }
@@ -229,10 +215,6 @@ class bamPrediction extends bamComponent {
         return config;
     }
     set(config) {
-        // 
-        console.log("************************")
-        console.log("config", config)
-        
         this.setPredictionName(config.name);
         this.inputs = config.config.inputs
         this.outputs = config.config.outputs

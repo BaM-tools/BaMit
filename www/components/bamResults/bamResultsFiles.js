@@ -57,7 +57,6 @@ class bamResultsFiles {
     set(config) {
         // config must be an array!
         this.files = config // a file should look like: {name: "mcmc", data: mcmc_data}
-        console.log("this.files", this.files)
         this.setupDOM()
     }
 }
@@ -75,12 +74,9 @@ class bamCalibResultsFiles extends bamResultsFiles {
         }
     }
     set(config) {
-        // console.log("************************************")
-        // console.log("config", config)
         const mcmc = {name: `${this.name}_mcmc`, data: config.mcmc};
         const residuals = {name: `${this.name}_residuals`, data: config.residuals};
         const summary = {name: `${this.name}_summary`, data: config.summary};
-        
         super.set([
             mcmc, 
             residuals,

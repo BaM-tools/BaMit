@@ -150,13 +150,7 @@ class bamPredictionConfiguration {
     onChange() {
         this.onChangeCallback()
     }
-    // setCalibrationValidity(isValid) {
-    //     // here I should check the validity of the prediction
-    //     this.setPredictionValidity(isValid && false)
-    // }
     setPredictionValidity(isValid=false) {
-        console.log("SETTING PRED CONFIGURATION VALIDITY") 
-        console.log("isValid", isValid)
         if (isValid) {
             this.dom_pred_run_launch.disabled = false;
         } else {
@@ -189,8 +183,6 @@ class bamPredictionConfiguration {
         return out;
     }
     set(config) {
-        console.log("..................")
-        console.log("config", config)
         this.datasets.set(config.datasets) // can be undefined...
         const mapping_options = this.datasets.getDatasetsMappingOptions(false);
         // set inputs

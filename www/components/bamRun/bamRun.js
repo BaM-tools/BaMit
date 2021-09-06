@@ -38,12 +38,8 @@ class bamRun extends bamComponent {
         this.dom_run_btn = document.createElement("button");
         this.dom_run_btn.id = "run"
         bamI.set(this.dom_run_btn).key("run_runbam").text().apply();
-        console.log("###>>> this.dom_run_btn.addEventListener(\"click\", () => {")
         this.dom_run_btn.addEventListener("click", () => {
-            // console.log("this.onBaMcalibrationDone", this.onBaMcalibrationDone)
             this.onRunBamCallback()
-            // this.bamMonitor.onBaMcalibrationDone = this.onBaMcalibrationDone; 
-            // console.log("this.bamMonitor.onBaMcalibrationDone", this.bamMonitor.onBaMcalibrationDone)
         })
         dom_actions_div.append(this.dom_run_btn);
 

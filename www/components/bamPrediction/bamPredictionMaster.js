@@ -47,8 +47,6 @@ class bamPredictionMaster extends bamComponent {
             this.predictions[pred_name] = pred;
             this.onAddPredictionCallback(pred);
         }
-        console.log("!!!!!!!!!!!!!!!!!!!")
-        console.log("config", config)
         this.predictions[pred_name].set(config)
     }
 
@@ -70,9 +68,6 @@ class bamPredictionMaster extends bamComponent {
         return config;
     }
     set(config) {
-        console.log("####################################################")
-        console.log("this.predictions", this.predictions)
-        console.log("config", config)
         this.inputs = config.inputs;
         this.outputs = config.outputs;
         if (config.predictions) {

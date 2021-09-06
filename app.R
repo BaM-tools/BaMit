@@ -98,7 +98,7 @@ server <- function(input, output, session) {
     observeEvent(input$run_prediction, {
         message(" > run_prediction")
         config <- RBaM_configuration(input$run_prediction, workspace)
-        print(str(input$run_prediction))
+        # print(str(input$run_prediction))
         RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
         pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
         workspace=workspace, run=FALSE)

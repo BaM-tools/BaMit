@@ -14,13 +14,10 @@ class bamMonitoring {
         dom_pb.id = "pb";
         dom_pb_container.append(dom_pb);
 
-        // let self = this;
         this.bamMsg = null;
         this.startTime = null;
 
         Shiny.addCustomMessageHandler("bam_monitoring_calibration", (data) => {
-            console.log("this.onBaMcalibrationDone", this.onBaMcalibrationDone)
-            console.log("this.testy", this.testy)
             if (data.i === -1) {   
                 if (this.bamMsg) this.bamMsg.destroy(0);
                 this.bamMsg = null;
