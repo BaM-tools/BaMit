@@ -35,14 +35,15 @@ class bamPrediction extends bamComponent {
         }
         this.prediction_config.onRunPredictionCallback = function(config) {
             self.onRunPredictionCallback()
-            self.bamMonitor.onBaMpredictionDone = self.onBaMpredictionDone
+        //     // self.bamMonitor.onBaMpredictionDone = self.onBaMpredictionDone
         }
-        this.prediction_config.onChangeCallback = function(status) {
-            if (isStatusValid(status)) {
-                self.validated = true;
-            } else {
-                self.validated = false;
-            }
+        this.prediction_config.onChangeCallback = () => {
+            // if (isStatusValid(status)) {
+            //     self.validated = true;
+            // } else {
+            //     self.validated = false;
+            // }
+            this.onChange()
         }
         prediction_config_tab.getButton().click();
 
@@ -54,7 +55,7 @@ class bamPrediction extends bamComponent {
         this.prediction_files_tab.setContent(this.prediction_files.getDOM());
 
         // monitoring
-        this.bamMonitor = new bamMonitoring();
+        // this.bamMonitor = new bamMonitoring(true);
 
         // getting the results
         this.n_pred_results_get_attempt = 0
@@ -162,8 +163,53 @@ class bamPrediction extends bamComponent {
     }
 
     onChange() {
-
+        const config = this.get()
+        let isValid = this.errorMessageManagement(config.config)
+        console.log("NEW ==> ", config.config)
+        this.checkConfigOutdating(config.config, (prevConfig) => {
+            console.log("OLD ==> ", config.config)
+            this.prediction_config.set(prevConfig)
+        });
+        this.prediction_config.setPredictionValidity(isValid)
     }
+    errorMessageManagement(config) {
+        console.log("+++++++++++++++++++++++++++++++++++++++++")
+        console.log("config", config)
+        console.log("this.calibration_valid", this.calibration_valid)
+
+        this.clearMessages("error");
+        let hasError = false;
+        let variables_lengths = [];
+        for (let v in config.inputs) {
+            if (config.inputs[v].mapping.v === "-") {
+                this.addThreePartsErrorMessage("run_input", " "+v+": ", "run_data_missing", v+"_run_data_missing");
+                hasError = true;
+            } 
+            // Here, I need to use the original dataset object to use its methods
+            // it violates the idea that error management should only rely on the config object... :(
+            let v_length = this.prediction_config.datasets.getVariableLength(config.inputs[v].mapping.v);
+            if (v_length !== 0) variables_lengths.push(v_length);
+        }
+        if (Math.min(...variables_lengths) !== Math.max(...variables_lengths) && Math.min(...variables_lengths) !== Infinity) {
+            this.addMessage("run_data_lengthissue", "run_data_lengthissue", "error");
+            hasError = true;
+        }
+        if (!this.calibration_valid) {
+            this.addMessage("run_calib_invalid", "run_calib_invalid", "error");
+            hasError = true
+        }
+        this.isvalid = !hasError;
+        return !hasError;
+    }
+    setCalibrationValidity(isValid=false) {
+        // this.prediction_config.setPredictionValidity(isValid && false)
+        console.log("###>>> setCalibrationValidity ==> ", isValid)
+        this.calibration_valid = isValid
+        this.onChange()
+    }
+    // setPredictionValidity(isValid=false) {
+    //     console.log("setPredictionValidity, isValid", isValid)
+    // }
     getValidityStatus() {
 
     }
@@ -175,6 +221,7 @@ class bamPrediction extends bamComponent {
     get() {
         const config = {
             config: this.prediction_config.get(),
+            results: this.prediction_files.get(),
             name: this.getPredictionName(),
             inputs: this.inputs,
             outputs: this.outputs,
@@ -185,6 +232,7 @@ class bamPrediction extends bamComponent {
         // 
         console.log("************************")
         console.log("config", config)
+        
         this.setPredictionName(config.name);
         this.inputs = config.config.inputs
         this.outputs = config.config.outputs
@@ -193,6 +241,9 @@ class bamPrediction extends bamComponent {
             datasets: config.config.datasets,
             pred_type: config.config.pred_type
         });
-        // this.prediction_results.set(config);
+        this.prediction_files.set(config.results);
+        // this.prediction_files.set()
+        this.onChange()
+        
     }
 }

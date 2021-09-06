@@ -102,10 +102,11 @@ class bamComponent {
     getConfig() {
         return JSON.parse(JSON.stringify(this.uptodate_config)); // make a deep copy
     }
-    setConfig(config=undefined) {
+    setConfig(config=undefined, update=undefined) {
         // if (typeof config === "boolean" && config === false) {
         //     return;
-        // }
+        // }*
+        // let actual_config
         if (config === undefined) {
             // if undefined, set from current config
             config = this.get(); // this assumes the component as a get method.
@@ -122,10 +123,13 @@ class bamComponent {
             // in all othercases, config is an actual config object
         }
         this.uptodate_config = JSON.parse(JSON.stringify(config)); // make a deep copy
-        this.checkConfigOutdating();
+        this.checkConfigOutdating(config, update);
     }
-    checkConfigOutdating() {
-        const config = this.get();
+    checkConfigOutdating(config=undefined, update=undefined) {
+        if (config===undefined) {
+            config = this.get()
+        }
+        // const config = this.get();
         let self = this;
         if (this.uptodate_config && !areConfigurationsIdentical(this.uptodate_config, config)) {
             const dom_message = document.createElement("div");
@@ -141,7 +145,12 @@ class bamComponent {
             // dom_btn.textContent = "Annuler les modifications";
             bamI.set(dom_btn).key("config_has_changed_cancel").text().apply()
             dom_btn.addEventListener("click", function() {
-                self.set(self.getConfig()) // this assumes the component actually has a set method.
+                if (update === undefined) {
+                    self.set(self.getConfig()) // this assumes the component actually has a set method.
+                } else {
+                    update(self.getConfig())
+                }
+                
                 dom_message.remove();
             })
             dom_message.append(dom_txt);

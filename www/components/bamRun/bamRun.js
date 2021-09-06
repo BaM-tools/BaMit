@@ -4,7 +4,6 @@
  * Its purpose is: 
  * (1) display any error in the specification of prior parameter distribution, 
  *     calibration data, and if any, in the prediction experiments
- * (2) display the console output of the last BaM run, handy in case of errors
  * (3) propose options to configure MCMC simulations
  * (4) launch BaM
  * 
@@ -39,15 +38,18 @@ class bamRun extends bamComponent {
         this.dom_run_btn = document.createElement("button");
         this.dom_run_btn.id = "run"
         bamI.set(this.dom_run_btn).key("run_runbam").text().apply();
+        console.log("###>>> this.dom_run_btn.addEventListener(\"click\", () => {")
         this.dom_run_btn.addEventListener("click", () => {
+            // console.log("this.onBaMcalibrationDone", this.onBaMcalibrationDone)
             this.onRunBamCallback()
-            this.bamMonitor.onBaMcalibrationDone = this.onBaMcalibrationDone; 
+            // this.bamMonitor.onBaMcalibrationDone = this.onBaMcalibrationDone; 
+            // console.log("this.bamMonitor.onBaMcalibrationDone", this.bamMonitor.onBaMcalibrationDone)
         })
         dom_actions_div.append(this.dom_run_btn);
 
         // **********************************************************
         // bam monitoring object
-        this.bamMonitor = new bamMonitoring();
+        // this.bamMonitor = new bamMonitoring();
 
     }
 

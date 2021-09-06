@@ -1,7 +1,7 @@
 class bamPredictionConfiguration {
     constructor() {
 
-        let self = this;
+        // let self = this;
 
         // **********************************************************
         // main wrapper
@@ -18,21 +18,21 @@ class bamPredictionConfiguration {
         const dom_pred_action_rename = document.createElement("button")
         dom_pred_action_rename.className = "bam-btn-simple";
         bamI.set(dom_pred_action_rename).key("prediction_rename_btn").text().apply()
-        dom_pred_action_rename.addEventListener("click", function() {
-            self.onRenamePredictionCallback()
+        dom_pred_action_rename.addEventListener("click", () => {
+            this.onRenamePredictionCallback()
         })
         this.dom_pred_actions.append(dom_pred_action_rename)
 
         const dom_pred_action_delete = document.createElement("button")
         dom_pred_action_delete.className = "bam-btn-simple";
         bamI.set(dom_pred_action_delete).key("prediction_delete_btn").text().apply()
-        dom_pred_action_delete.addEventListener("click", function() {
+        dom_pred_action_delete.addEventListener("click", () => {
             new bamMessage({
                 type: "warning",
                 message: bamI.getText("pred_ask_delete"),
                 question: true,
                 yes: function() {
-                    if (self.onDeletePredictionCallback) self.onDeletePredictionCallback();
+                    if (this.onDeletePredictionCallback) this.onDeletePredictionCallback();
                 }
             })
         })  
@@ -47,24 +47,25 @@ class bamPredictionConfiguration {
         // dataset loader/manger
         this.datasets = new bamDatasets();
         this.datasets.setParent(this.dom_pred_datasets)
-        this.datasets.onDisplayDatasetCallback = function(dataset) {
-            let name = self.dom_pred_datasetviewer.querySelector("#name");
+        this.datasets.onDisplayDatasetCallback = (dataset) => {
+            let name = this.dom_pred_datasetviewer.querySelector("#name");
             if (name && name.textContent === dataset.name) return;
-            self.dom_pred_datasetviewer.innerHTML = "";
-            new bamDatasetViewer(dataset, self.dom_pred_datasetviewer)
+            this.dom_pred_datasetviewer.innerHTML = "";
+            new bamDatasetViewer(dataset, this.dom_pred_datasetviewer)
         }
-        this.datasets.onDeleteDatasetCallback = function(to_delete_dataset_name) {
-            let name = self.dom_pred_datasetviewer.querySelector("#name");
+        this.datasets.onDeleteDatasetCallback = (to_delete_dataset_name) => {
+            let name = this.dom_pred_datasetviewer.querySelector("#name");
             if (name && name.textContent === to_delete_dataset_name) {
-                self.dom_pred_datasetviewer.innerHTML = "";
+                this.dom_pred_datasetviewer.innerHTML = "";
             }
         }
-        this.datasets.onChangeCallback = function(datasets) {
-            const mapping_options = self.datasets.getDatasetsMappingOptions(false);
-            for (let input in self.inputs) {
-                // self.inputs[input].updateMappingOptions(datasets);
-                self.inputs[input].updateMappingOptions(mapping_options);
+        this.datasets.onChangeCallback = (datasets) => {
+            const mapping_options = this.datasets.getDatasetsMappingOptions(false);
+            for (let input in this.inputs) {
+                // this.inputs[input].updateMappingOptions(datasets);
+                this.inputs[input].updateMappingOptions(mapping_options);
             }
+            this.onChange()
         }
 
         // dataset viewer
@@ -128,8 +129,8 @@ class bamPredictionConfiguration {
 
         this.dom_pred_run_launch = document.createElement("button");
         bamI.set(this.dom_pred_run_launch).key("prediction_run_btn").text().apply();
-        this.dom_pred_run_launch.addEventListener("click", function() {
-            self.onRunPredictionCallback(self.getBaMconfig());
+        this.dom_pred_run_launch.addEventListener("click", () => {
+            this.onRunPredictionCallback(this.getBaMconfig());
         });
         this.dom_pred_run.append(this.dom_pred_run_launch);
 
@@ -147,7 +148,20 @@ class bamPredictionConfiguration {
     }
 
     onChange() {
-
+        this.onChangeCallback()
+    }
+    // setCalibrationValidity(isValid) {
+    //     // here I should check the validity of the prediction
+    //     this.setPredictionValidity(isValid && false)
+    // }
+    setPredictionValidity(isValid=false) {
+        console.log("SETTING PRED CONFIGURATION VALIDITY") 
+        console.log("isValid", isValid)
+        if (isValid) {
+            this.dom_pred_run_launch.disabled = false;
+        } else {
+            this.dom_pred_run_launch.disabled = true;
+        }
     }
     getBaMconfig() {
         const inputs = {};

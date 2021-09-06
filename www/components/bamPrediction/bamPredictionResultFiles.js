@@ -15,19 +15,21 @@ class bamPredictionResultFiles {
     }
     setupDOM() {
         this.dom_wrapper.innerHTML = ""
-        const result_files = new bamPredResultsFiles(this.pred_name)
-        result_files.set(this.config.files)
-        this.dom_wrapper.append(result_files.getDOM())
+        if (this.config) {
+            const result_files = new bamPredResultsFiles(this.pred_name)
+            result_files.set(this.config.files)
+            this.dom_wrapper.append(result_files.getDOM())
+        }
     }
     getDOM() {
         return this.dom_wrapper;
     }
-    update() {
+    // update() {
 
-    }
-    onChange() {
+    // }
+    // onChange() {
 
-    }
+    // }
     get() {
         return this.config
     }

@@ -51,6 +51,39 @@ class bamResults extends bamComponent {
     }
 
 
+    onChange() {
+        const config = this.get();
+        console.log("config", config)
+        
+        let isValid = this.errorMessageManagement(config);
+        if (this.onChangeCallback) this.onChangeCallback(isValid)
+        // this.checkConfigOutdating();
+        // if (this.onChangeCallback) this.onChangeCallback();
+        // return isValid
+    }
+
+    errorMessageManagement(config) {
+        const mcmc  = config.data.mcmc
+        console.log("mcmc", mcmc)
+        // must have several keys, and each key should be array of same length > 0
+        this.clearMessages("error");
+        let isValid = true
+        const keys = Object.keys(mcmc)
+        if (keys.length === 0) isValid = false
+        if (isValid) {
+            const len = keys.map(k=>mcmc[k].length)
+            for (let l of len) {
+                if (l === 0 || l != len[0]) isValid = false
+            }
+    }
+        if (!isValid) {
+            this.addMessage("run_calib_error", "run_calib_error", "error");
+        }
+        this.isvalid = isValid
+        return isValid
+    }
+    
+
     getBaMconfig() {
         return this.result_files.get().mcmc;
     }
@@ -84,6 +117,7 @@ class bamResults extends bamComponent {
             trace: config.data.mcmc,
             density: config.data.mcmc_density
         })
+        this.onChange()
     }
 }
 

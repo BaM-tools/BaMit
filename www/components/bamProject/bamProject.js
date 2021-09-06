@@ -100,6 +100,9 @@ class bamProject {
     }
     // CALIBRATION SECTION CONFIGURATION
     setCalibrationSection(config) {
+        if (!this.bamMonitoring) {
+            this.bamMonitoring = new bamMonitoring()
+        }
         if (!this.bam_priors) {
             this.bam_priors = new bamPriors();
             this.bam_projectUI.addComponent(this.bam_priors);
@@ -141,12 +144,20 @@ class bamProject {
                 this.bam_priors.setConfig();
                 this.bam_data.setConfig();   
                 this.bam_remnant.setConfig();
+
+                console.log("this.bam_runcalib.onBaMcalibrationDone", this.bam_runcalib.onBaMcalibrationDone)
+
+                this.bamMonitoring.onBaMcalibrationDone = () => {
+                    // Shiny.setInputValue("bam_calibration_results", Math.random()); 
+                    Shiny.onInputChange("bam_calibration_results", Math.random());
+                }
             }
+            // console.log("###>>> this.bam_runcalib.onBaMcalibrationDone")
             // define what happen when BaM calibration is finished
-            this.bam_runcalib.onBaMcalibrationDone = () => {
-                // Shiny.setInputValue("bam_calibration_results", Math.random()); 
-                Shiny.onInputChange("bam_calibration_results", Math.random());
-            }
+            // this.bam_runcalib.onBaMcalibrationDone = () => {
+            //     // Shiny.setInputValue("bam_calibration_results", Math.random()); 
+            //     Shiny.onInputChange("bam_calibration_results", Math.random());
+            // }
             let n_bam_calibration_results = 0
             Shiny.addCustomMessageHandler("bam_calibration_results", (data) => {
                 console.log("DATA ==> ", data)
@@ -186,7 +197,6 @@ class bamProject {
                     const new_config = this.get()
                     new_config.calib_res = calib_res
                     this.setAfterCalibrationSection(new_config)
-
                 }
             })
         }
@@ -213,9 +223,9 @@ class bamProject {
     }
     // AFTER CALIBRATION SECTION CONFIGURATION
     setAfterCalibrationSection(config) {
-        console.log("#########################################")
-        console.log("config", config)
-        let self = this;
+        // console.log("#########################################")
+        // console.log("config", config)
+        // let self = this;
         if (!this.bam_results) {
             this.bam_results = new bamResults();
             this.bam_projectUI.addComponent(this.bam_results);
@@ -227,31 +237,57 @@ class bamProject {
             console.error("I think this should never happend...")
             this.bam_results.set({parameters: config.xtra.parameters, outputs: config.xtra.inputs});
         }
+        // dealing with change in calibration results
+        this.bam_results.onChangeCallback = (isValid) => {
+            console.log("CHECKING NEW CALIBRATION RESULTS")
+            // let isValid = this.bam_results.checkValidity()
+            console.log("isValid", isValid)
+            for (let pred in this.bam_predictions.predictions) {
+                console.log(`Checking pred %c${pred} ...`, "font-weight: bold")
+                // console.log("pred")
+                this.bam_predictions.predictions[pred].setCalibrationValidity(isValid)
+            }
+
+        }
         // this.bam_results.set(config.calib_res);
         if (!this.bam_predictions) {
             this.bam_predictions = new bamPredictionMaster();
             this.bam_projectUI.addComponent(this.bam_predictions);
-            this.bam_predictions.onAddPredictionCallback = function(prediction) {
-                self.bam_projectUI.addComponent(prediction);
-                prediction.onRunPredictionCallback = function() {
-                    const config = self.getBaMconfig();
+            this.bam_predictions.onAddPredictionCallback = (prediction) => {
+                this.bam_projectUI.addComponent(prediction);
+                prediction.setCalibrationValidity(true)
+                prediction.onRunPredictionCallback = () => {
+                    const config = this.getBaMconfig();
                     config.prediction = prediction.getBaMconfig();
                     config.project = {doCalib: false, doPred: true}
+                    config.r = Math.random()
                     // Shiny.setInputValue("run_prediction", config); 
                     console.log(config)
                     Shiny.onInputChange("run_prediction", config); 
-                    prediction.setConfig();
+                    // console.log("OLD ==> ", prediction.prediction_config.get())
+                    
+                    prediction.setConfig(prediction.prediction_config.get(), (prevConfig) => {
+                        prediction.prediction_config.set(prevConfig)
+                    });
+                    // throw "Error"
+                    this.bamMonitoring.onBaMpredictionDone = (pred_config) => {
+                        console.log("## onBaMpredictionDone ##", pred_config)
+                        // Shiny.setInputValue("bam_prediction_results",  {name: prediction_id, r:Math.random()}); 
+                        Shiny.onInputChange("bam_prediction_results", {config: pred_config, r:Math.random()}); 
+                        prediction.initWaitingMessage()
+                    }
                 }
-                prediction.onBaMpredictionDone = (pred_config) => {
-                    console.log("## onBaMpredictionDone ##", pred_config)
-                    // Shiny.setInputValue("bam_prediction_results",  {name: prediction_id, r:Math.random()}); 
-                    Shiny.onInputChange("bam_prediction_results", {config: pred_config, r:Math.random()}); 
-                    prediction.initWaitingMessage()
-                }
-                self.bam_projectUI.scrollToComponent(prediction);
+                // prediction.onBaMpredictionDone = (pred_config) => {
+                //     console.log("## onBaMpredictionDone ##", pred_config)
+                //     // Shiny.setInputValue("bam_prediction_results",  {name: prediction_id, r:Math.random()}); 
+                //     Shiny.onInputChange("bam_prediction_results", {config: pred_config, r:Math.random()}); 
+                //     prediction.initWaitingMessage()
+                // }
+                // prediction.setCalibrationValidity()
+                this.bam_projectUI.scrollToComponent(prediction);
             }
-            this.bam_predictions.onDeletePredictionCallback = function(prediction) {
-                self.bam_projectUI.deleteComponent(prediction);
+            this.bam_predictions.onDeletePredictionCallback = (prediction) => {
+                this.bam_projectUI.deleteComponent(prediction);
             }
         }
         if (config.predictions) {

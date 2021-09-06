@@ -1,5 +1,6 @@
 class bamMonitoring {
-    constructor() {
+    constructor(testy=false) {
+        this.testy=testy
         this.dom_wrapper = document.createElement("div");
         this.dom_wrapper.className = "bam-running";
 
@@ -18,12 +19,14 @@ class bamMonitoring {
         this.startTime = null;
 
         Shiny.addCustomMessageHandler("bam_monitoring_calibration", (data) => {
+            console.log("this.onBaMcalibrationDone", this.onBaMcalibrationDone)
+            console.log("this.testy", this.testy)
             if (data.i === -1) {   
                 if (this.bamMsg) this.bamMsg.destroy(0);
                 this.bamMsg = null;
                 this.onBaMcalibrationDone(false)
                 new bamMessage({
-                    message: "An error occured while trying to calibrate model. See log tab for details.",
+                    message: bamI.getText("run_calib_error"),
                     type: "error",
                     timeout: 5000,
                 }) 

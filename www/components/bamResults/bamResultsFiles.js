@@ -25,6 +25,7 @@ class bamResultsFiles {
 
     async setupDOM() {
         this.dom_panel_files.innerHTML = ""
+        this.dom_panel_data.innerHTML = ""
 
         const zip = new JSZip();
         for (let f of this.files) {
