@@ -1,8 +1,6 @@
 class bamHelp {
     constructor() {
 
-        let self = this;
-
         this.dom_content_main = document.createElement("div");
         this.dom_content_main.className = "bam-help-main";
         const dom_content_header = document.createElement("div");
@@ -10,8 +8,13 @@ class bamHelp {
         const dom_close_btn = document.createElement("button");
         bamI.set(dom_close_btn).key("close").text().apply();
         dom_close_btn.className = "bam-btn-simple";
-        dom_close_btn.addEventListener("click", function() {
-            self.hide();
+        dom_close_btn.addEventListener("click", () => {
+            this.hide();
+            history.pushState("", document.title, window.location.pathname);
+            // let a = document.createElement("a")
+            // a.href = "#"
+            // a.click();
+            
         })
         this.dom_markedcontent = document.createElement("div");
         this.dom_markedcontent.className = "bam-help-content";

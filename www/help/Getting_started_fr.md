@@ -27,7 +27,7 @@ Il est possible de créer un nouveau projet en choisissant un type de modèle ou
 Un projet est constitué d'un ensemble de **composants** qui permette de configurer *BaM*.
 Ces **composants** sont: 
 * **[Définition du modèle](#présentation-des-modèles)** : composant permettant de configurer le modèle choisie lors de la création du projet; c'est le seul composant qui est spécifique au type de modèle choisie.
-* **[Paramètres](#paramètre)** : composant permettant de définit les distributions *a priori* des paramètres du modèle.
+* **[Paramètres](#paramètres)** : composant permettant de définit les distributions *a priori* des paramètres du modèle.
 * **[Données de calage](#données-de-calage)** : composant permettant de spécifier les données à utiliser dans le calage du modèle. 
 * **[Modèle(s) des erreurs réstantes](#modèles-des-erreurs-réstantes)** : composant permettant de modifier les modèles des erreurs restantes associées aux variables de sortie (optionnelle).
 * **[Calibration](#calibration)** : composant permettant de lancer *BaM* pour calibrer le modèle.
