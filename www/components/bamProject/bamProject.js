@@ -149,6 +149,7 @@ class bamProject {
             }
             let n_bam_calibration_results = 0
             Shiny.addCustomMessageHandler("bam_calibration_results", (data) => {
+                console.log("DATA ==> ", data)
                 if (n_bam_calibration_results>10) {
                     // FIXME: internationalization
                     new bamMessage({
@@ -159,7 +160,7 @@ class bamProject {
                     n_bam_calibration_results = 0
                     return
                 }
-                if (!data.mcmc) {
+                if (!data.mcmc && !data.failure) {
                     n_bam_calibration_results++
                     setTimeout(() => {
                         // Shiny.setInputValue("bam_calibration_results", Math.random()); 
@@ -167,6 +168,12 @@ class bamProject {
                     }, 250)
                     
                 } else {
+                    if (data.failure) {
+                        data.mcmc = {}
+                        data.density = {}
+                        data.residuals = {}
+                        data.summary = {}
+                    }
                     n_bam_calibration_results = 0
                     const names = {
                         parameters: config.xtra.parameters,
@@ -231,6 +238,7 @@ class bamProject {
                     config.prediction = prediction.getBaMconfig();
                     config.project = {doCalib: false, doPred: true}
                     // Shiny.setInputValue("run_prediction", config); 
+                    console.log(config)
                     Shiny.onInputChange("run_prediction", config); 
                     prediction.setConfig();
                 }

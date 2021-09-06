@@ -4,7 +4,7 @@ class bamDataset extends bamFile {
         const createFile = (name, data) => {
             // format the data
             const headers = Object.keys(data);
-            const nrow    = data[headers[0]].length;
+            const nrow    = (data[headers[0]]) ? data[headers[0]].length : 0;
             const ncol    = headers.length;
             const file_data    = []
             for (let j=0; j < ncol; j++) {
@@ -59,7 +59,7 @@ class bamDataset extends bamFile {
     getDim() {
         const headers = this.getDataHeaders()
         return {
-            nrow: this.data[headers[0]].length,
+            nrow: (this.data[headers[0]]) ? this.data[headers[0]].length : 0,
             ncol: headers.length
         }
     }

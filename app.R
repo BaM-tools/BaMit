@@ -75,6 +75,9 @@ server <- function(input, output, session) {
         message(" > bam_monitoring_calibration")
         data <- input$bam_monitoring_calibration
         data$i <- RBaM_monitorCalibration(workspace);
+        print("HAS ERROR???")
+        print(RBaM_hasError(workspace))
+        if (RBaM_hasError(workspace)) data$i <- -1
         message("  > progress: ", floor(data$i), "% ==> ", data$i);
         print(data)
         session$sendCustomMessage("bam_monitoring_calibration", data)
@@ -86,6 +89,7 @@ server <- function(input, output, session) {
     observeEvent(input$bam_calibration_results, {
         message(" > bam_calibration_results")
         results <- RBaM_getCalibrationResults(workspace);
+        results$failure <- RBaM_hasError(workspace)
         session$sendCustomMessage("bam_calibration_results", results)
     })
 
@@ -94,6 +98,7 @@ server <- function(input, output, session) {
     observeEvent(input$run_prediction, {
         message(" > run_prediction")
         config <- RBaM_configuration(input$run_prediction, workspace)
+        print(str(input$run_prediction))
         RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
         pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
         workspace=workspace, run=FALSE)

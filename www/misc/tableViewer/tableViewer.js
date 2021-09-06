@@ -5,7 +5,7 @@ class TableViewer {
         // retrieve data structure
         this.headers = Object.keys(data)
         this.ncol = this.headers.length
-        this.nrow = data[this.headers[0]].length
+        this.nrow = data[this.headers[0]] ? data[this.headers[0]].length : 0
         this.row_numbers = Array(this.nrow).fill(0).map((e, i)=>i+1)
         const MAX_CELL = 1000
         this.n_data = this.ncol * this.nrow
@@ -208,7 +208,7 @@ async function getSizes(elements) {
         const reqAniFrmFn = (timestamp) => {
             if (timestamp > start) {
                 let col_sizes = Array(elements.length).fill().map(e=>Array(elements[0].length))
-                let row_sizes = Array(elements[0].length).fill().map(e=>Array(elements.length))
+                let row_sizes = elements[0] ? Array(elements[0].length).fill().map(e=>Array(elements.length)) : Array()
                 for (let i = 0; i < elements.length; i++) {
                     for (let j = 0; j < elements[0].length; j++) {
                         let bound = elements[i][j].getBoundingClientRect()
