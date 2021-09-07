@@ -60,12 +60,16 @@ server <- function(input, output, session) {
     observeEvent(input$run_calibration, {
         message(" > run_calibration")
         config <- RBaM_configuration(input$run_calibration, workspace)
-        message(" > RBaM configuration: Run")
-        RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
-        pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
-        workspace=workspace, run=FALSE)
-        RBaM_runExe(workspace)
-        session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
+        if (is.logical(config) && !config) {
+            session$sendCustomMessage("bam_data_length_error", runif(1))
+        } else {
+            message(" > RBaM configuration: Run")
+            RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
+            pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
+            workspace=workspace, run=FALSE)
+            RBaM_runExe(workspace)
+            session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
+        }
     })
 
     # ===============================================================
@@ -98,12 +102,15 @@ server <- function(input, output, session) {
     observeEvent(input$run_prediction, {
         message(" > run_prediction")
         config <- RBaM_configuration(input$run_prediction, workspace)
-        # print(str(input$run_prediction))
-        RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
-        pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
-        workspace=workspace, run=FALSE)
-        session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
-        RBaM_runExe(workspace)
+        if (is.logical(config) && !config) {
+            session$sendCustomMessage("bam_data_length_error", runif(1))
+        } else {
+            RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
+            pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
+            workspace=workspace, run=FALSE)
+            session$sendCustomMessage("bam_monitoring_prediction", list(i=0, config=config$monitoring$pred))
+            RBaM_runExe(workspace)
+        }
     })
 
     # ===============================================================

@@ -46,7 +46,7 @@ class bamCalibrationData extends bamComponent {
         // > bamDatasetViewer
         // > all bamVariable objects
         
-        this.datasets = new bamDatasets();
+        this.datasets = new bamDatasets(5000000, 1000); // 500 ko
         this.datasets.setParent(dom_datasets);
         this.datasets.onDisplayDatasetCallback = function(dataset) {
             let name = dom_viewer.querySelector("#name");
@@ -61,7 +61,6 @@ class bamCalibrationData extends bamComponent {
             if (name && name.textContent === to_delete_dataset_name) {
                 dom_viewer.innerHTML = "";
             }
-
         };
         this.datasets.onChangeCallback = function() {
             const mapping_options = self.datasets.getDatasetsMappingOptions(false);

@@ -45,7 +45,7 @@ class bamPredictionConfiguration {
         this.dom_wrapper.append(this.dom_pred_datasets);
 
         // dataset loader/manger
-        this.datasets = new bamDatasets();
+        this.datasets = new bamDatasets(5000000, 1000);
         this.datasets.setParent(this.dom_pred_datasets)
         this.datasets.onDisplayDatasetCallback = (dataset) => {
             let name = this.dom_pred_datasetviewer.querySelector("#name");

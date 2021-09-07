@@ -10,10 +10,10 @@
  */
 class bamDatasets {
 
-    constructor() {
+    constructor(max_size=150000, max_rows=1000) {
 
-        let self = this;
-
+        this.max_size = max_size;
+        this.max_rows = max_rows;
         // this an object containing dataset object indexed by the dataset names (filename)
         // a dataset object is a three component object {name, data, dom}
         this.datasets = {};
@@ -48,61 +48,96 @@ class bamDatasets {
 
         // **********************************************************
         // import button and drag & drop action
-
+        const parseFileAndCheckNumberOfRows = (f) => {
+            parseFile(f).then((dataset) => {
+                const colnames = Object.keys(dataset.data)
+                if (colnames.length === 0) {
+                    // FIXME: internationalization
+                    new bamMessage({
+                        message: `An error occured while trying to import the file '${f.name}'. Please check file format.`,
+                        type: "error",
+                        timeout: 5000,
+                    }); 
+                    return
+                }
+                const ncols = colnames.length
+                const nrows = dataset.data[colnames[0]].length
+                if (nrows > this.max_rows) {
+                    // FIXME: internationalization
+                    new bamMessage({
+                        message: `The number of rows in file '${f.name} exceeds the maximum of ${this.max_rows} rows`,
+                        type: "error",
+                        timeout: 5000,
+                    }); 
+                    return
+                }
+                console.log("imported data set info: ")
+                console.log(` > file name:         %c${f.name}`, "font-weight: bold; color: darkred")
+                console.log(` > file size:         %c${f.size}`, "font-weight: bold; color: darkred")
+                console.log(` > number of rows:    %c${nrows}`, "font-weight: bold; color: darkred")
+                console.log(` > number of columns: %c${ncols}`, "font-weight: bold; color: darkred")
+                console.log("dataset", dataset)
+                this.addDataset(dataset);
+            })
+        }
         // file reader and parser
-        function readAndParseFile(files) {
+        const readAndParseFile = (files) => {
             let toobig = [];
             for (let f of files) { // for each file
-                if (f.size < 10000000) { // check size
+                if (f.size < this.max_size) { // check size
                 // if (f.size < 100000000000000) { // check size
-                    if (self.datasets[f.name]) {
+                    if (this.datasets[f.name]) {
                         // if already a file with the same name
                         // warn that it will replace the already existing one
                         new bamMessage({
                             message: bamI.getText("dataset_samefilename_warning"),
                             type: "warning",
                             question: true,
-                            yes: function() {
+                            yes: () => {
                                 // replace dataset
-                                // self.datasets[f.name].dom.remove();
-                                // delete self.datasets[f.name];
-                                // self.parseDataset(f);
-                                self.datasets[f.name].removeDOM();
-                                delete self.datasets[f.name];
-                                // self.parseDataset(f);
-                                parseFile(f).then((dataset) => {
-                                    self.addDataset(dataset);
-                                })
+                                this.datasets[f.name].removeDOM();
+                                delete this.datasets[f.name];
+                                parseFileAndCheckNumberOfRows(f)
+                                // parseFile(f).then((dataset) => {
+                                //     this.addDataset(dataset);
+                                // })
                                 
                             }
                         })
                     } else {
                         // add the dataset
-                        // self.parseDataset(f);
-                        // self.parseDataset(f);
-                        parseFile(f).then((dataset) => {
-                            self.addDataset(dataset);
-                        })
+                        parseFileAndCheckNumberOfRows(f)
+                        // parseFile(f).then((dataset) => {
+                        //     console.log("imported data set info: ")
+                        //     console.log(` > file name:         %c${f.name}`, "font-weight: bold; color: darkred")
+                        //     console.log(` > file size:         %c${f.size}`, "font-weight: bold; color: darkred")
+                        //     console.log(` > number of rows:    %c${dataset.data[Object.keys(dataset.data)[0]].length}`, "font-weight: bold; color: darkred")
+                        //     console.log(` > number of columns: %c${Object.keys(dataset.data).length}`, "font-weight: bold; color: darkred")
+                        //     console.log("dataset", dataset)
+                        //     this.addDataset(dataset);
+                        // })
                     }
                 } else {
                     toobig.push(f)
                 }
             }
             if (toobig.length != 0) {
+                toobig.forEach(e=>console.log(e.name+" => "+e.size))
                 new bamMessage({
                     message: bamI.getText("file_too_big"),
-                    type: "error"
+                    type: "error",
+                    timeout: 5000,
                 });
             }
         }
         // drag & drop
         ["dragenter", "dragover", "dragleave", "drop"].forEach(evt => {
-            self.dom_wrapper.addEventListener(evt, (e) => {
+            this.dom_wrapper.addEventListener(evt, (e) => {
                 e.preventDefault()
                 e.stopPropagation()
             })
         })
-        this.dom_wrapper.addEventListener("drop", function(e) {
+        this.dom_wrapper.addEventListener("drop", (e) => {
             readAndParseFile(e.dataTransfer.files)
         })
 

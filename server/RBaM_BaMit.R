@@ -43,6 +43,14 @@ RBaM_configuration <- function(config, workspace) {
         as.data.frame(V)
     }
     config$calibration_data$inputs <- lapply(config$calibration_data$inputs, processData)
+    
+    message("********** CHECK SIZE! AND REJECT CONFIGURATION IF IT EXCEEDS MAXIMUM")
+    nrows <- unique(unlist(lapply(config$calibration_data$inputs, function(x) {nrow(x)})))
+    print(nrows)
+    if (nrows > 1000) {
+        return(FALSE)
+    }
+    message("**********")
     config$calibration_data$outputs <- lapply(config$calibration_data$outputs, processData)
     calibration_data <- RBaM::dataset(
         X = config$calibration_data$inputs$v,
@@ -80,7 +88,9 @@ RBaM_configuration <- function(config, workspace) {
 
     if(config$project$doPred) {
         message(" > RBaM configuration: prediction")
+        # print(str(config$prediction$inputs))
         config$prediction$inputs <- lapply(config$prediction$inputs, processData)
+        # print(str(config$prediction$inputs))
         outputName <- colnames(config$calibration_data$outputs$v)
         if (config$prediction$pred_type == "total") {
             pred_type <- list(doParametric=TRUE, doStructural=rep(TRUE, nY), priorNsim=NULL)
@@ -93,6 +103,15 @@ RBaM_configuration <- function(config, workspace) {
         }
 
         X <- processData(config$prediction$inputs)
+        message("********** CHECK SIZE! AND REJECT CONFIGURATION IF IT EXCEEDS MAXIMUM")
+        nrows <- unique(unlist(lapply(config$calibration_data$inputs, function(x) {nrow(x)})))
+        print(nrow(X))
+        if (nrow(X) > 1000) {
+            return(FALSE)
+        }
+        message("**********")
+        # print(str(X))
+        # stop()
         predFile <- paste0("Pred_", config$prediction$name, "_config.txt")
         inputFiles <- paste0('pred_', config$prediction$name,'_input_', 1:length(X), '.txt')
         # spagFiles <- paste0('pred_', config$prediction$name,'_output_', outputName,  "_spagh")

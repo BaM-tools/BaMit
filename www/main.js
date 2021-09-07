@@ -67,6 +67,15 @@ Shiny.addCustomMessageHandler("shinier_bam_data", function(data) {
     document.dispatchEvent(new CustomEvent("LoadingState", {detail: "server"}));
 })
 
+// listeners for unique message from server
+Shiny.addCustomMessageHandler("bam_data_length_error", (e) => {
+    // FIXME: internationalization
+    new bamMessage({
+        message: `The maximum number of rows is exceed!`,
+        type: "error",
+        timeout: 5000,
+    }); 
+})
 
 // load the app
 function loadApp() {
