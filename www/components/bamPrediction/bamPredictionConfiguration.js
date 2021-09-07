@@ -29,7 +29,7 @@ class bamPredictionConfiguration {
                 type: "warning",
                 message: bamI.getText("pred_ask_delete"),
                 question: true,
-                yes: function() {
+                yes: () => {
                     if (this.onDeletePredictionCallback) this.onDeletePredictionCallback();
                 }
             })
