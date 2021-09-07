@@ -19,7 +19,6 @@ class bamXtraTextFile extends bamXtra {
         // key used by bamI to set the title of component
         this.title_key = "xtra_textfile_title"; 
         // for callbacks
-        let self = this;
        
         // **********************************************************
         // main content wrapper
@@ -40,18 +39,18 @@ class bamXtraTextFile extends bamXtra {
 
         // textFileEquations object:
         this.textfile_equations = new TextFileEquations()
-        this.textfile_equations.onChangeCallback = function(variables=null) {
+        this.textfile_equations.onChangeCallback = (variables=null) => {
             // when the equation (or output name) changes, update inputsparameters object
-            if (variables) self.textfile_inputsparameters.set(variables);
-            self.onChange();
+            if (variables) this.textfile_inputsparameters.set(variables);
+            this.onChange();
         }
         this.textfile_equations.setParent(dom_equations)
 
         // add equation button
         const dom_equations_add = document.createElement("button");
         bamI.set(dom_equations_add).key("textfile_addeq").text().apply();
-        dom_equations_add.addEventListener("click", function() {
-            self.textfile_equations.addEquation();
+        dom_equations_add.addEventListener("click", () => {
+            this.textfile_equations.addEquation();
         })
         dom_equations.appendChild(dom_equations_add);
         
@@ -74,8 +73,8 @@ class bamXtraTextFile extends bamXtra {
 
         // inputsparameters idendification object
         this.textfile_inputsparameters = new TextFileInputsParameters();
-        this.textfile_inputsparameters.onChangeCallback = function() {
-            self.onChange();
+        this.textfile_inputsparameters.onChangeCallback = () => {
+            this.onChange();
         }
         this.textfile_inputsparameters.setParent(dom_inputsparameters);
 
@@ -86,38 +85,11 @@ class bamXtraTextFile extends bamXtra {
 
         // **********************************************************
         // action when model is validated
-        this.dom_apply_button.addEventListener("click", function() {
-            const config = self.get();
-            self.setConfig(config);
-            self.onValidationCallback(config);
+        this.dom_apply_button.addEventListener("click", () => {
+            const config = this.get();
+            this.setConfig(config);
+            this.onValidationCallback(config);
 
-            // self.onValidationCallback({
-            //     priors: config.parameters,
-            //     data: {inputs: config.inputs, outputs: config.outputs},
-            //     remnant: config.outputs
-            // })
-            // const parameters = {};
-            // for (let v in config.variables) {
-            //     if (config.variables[v] === "p") {
-            //         parameters[v] = {name: v};
-            //     }
-            // }
-            // const inputs = {};
-            // for (let v in config.variables) {
-            //     if (config.variables[v] === "i") {
-            //         inputs[v] = {name: v};
-            //     }
-            // }
-            // const outputs = {};
-            // for (let e of config.equations) {
-            //     if (e.equation != "") {
-            //         let name = e.defined_name;
-            //         if (name === "") {
-            //             name = e.default_name;
-            //         }
-            //         outputs[name] = {name: name};
-            //     }
-            // }
         });
 
         // **********************************************************

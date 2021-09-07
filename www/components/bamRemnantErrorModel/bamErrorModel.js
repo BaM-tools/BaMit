@@ -8,7 +8,6 @@ class bamErrorModel {
     constructor() {
 
         // hard coded available error models
-        let self = this;
         this.error_models = {
             Linear: [
                 {
@@ -64,20 +63,20 @@ class bamErrorModel {
                 opt.key = d;
             }
         }
-        this.dom_model_select.onchange = function(value) {
-            self.parameters = [];
+        this.dom_model_select.onchange = (value) => {
+            this.parameters = [];
             dom_parameters.innerHTML = "";
-            const pars = self.error_models[value.key];
+            const pars = this.error_models[value.key];
             for (let par of pars) {
                 const p = new bamParameter(par.name);
                 p.setParent(dom_parameters)
                 p.set(par)
-                p.onChangeCallback = function(value) {
-                    self.onChange();
+                p.onChangeCallback = (value) => {
+                    this.onChange();
                 }
-                self.parameters.push(p)
+                this.parameters.push(p)
             }
-            self.onChange();
+            this.onChange();
         }
         dom_model.append(this.dom_model_select);
 

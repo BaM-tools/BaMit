@@ -51,24 +51,23 @@ class bamProjectUI {
     }
 
     addComponent(component) {
-        let self = this;
         component.setParent(this.dom_components)
-        component.onMaximizedCallback = function() {
+        component.onMaximizedCallback = () => {
             if (component.maximized) {
-                self.maximized = true;
+                this.maximized = true;
                 component.hidden = false;
-                for (let c of self.components) {
+                for (let c of this.components) {
                     if (c != component) {
                         c.hidden = true;
                     }
                 }
             } else {
-                self.maximized = false;
-                for (let c of self.components) {
+                this.maximized = false;
+                for (let c of this.components) {
                     c.hidden = false;
                 }
-                self.scrollToComponent(component)
-                // self.dom_components.scrollTo({
+                this.scrollToComponent(component)
+                // this.dom_components.scrollTo({
                 //     top: component.getTopLocation(),
                 //     behavior: "smooth"
                 // })
@@ -79,19 +78,19 @@ class bamProjectUI {
         dom_nav.classList.add("clickable-navigation");
         component.addExternalNamedItem(dom_nav);
         // bamI.set(dom_nav).key(component.title_key).text().apply();
-        dom_nav.addEventListener("click", function() {
-            if (self.maximized) {
-                for (let c of self.components) {
+        dom_nav.addEventListener("click", () => {
+            if (this.maximized) {
+                for (let c of this.components) {
                     c.maximized = false;
                 }
                 component.maximized = true;
             } else {
-                // self.dom_components.scrollTo({
+                // this.dom_components.scrollTo({
                 //     top: component.getTopLocation(),
                 //     behavior: "smooth"
                 // })
-                self.scrollToComponent(component)
-                // self.dom_components.scrollTo(0, component.getTopLocation())
+                this.scrollToComponent(component)
+                // this.dom_components.scrollTo(0, component.getTopLocation())
             }
         })
         this.components.push(component);
@@ -108,7 +107,6 @@ class bamProjectUI {
     }
 
     buildPanel() {
-        let self = this;
         // **********************************************************
         // project info
         const dom_projinfo = document.createElement("div");
@@ -150,37 +148,37 @@ class bamProjectUI {
         const dom_savebtn = document.createElement("button");
         dom_savebtn.classList.add("bam-btn-simple");
         bamI.set(dom_savebtn).key("export_project").text().apply();
-        dom_savebtn.addEventListener("click", () => self.onSaveCallback())
+        dom_savebtn.addEventListener("click", () => this.onSaveCallback())
         dom_actions.append(dom_savebtn)
 
         // button reset
         const dom_resetbtn = document.createElement("button");
         dom_resetbtn.classList.add("bam-btn-simple");
         bamI.set(dom_resetbtn).key("reset_project").text().apply();
-        dom_resetbtn.addEventListener("click", () => self.onResetCallback())
+        dom_resetbtn.addEventListener("click", () => this.onResetCallback())
         dom_actions.append(dom_resetbtn)
 
         // button delete
         const dom_deletebtn = document.createElement("button");
         dom_deletebtn.classList.add("bam-btn-simple");
         bamI.set(dom_deletebtn).key("delete_project").text().apply();
-        dom_deletebtn.addEventListener("click", () => self.onDeleteCallback())
+        dom_deletebtn.addEventListener("click", () => this.onDeleteCallback())
         dom_actions.append(dom_deletebtn)
 
         // button rename
         const dom_renamebtn = document.createElement("button");
         dom_renamebtn.classList.add("bam-btn-simple");
         bamI.set(dom_renamebtn).key("rename_project").text().apply();
-        // dom_renamebtn.addEventListener("click", () => self.onRenameCallback())
-        dom_renamebtn.addEventListener("click", function(e) { 
+        // dom_renamebtn.addEventListener("click", () => this.onRenameCallback())
+        dom_renamebtn.addEventListener("click", (e) => { 
             
             // e.stopPropagation();
             askForProjectNameInput(
-                function(value) {
-                    self.onRenameCallback(value)
+                (value) => {
+                    this.onRenameCallback(value)
                     d_pn_2.textContent = " : " + value;
                 },
-                self.name
+                this.name
             )
          });
          dom_actions.append(dom_renamebtn)

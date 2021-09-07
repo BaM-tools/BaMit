@@ -41,13 +41,12 @@ When the `set` function is called, there are several steps:
 Here is the actual code of the function:
 ```js
 set(config) {
-    let self = this;
     for (let p in config) {
         if (!this.parameters[p]) {
             this.parameters[p] = new bamParameter(); 
             this.parameters[p].setParent(this.dom_bam_priors);
-            this.parameters[p].onChangeCallback = function() {
-                self.onChange();
+            this.parameters[p].onChangeCallback = ()  => {
+                this.onChange();
             }
         }
         this.parameters[p].set(config[p]);

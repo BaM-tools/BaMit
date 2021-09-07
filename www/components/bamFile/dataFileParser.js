@@ -40,7 +40,6 @@ class dataFileParser {
                             data[header[j]][i - (1 - anyFloat)] = tmp;
                         }
                     }
-                    // self.addDataset({name: file.name, data: data});
                     resolve({name: file.name, data: data})
                 }, 
                 error: function(error) {
@@ -85,7 +84,6 @@ async function parseFile(file, config={}) {
                         data[header[j]][i - (1 - anyFloat)] = tmp;
                     }
                 }
-                // self.addDataset({name: file.name, data: data});
                 resolve({name: file.name, data: data})
             }, 
             error: function(error) {

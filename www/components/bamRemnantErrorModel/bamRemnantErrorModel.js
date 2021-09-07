@@ -123,13 +123,12 @@ class bamRemnantErrorModel extends bamComponent {
     }
 
     set(config) {
-        let self = this;
         for (let o in config) {
             if (!this.outputs[o]) {
                 this.outputs[o] = new bamErrorModel(o);
                 this.outputs[o].setParent(this.dom_remnant_errors_content);
-                this.outputs[o].onChangeCallback = function() {
-                    self.onChange();
+                this.outputs[o].onChangeCallback = () => {
+                    this.onChange();
                 }
             }
             this.outputs[o].set(config[o]);

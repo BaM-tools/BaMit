@@ -20,7 +20,6 @@ class bamProject {
         this.bam_projectUI = new bamProjectUI();
         this.bam_projectUI.setParent(this.dom_wrapper);
 
-        // let self = this;
         this.bam_projectUI.onSaveCallback = () => {
             let config = this.get(); 
             if (config.xtra !== undefined) {
@@ -149,7 +148,7 @@ class bamProject {
             let n_bam_calibration_results = 0
             Shiny.addCustomMessageHandler("bam_calibration_results", (data) => {
                 console.log("bam_calibration_results", data)
-                if (n_bam_calibration_results>30) {
+                if (n_bam_calibration_results>25) {
                     // FIXME: internationalization
                     new bamMessage({
                         message: "An error occured while trying to read BaM result files...",

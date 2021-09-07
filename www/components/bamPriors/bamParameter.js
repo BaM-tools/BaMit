@@ -15,8 +15,6 @@
 class bamParameter {
     constructor() {
         
-        let self = this;
-
         // parameter name
         const dom_name = document.createElement("div");
         dom_name.id = "name";
@@ -28,8 +26,8 @@ class bamParameter {
         const dom_initial_guess = document.createElement("input");
         dom_initial_guess.id = "initial";
         bamI.set(dom_initial_guess).key("priors_initial").attr("placeholder").apply();
-        dom_initial_guess.addEventListener("keyup", function() {
-            self.onChange();
+        dom_initial_guess.addEventListener("keyup", () => {
+            this.onChange();
         })
 
         // distribution picker
@@ -50,14 +48,14 @@ class bamParameter {
         dom_dist_parameters.id = "dist-parameters";
         for (let k = 0; k < 3; k++) {
             const dom_dist_par = document.createElement("input");
-            dom_dist_par.addEventListener("keyup", function() {
-                self.onChange();
+            dom_dist_par.addEventListener("keyup", () => {
+                this.onChange();
             })
             dom_dist_parameters.append(dom_dist_par);
         }
 
         // on distribution change:
-        dom_dist.onchange = function(dist) {
+        dom_dist.onchange = (dist) => {
             let p = BaMCatalogue.parameters[dist.key];
             for (let k = 0; k < 3; k++) {
                 if (k < p.length) {
@@ -67,7 +65,7 @@ class bamParameter {
                     dom_dist_parameters.children[k].style.display = "none"
                 }
             }
-            self.onChange();
+            this.onChange();
         }
         dom_dist.setSelectedByKey("FlatPrior");
 

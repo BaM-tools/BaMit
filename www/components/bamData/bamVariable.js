@@ -19,8 +19,6 @@ class bamVariable {
         // u     => non-systematic errors
         // b     => systematic errors (b + b.index)
 
-        let self = this; // for callbacks
-
         // variable name
         // this.name = name;
 
@@ -47,8 +45,8 @@ class bamVariable {
         dom_uncertainty_button.id = "uncertainty_btn";
         dom_uncertainty_button.className = "bam-btn-simple"
         bamI.set(dom_uncertainty_button).key("variable_withuncertainty").text().apply();
-        dom_uncertainty_button.addEventListener("click", function() {
-            self.toggleUncertainty();
+        dom_uncertainty_button.addEventListener("click", () => {
+            this.toggleUncertainty();
         }); 
         this.dom_wrapper.append(dom_uncertainty_button);
 
@@ -116,10 +114,10 @@ class bamVariable {
         this.dom_bindex_select.setSelectedByKey("-");
 
         // to react to any change and verify validity state, add these callbacks
-        this.dom_value_select.onchange = function() { self.onChange() };
-        this.dom_u_select.onchange = function() { self.onChange() };
-        this.dom_b_select.onchange = function() { self.onChange() };
-        this.dom_bindex_select.onchange = function() { self.onChange() };
+        this.dom_value_select.onchange = ()  => { this.onChange() };
+        this.dom_u_select.onchange = () => { this.onChange() };
+        this.dom_b_select.onchange = () => { this.onChange() };
+        this.dom_bindex_select.onchange = () => { this.onChange() };
 
         // display or not uncertainty
         if (!any_u) {

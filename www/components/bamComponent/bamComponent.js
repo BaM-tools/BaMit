@@ -39,21 +39,9 @@ class bamComponent {
         this.dom_wrapper.appendChild(this.dom_messages);
 
         // event listeners
-        let self = this;
-        dom_action_maximized.addEventListener("click", function() {
-            self.maximized = !self.maximized
+        dom_action_maximized.addEventListener("click", () => {
+            this.maximized = !this.maximized
         })
-        // this.dom_navigation.addEventListener("click", function() {
-        //     if (self.onNavigationCallback) self.onNavigationCallback();
-        // })
-        // this.dom_wrapper.addEventListener("mouseenter", function() {
-        //     if (self.onMouseEnterCallback) self.onMouseEnterCallback();
-        // })
-        // this.dom_wrapper.addEventListener("mouseleave", function() {
-        //     if (self.onMouseLeaveCallback) self.onMouseLeaveCallback();
-        // })
-
-        // this.externalItems = [];
 
         this.uptodate_config = undefined;
     }
@@ -129,8 +117,6 @@ class bamComponent {
         if (config===undefined) {
             config = this.get()
         }
-        // const config = this.get();
-        let self = this;
         if (this.uptodate_config && !areConfigurationsIdentical(this.uptodate_config, config)) {
             const dom_message = document.createElement("div");
             dom_message.style.display = "flex";
@@ -144,11 +130,11 @@ class bamComponent {
             dom_btn.className = "bam-btn-simple";
             // dom_btn.textContent = "Annuler les modifications";
             bamI.set(dom_btn).key("config_has_changed_cancel").text().apply()
-            dom_btn.addEventListener("click", function() {
+            dom_btn.addEventListener("click", () => {
                 if (update === undefined) {
-                    self.set(self.getConfig()) // this assumes the component actually has a set method.
+                    this.set(this.getConfig()) // this assumes the component actually has a set method.
                 } else {
-                    update(self.getConfig())
+                    update(this.getConfig())
                 }
                 
                 dom_message.remove();

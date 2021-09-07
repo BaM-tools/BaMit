@@ -1,8 +1,7 @@
 class bamPrediction extends bamComponent {
     constructor() {
         super();
-        let self = this;
-        
+
 
         // **********************************************************
         // editable title
@@ -27,22 +26,17 @@ class bamPrediction extends bamComponent {
         // prediction_config_tab.getButton().textContent = "Configuration";
         bamI.set(prediction_config_tab.getButton()).key("prediction_config_tab").text().apply();
         prediction_config_tab.setContent(this.prediction_config.getDOM());
-        this.prediction_config.onDeletePredictionCallback = function() {
-            self.onDeletePredictionCallback();
+        this.prediction_config.onDeletePredictionCallback = () => {
+            this.onDeletePredictionCallback();
         }
-        this.prediction_config.onRenamePredictionCallback = function() {
-            self.onRenamePredictionCallback();
+        this.prediction_config.onRenamePredictionCallback = () => {
+            this.onRenamePredictionCallback();
         }
-        this.prediction_config.onRunPredictionCallback = function(config) {
-            self.onRunPredictionCallback()
-        //     // self.bamMonitor.onBaMpredictionDone = self.onBaMpredictionDone
+        this.prediction_config.onRunPredictionCallback = () => {
+            
+            this.onRunPredictionCallback()
         }
         this.prediction_config.onChangeCallback = () => {
-            // if (isStatusValid(status)) {
-            //     self.validated = true;
-            // } else {
-            //     self.validated = false;
-            // }
             this.onChange()
         }
         prediction_config_tab.getButton().click();

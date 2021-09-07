@@ -1,8 +1,6 @@
 class bamPredictionConfiguration {
     constructor() {
 
-        // let self = this;
-
         // **********************************************************
         // main wrapper
         this.dom_wrapper = document.createElement("div");

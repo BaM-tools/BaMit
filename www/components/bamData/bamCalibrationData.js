@@ -13,8 +13,6 @@ class bamCalibrationData extends bamComponent {
     constructor() {
         super();
 
-        let self = this;
-
         // objects containing the current input and output variables
         this.inputs = {};
         this.outputs = {};
@@ -62,15 +60,15 @@ class bamCalibrationData extends bamComponent {
                 dom_viewer.innerHTML = "";
             }
         };
-        this.datasets.onChangeCallback = function() {
-            const mapping_options = self.datasets.getDatasetsMappingOptions(false);
-            for (let v in self.inputs) {
-                self.inputs[v].updateMappingOptions(mapping_options);
+        this.datasets.onChangeCallback = () => {
+            const mapping_options = this.datasets.getDatasetsMappingOptions(false);
+            for (let v in this.inputs) {
+                this.inputs[v].updateMappingOptions(mapping_options);
             }
-            for (let v in self.outputs) {
-                self.outputs[v].updateMappingOptions(mapping_options);
+            for (let v in this.outputs) {
+                this.outputs[v].updateMappingOptions(mapping_options);
             }
-            self.onChange();
+            this.onChange();
         }
 
         // **********************************************************
@@ -235,15 +233,14 @@ class bamCalibrationData extends bamComponent {
         // set dataset
         this.datasets.set(config.datasets)
         const mapping_options = this.datasets.getDatasetsMappingOptions(false);
-        let self = this;
         // set inputs
         const dom_inputs = this.dom_mapping.querySelector("#inputs"); // FIXME: should be class property!
         for (let v in config.inputs) {
             if (!this.inputs[v]) {
                 this.inputs[v] = new bamVariable(false, false);
                 this.inputs[v].setParent(dom_inputs);
-                this.inputs[v].onChangeCallback = function() {
-                    self.onChange();
+                this.inputs[v].onChangeCallback = () => {
+                    this.onChange();
                 }
             }
             // FIXME: this is weird... But I don't find any cleaner solution when a new/updated variable is
@@ -265,8 +262,8 @@ class bamCalibrationData extends bamComponent {
             if (!this.outputs[v]) {
                 this.outputs[v] = new bamVariable(true, false);
                 this.outputs[v].setParent(dom_outputs);
-                this.outputs[v].onChangeCallback = function() {
-                    self.onChange();
+                this.outputs[v].onChangeCallback = () => {
+                    this.onChange();
                 }
             }
             if (!config.outputs[v].mapping_options) {

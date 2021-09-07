@@ -13,7 +13,6 @@
 class TextFileEquation {
     constructor(eq_id) {
 
-        let self = this; 
         // **********************************************************
         // Equation output name / label
         const output_name = "Y" + eq_id;
@@ -43,8 +42,8 @@ class TextFileEquation {
             }
             return true;
         }
-        dom_eq_output.addEventListener("input", function(e) {
-            self.onChangeCallback();
+        dom_eq_output.addEventListener("input", (e) => {
+            this.onChangeCallback();
         })
 
         // **********************************************************
@@ -67,8 +66,8 @@ class TextFileEquation {
             }
             return true;
         }
-        dom_eq.addEventListener("input", function(e) {
-            self.onChangeCallback();
+        dom_eq.addEventListener("input", (e) => {
+            this.onChangeCallback();
         })
 
         // **********************************************************
@@ -76,8 +75,8 @@ class TextFileEquation {
         const dom_del_btn = document.createElement("button");
         dom_del_btn.id = "delete";
         dom_del_btn.textContent = "-";
-        dom_del_btn.addEventListener("click", function() {
-            self.destroy();
+        dom_del_btn.addEventListener("click", () => {
+            this.destroy();
         })
 
         // **********************************************************

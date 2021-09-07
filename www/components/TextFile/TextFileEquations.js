@@ -23,21 +23,20 @@ class TextFileEquations {
         // setTimeout object used to limit request load on server when equations change
         this.timeout = null; 
 
-        let self = this;
         // **********************************************************
         // Receive processed equations and retrieved variables (i.e. parameters or inputs of the equations) from R server
-        Shiny.addCustomMessageHandler("textfile_equation_changed", function(data) {
+        Shiny.addCustomMessageHandler("textfile_equation_changed", (data) => {
             if(!data.variables) data.variables = []
             data.variables = bamProcessArrayFromR(data.variables)
             data.valid = bamProcessArrayFromR(data.valid)
             for (let k = 0; k < data.valid.length; k++) {
-                if (self.textFileEquations[k]) self.textFileEquations[k].setValidity(data.valid[k])
+                if (this.textFileEquations[k]) this.textFileEquations[k].setValidity(data.valid[k])
             }
-            self.variables = {};
+            this.variables = {};
             for (let k = 0; k < data.variables.length; k++) {
-                self.variables[data.variables[k]] = "u";
+                this.variables[data.variables[k]] = "u";
             }
-            self.onChangeCallback(self.variables);
+            this.onChangeCallback(this.variables);
         })
     }
 
@@ -53,14 +52,13 @@ class TextFileEquations {
         this.textFileEquations[index] = new TextFileEquation(index + 1);
         this.textFileEquations[index].setParent(this.dom_wrapper);
         this.textFileEquations[index].setFocus(); // set the focus to the new equation
-        let self = this;
-        this.textFileEquations[index].onDestroyCallback = function() {
-            self.textFileEquations[index] = undefined;
-            self.onChange();
+        this.textFileEquations[index].onDestroyCallback = () => {
+            this.textFileEquations[index] = undefined;
+            this.onChange();
         };
-        this.textFileEquations[index].onChangeCallback = function() {
-            self.onChangeCallback(); // with no arguments
-            self.onChange();
+        this.textFileEquations[index].onChangeCallback = () => {
+            this.onChangeCallback(); // with no arguments
+            this.onChange();
         }
     }
 
@@ -71,12 +69,11 @@ class TextFileEquations {
             clearTimeout(this.timeout);
             this.timeout = null;
         }
-        let self = this;
-        this.timeout = setTimeout(function() {
+        this.timeout = setTimeout(() => {
             let eqs = [];
-            for (let k = 0; k < self.textFileEquations.length; k++) {
-                if (self.textFileEquations[k]) {
-                    eqs.push(self.textFileEquations[k].get().equation);
+            for (let k = 0; k < this.textFileEquations.length; k++) {
+                if (this.textFileEquations[k]) {
+                    eqs.push(this.textFileEquations[k].get().equation);
                 } else {
                     eqs.push("");
                 }

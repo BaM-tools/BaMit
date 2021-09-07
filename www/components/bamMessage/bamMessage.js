@@ -89,10 +89,9 @@ class bamMessage {
         if (config.position) this.dom_wrapper.setAttribute(config.position, "") 
         // look for any object expecting to desctroy message when  clicked
         const dom_destroyers = config.custom.querySelectorAll(".bam-message-destroy")
-        let self = this;
         for (let k = 0; k < dom_destroyers.length; k++) {
-            dom_destroyers[k].addEventListener("click", function() {
-                self.destroy(0)
+            dom_destroyers[k].addEventListener("click", () => {
+                this.destroy(0)
             })
         }
         // disable page
@@ -138,13 +137,12 @@ class bamMessage {
             bamI.set(dom_no_button).key("no").text().apply()
             this.dom_wrapper.appendChild(dom_yes_button);
             this.dom_wrapper.appendChild(dom_no_button);
-            let self = this;
-            dom_yes_button.addEventListener("click", function() {
-                self.destroy(0);
+            dom_yes_button.addEventListener("click", () => {
+                this.destroy(0);
                 if (config.yes) config.yes(); // config.yes must be a callback
             });
-            dom_no_button.addEventListener("click", function() {
-                self.destroy(0);
+            dom_no_button.addEventListener("click", () => {
+                this.destroy(0);
                 if (config.no) config.no(); // config.no must be a callback
             });
         }
@@ -167,10 +165,9 @@ class bamMessage {
     }
 
     destroy(timeout) {
-        let self = this;
-        setTimeout(function() {
-            self.deleteDisableDiv();
-            self.dom_wrapper.remove()
+        setTimeout(() => {
+            this.deleteDisableDiv();
+            this.dom_wrapper.remove()
         }, timeout)
 
     }

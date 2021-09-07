@@ -11,14 +11,13 @@ class bamResultsParameters {
         // FIXME: this could also be implemented as a tab system (but horizontal instead of vertical)
         //        the tab system (bamTabs.js) should therefore be more generic if used here as well.
         // select density or trace plots
-        let self = this;
         const dom_trace_btn = document.createElement("div");
         dom_trace_btn.classList.add("select-btn")
         bamI.set(dom_trace_btn).key("display_trace").text().apply();
         dom_trace_btn.setAttribute("selected", "")
-        dom_trace_btn.addEventListener("click", function() {
+        dom_trace_btn.addEventListener("click", () => {
             if (!dom_trace_btn.hasAttribute("selected")) {
-                self.plotTrace();
+                this.plotTrace();
                 dom_trace_btn.setAttribute("selected", "")
                 dom_density_btn.removeAttribute("selected")
 
@@ -28,9 +27,9 @@ class bamResultsParameters {
         const dom_density_btn = document.createElement("div");
         dom_density_btn.classList.add("select-btn")
         bamI.set(dom_density_btn).key("display_density").text().apply();
-        dom_density_btn.addEventListener("click", function() {
+        dom_density_btn.addEventListener("click", () => {
             if (!dom_density_btn.hasAttribute("selected")) {
-                self.plotDensity();
+                this.plotDensity();
                 dom_density_btn.setAttribute("selected", "")
                 dom_trace_btn.removeAttribute("selected")
             }

@@ -82,18 +82,17 @@ class TextFileInputsParameters {
     set(config) {
         for (let v in config) {
             if (!this.variables[v]) {
-                let self = this;
                 const dom_variable = document.createElement("button");
                 dom_variable.textContent = v;
-                dom_variable.addEventListener("click", function() {
-                    let type = self.variables[v].type;
+                dom_variable.addEventListener("click", () => {
+                    let type = this.variables[v].type;
                     if (type === "p") {
                         type = "i";
                     } else {
                         type = "p";
                     }
-                    self.setVariableType(v, type);
-                    self.onChangeCallback();
+                    this.setVariableType(v, type);
+                    this.onChangeCallback();
                 });
                 this.variables[v] = {
                     type: "u",

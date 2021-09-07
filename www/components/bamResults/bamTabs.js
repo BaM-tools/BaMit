@@ -14,10 +14,9 @@ class bamTabs {
         // to resize tab container height when content size changes
         // this won't be supported by old browser or Edge
         this.resizeObserver = null;
-        let self = this;
         if (typeof ResizeObserver === "function") {
             this.resizeObserver = new ResizeObserver(entries => {
-                self.setContentHeight();
+                this.setContentHeight();
             })
         }
 
@@ -30,15 +29,14 @@ class bamTabs {
     newTab() {
         const tab_btn = document.createElement("button");
         this.dom_tabulation_buttons.append(tab_btn);
-        let self = this;
-        tab_btn.addEventListener("click", function() {
+        tab_btn.addEventListener("click", () => {
             if (!this.hasAttribute("opened")) {
-                const btns = self.dom_tabulation_buttons.querySelectorAll("button");
+                const btns = this.dom_tabulation_buttons.querySelectorAll("button");
                 btns.forEach(function(btn) {
                     btn.removeAttribute("opened");
                 })
                 this.setAttribute("opened", "");
-                self.tabulations.forEach(function(tab) {
+                this.tabulations.forEach(function(tab) {
                     tab.hide();
                 })
                 tab.show();
