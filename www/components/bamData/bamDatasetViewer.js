@@ -21,14 +21,14 @@ class bamDatasetViewer {
         // box shadow overlay (obsolete?)
         const dom_shadow = document.createElement("div")
         this.dom_wrapper.append(dom_shadow)
-        dom_shadow.id = "shadow"
+        dom_shadow.className = "shadow"
         // dom_shadow.onmouse
 
         // title div containing dataset filename + button to destroy the viewer
         const dom_title = document.createElement("div");
-        dom_title.id = "title";
+        dom_title.className = "title";
         const dom_name = document.createElement("div");
-        dom_name.id = "name";
+        dom_name.className = "name";
         dom_name.textContent = dataset.name;
         const dom_destroy = document.createElement("button");
         dom_destroy.className = "bam-btn-simple";
@@ -124,7 +124,7 @@ class bamDatasetViewer {
         let keys = Object.keys(dataset.data);
         // header table
         const dom_table_header = document.createElement("table");
-        dom_table_header.id = "data-header";
+        dom_table_header.className = "data-header";
         const dom_table_header_tr = document.createElement("tr");
         for (let j = 0; j < keys.length; j++) {
             let td = document.createElement("td");
@@ -151,7 +151,7 @@ class bamDatasetViewer {
 
         // body table
         const dom_table_data = document.createElement("table");
-        dom_table_data.id = "data-table";
+        dom_table_data.className = "data-table";
         const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
         // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
         for (let i = 0; i < n_data_to_display; i++) {

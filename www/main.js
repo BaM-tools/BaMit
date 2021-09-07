@@ -69,9 +69,8 @@ Shiny.addCustomMessageHandler("shinier_bam_data", function(data) {
 
 // listeners for unique message from server
 Shiny.addCustomMessageHandler("bam_data_length_error", (e) => {
-    // FIXME: internationalization
     new bamMessage({
-        message: `The maximum number of rows is exceed!`,
+        message: bamI.getText("number_rows_exceeded"),
         type: "error",
         timeout: 5000,
     }); 

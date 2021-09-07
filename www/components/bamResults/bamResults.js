@@ -1,18 +1,16 @@
 /**
  * @description
  * BaM result component class extenting a generic BaM component.
- * Its purpose is to display the generic results of a BaM run: 
- * (1) MCMC line plots
- * (2) MCMC densities
- * FIXME: THIS DESCRIPTION IS OUTDATED!
+ * Its purpose is to display the generic results of a BaM run in different tabs: 
+ * (1) Parameter tab where plots are displayed with traces and densities
+ * (2) Result files tab where result files can be previewed and downloaded
+ * (3) BaM log tab where the console outputs are displayed (in case of errors, this is useful)
  * 
  * @author Ivan Horner
  * 
  * @todo some plot should be added to display the "residuals" result file of BaM
  * @todo I would very much like to include the prior distribution here as well; how should this be implemented?
  * @todo Also include the results of a default prediction based on calibration data; need the prediction experiment features in RBaM for that
- * @todo re-think the general layout of this component, maybe using tabs, for more
- *       ease in the naviguation between the different results
  */
 class bamResults extends bamComponent {
     constructor() {

@@ -12,33 +12,33 @@
     ;
 }
 
-.bam-calibration-data #datasets {
+.bam-calibration-data .datasets {
     grid-area: datasets;
 }
-.bam-calibration-data #mapping {
+.bam-calibration-data .mapping {
     grid-area: mapping;
     border-left: 1px solid var(--strong);
 }
-.bam-calibration-data #viewer {
+.bam-calibration-data .viewer {
     grid-area: viewer;
     padding: 0.4rem;
 }
-.bam-calibration-data #mapping #mapping-header {
+.bam-calibration-data .mapping .mapping-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.bam-calibration-data #mapping #mapping-header > div {
+.bam-calibration-data .mapping .mapping-header > div {
     /* padding: 0.4rem; */
     padding: 0.8rem;
 }
 
 
-.bam-calibration-data #mapping #inputs,
-.bam-calibration-data #mapping #outputs {
+.bam-calibration-data .mapping .inputs,
+.bam-calibration-data .mapping .outputs {
     margin: 0.4rem;
 }
-.bam-calibration-data #mapping #header {
+.bam-calibration-data .mapping .header {
     text-align: center;
     border-bottom: 1px solid var(--strong);
     margin-top: 0.4rem;

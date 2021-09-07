@@ -39,6 +39,7 @@ remnanterror_model	Error model	Modèle d'erreur
 remnanterror_parameters	Error model's parameter(s)	Paramètre(s) du modèle d'erreur
 caldata_title	Calibration data	Données de calage
 caldata_mapper_header	Map each input/output variable to a dataset and column:	Associez chaque variable d'entrée/sortie à un jeu de donnée et colonne:
+preddata_mapper_header	Map each input variable to a dataset and column:	Associez chaque variable d'entrée à un jeu de donnée et colonne:
 datasets_import_title	Import one or more dataset(s):	Importer un ou plusieurs jeu(x) de données:
 datasets_import_help_a	Drag & drop one or more text/csv file(s) or browse your computer to select it/them	Glissez & lachez un/des fichier(s) text/csv ou recherchez le(s) sur votre ordinateur
 datasets_import_help_b	An optional but recommended single header row	Une seul ligne de titre, optionnelle mais recommandée

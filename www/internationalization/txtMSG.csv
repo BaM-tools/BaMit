@@ -38,3 +38,5 @@ config_has_changed_message_warning	Configuration has changed but these changes h
 config_has_changed_cancel	Cancel changes	 Annuler les modifications
 run_calib_error	An error occured while trying to calibrate the model. See "BaM log" tab for details.	 Une erreur est survenue lors de la calibration de BaM. Voir onglet "Log de BaM" pour plus de détails.
 run_calib_invalid	Model calibration is invalid.	 La calibration du modèle n'est pas valide.
+number_rows_exceeded	The maximum number of rows is exceeded!	 Le nombre maximal de ligne est dépassé!
+results_getting_ready	Please wait while results are getting ready...	 Veuillez patientez quelques instants le temps que les résultats soient prêts...

@@ -88,7 +88,7 @@ class bamPrediction extends bamComponent {
     }
     initWaitingMessage() {
         this.bam_waiting_results = new bamMessage({
-            message: "please wait while results are getting ready...", // FIXME: internationalization
+            message: bamI.getText("results_getting_ready"), 
             auto_destroy: false 
         })
     }

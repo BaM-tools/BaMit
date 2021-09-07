@@ -38,10 +38,6 @@
 .bam-component[invalid] #bam-xtra-applybutton {
     border: 1px solid var(--error)
 }
-/* FIXME: this should not be here */
-/* .bam-component[invalid]  > .bam-component-content > #bam-xtra-content-bottom  {
-    border-top: 1px solid var(--error)
-} */
 
 .bam-component > .bam-component-header {
     position: relative;

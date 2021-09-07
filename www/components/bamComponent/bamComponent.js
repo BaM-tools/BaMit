@@ -248,16 +248,17 @@ class bamComponent {
 
     // FIXME: obsolete but still used thoughout the code
     // I should use property isvalid instead
-    set validated(val) {
-        if (val) {
-            this.dom_wrapper.removeAttribute("invalid")
-        } else {
-            this.dom_wrapper.setAttribute("invalid", "")
-        }
-    }
-    get validated() {
-        return !this.dom_wrapper.hasAttribute("invalid");
-    }
+    // update: no longer used; I keep it for now, just in case I missed something
+    // set validated(val) {
+    //     if (val) {
+    //         this.dom_wrapper.removeAttribute("invalid")
+    //     } else {
+    //         this.dom_wrapper.setAttribute("invalid", "")
+    //     }
+    // }
+    // get validated() {
+    //     return !this.dom_wrapper.hasAttribute("invalid");
+    // }
 
     // obsolete
     // set minimized(val) {

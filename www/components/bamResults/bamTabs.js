@@ -30,13 +30,13 @@ class bamTabs {
         const tab_btn = document.createElement("button");
         this.dom_tabulation_buttons.append(tab_btn);
         tab_btn.addEventListener("click", () => {
-            if (!this.hasAttribute("opened")) {
+            if (!tab_btn.hasAttribute("opened")) {
                 const btns = this.dom_tabulation_buttons.querySelectorAll("button");
-                btns.forEach(function(btn) {
+                btns.forEach((btn) => {
                     btn.removeAttribute("opened");
                 })
-                this.setAttribute("opened", "");
-                this.tabulations.forEach(function(tab) {
+                tab_btn.setAttribute("opened", "");
+                this.tabulations.forEach((tab) => {
                     tab.hide();
                 })
                 tab.show();

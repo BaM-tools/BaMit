@@ -8,7 +8,7 @@
     max-height: 30rem; */
 }
 
-.bam-dataset-viewer #shadow {
+.bam-dataset-viewer .shadow {
     background-color: transparent;
     position: absolute;
     width: 100%;
@@ -20,7 +20,7 @@
     z-index: 96;
 }
 
-.bam-dataset-viewer > #title{
+.bam-dataset-viewer > .title{
     border-top: 1px solid var(--strong);
     background-color: var(--regular);
     /* padding-left: 0.4rem; */
@@ -40,39 +40,39 @@
 } */
 
 
-.bam-dataset-viewer > #data{
+.bam-dataset-viewer > .data{
     flex-grow: 1;
     /* max-height: 30rem; */
     overflow-y: scroll;
     width: 100%;
 }
 
-.bam-dataset-viewer > #data table{
+.bam-dataset-viewer > .data table{
     width: 100%;
 }
 
-.bam-dataset-viewer #data-header {
+.bam-dataset-viewer .data-header {
     top: 0;
     position: sticky;
     z-index: 95;
     background-color: white;
 }
-.bam-dataset-viewer #data-header > tr {
+.bam-dataset-viewer .data-header > tr {
     background-color: var(--regular);
     border-bottom: 1px solid var(--strong);
     overflow: hidden;
 }
 
-.bam-dataset-viewer > #data >#data-table tr {
+.bam-dataset-viewer > .data >.data-table tr {
 	overflow: hidden;
 }
-.bam-dataset-viewer > #data >#data-table tr:nth-child(even) {
+.bam-dataset-viewer > .data >.data-table tr:nth-child(even) {
 	background-color: white
 }
-.bam-dataset-viewer > #data >#data-table tr:nth-child(odd) {
+.bam-dataset-viewer > .data >.data-table tr:nth-child(odd) {
    background-color: var(--verylight);
 }
-.bam-dataset-viewer > #data >#data-table tr:hover {
+.bam-dataset-viewer > .data >.data-table tr:hover {
     background-color: var(--light);
 }
 

@@ -84,7 +84,8 @@ class bamPredictionConfiguration {
 
         const dom_pred_mapping_header = document.createElement("div");
         dom_pred_mapping_header.className = "pred-mapping-header";
-        dom_pred_mapping_header.textContent = "Map each input variable to a dataset and column:" // FIXME: internationalization
+        // dom_pred_mapping_header.textContent = "Map each input variable to a dataset and column:"
+        bamI.set(dom_pred_mapping_header).key("preddata_mapper_header").text().apply()
         dom_pred_mapping.append(dom_pred_mapping_header);
 
         this.dom_pred_mapping_inputs = document.createElement("div");
@@ -120,7 +121,6 @@ class bamPredictionConfiguration {
         // **********************************************************
         // run prediction:
         // run button
-        // FIXME manage ready state of component! similarly to the runBaM component I guess
         this.dom_pred_run = document.createElement("div");
         this.dom_pred_run.className = "pred-run";
         this.dom_wrapper.append(this.dom_pred_run);

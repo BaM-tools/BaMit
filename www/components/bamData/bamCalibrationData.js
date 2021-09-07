@@ -47,15 +47,13 @@ class bamCalibrationData extends bamComponent {
         this.datasets = new bamDatasets(5000000, 1000); // 500 ko
         this.datasets.setParent(dom_datasets);
         this.datasets.onDisplayDatasetCallback = function(dataset) {
-            let name = dom_viewer.querySelector("#name");
+            let name = dom_viewer.querySelector(".name");
             if (name && name.textContent === dataset.name) return;
             dom_viewer.innerHTML = "";
             new bamDatasetViewer(dataset, dom_viewer)
         }
         this.datasets.onDeleteDatasetCallback = function(to_delete_dataset_name) {
-            // FIXME: here, if the dataset is disaplayed in the viewer, the viewer should close.
-            //        this is currently brocken for an unkown reason...
-            let name = dom_viewer.querySelector("#name");
+            let name = dom_viewer.querySelector(".name");
             if (name && name.textContent === to_delete_dataset_name) {
                 dom_viewer.innerHTML = "";
             }
@@ -74,12 +72,12 @@ class bamCalibrationData extends bamComponent {
         // **********************************************************
         // mapping section: inputs/outputs mapping with the imported dataset
         this.dom_mapping = document.createElement("div");
-        this.dom_mapping.id = "mapping";
+        this.dom_mapping.className = "mapping";
         dom_calibration_data.append(this.dom_mapping);
 
         // mapping header
         const dom_mapping_header = document.createElement("div");
-        dom_mapping_header.id = "mapping-header"
+        dom_mapping_header.className = "mapping-header"
         this.dom_mapping.append(dom_mapping_header);
 
         // mapping help
@@ -89,19 +87,19 @@ class bamCalibrationData extends bamComponent {
         
         // input section
         const dom_mapping_inputs = document.createElement("div");
-        dom_mapping_inputs.id = "inputs";
+        dom_mapping_inputs.className = "inputs";
         this.dom_mapping.append(dom_mapping_inputs);
         const dom_mapping_inputs_header = document.createElement("div");
-        dom_mapping_inputs_header.id = "header";
+        dom_mapping_inputs_header.className = "header";
         dom_mapping_inputs.append(dom_mapping_inputs_header);
         bamI.set(dom_mapping_inputs_header).key("variable_inputs").text().apply();
 
         // output section
         const dom_mapping_outputs = document.createElement("div");
-        dom_mapping_outputs.id = "outputs";
+        dom_mapping_outputs.className = "outputs";
         this.dom_mapping.append(dom_mapping_outputs)
         const dom_mapping_outputs_header = document.createElement("div");
-        dom_mapping_outputs_header.id = "header";
+        dom_mapping_outputs_header.className = "header";
         dom_mapping_outputs.append(dom_mapping_outputs_header);
         bamI.set(dom_mapping_outputs_header).key("variable_outputs").text().apply();
     }
@@ -234,7 +232,7 @@ class bamCalibrationData extends bamComponent {
         this.datasets.set(config.datasets)
         const mapping_options = this.datasets.getDatasetsMappingOptions(false);
         // set inputs
-        const dom_inputs = this.dom_mapping.querySelector("#inputs"); // FIXME: should be class property!
+        const dom_inputs = this.dom_mapping.querySelector(".inputs");
         for (let v in config.inputs) {
             if (!this.inputs[v]) {
                 this.inputs[v] = new bamVariable(false, false);
@@ -257,7 +255,7 @@ class bamCalibrationData extends bamComponent {
             }
         }
         // set outputs
-        const dom_outputs = this.dom_mapping.querySelector("#outputs"); // FIXME: should be class property!
+        const dom_outputs = this.dom_mapping.querySelector(".outputs"); 
         for (let v in config.outputs) {
             if (!this.outputs[v]) {
                 this.outputs[v] = new bamVariable(true, false);
