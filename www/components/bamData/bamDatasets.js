@@ -52,9 +52,9 @@ class bamDatasets {
             parseFile(f).then((dataset) => {
                 const colnames = Object.keys(dataset.data)
                 if (colnames.length === 0) {
-                    // FIXME: internationalization
                     new bamMessage({
-                        message: `An error occured while trying to import the file '${f.name}'. Please check file format.`,
+                        // message: `An error occured while trying to import the file '${f.name}'. Please check file format.`,
+                        message: bamI.getText("file_format_error"),
                         type: "error",
                         timeout: 5000,
                     }); 
@@ -63,9 +63,9 @@ class bamDatasets {
                 const ncols = colnames.length
                 const nrows = dataset.data[colnames[0]].length
                 if (nrows > this.max_rows) {
-                    // FIXME: internationalization
                     new bamMessage({
-                        message: `The number of rows in file '${f.name} exceeds the maximum of ${this.max_rows} rows`,
+                        // message: `The number of rows in file '${f.name} exceeds the maximum of ${this.max_rows} rows`,
+                        message: bamI.getText("file_nrows_error"),
                         type: "error",
                         timeout: 5000,
                     }); 

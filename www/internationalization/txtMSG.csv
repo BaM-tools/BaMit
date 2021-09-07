@@ -40,3 +40,5 @@ run_calib_error	An error occured while trying to calibrate the model. See "BaM l
 run_calib_invalid	Model calibration is invalid.	 La calibration du modèle n'est pas valide.
 number_rows_exceeded	The maximum number of rows is exceeded!	 Le nombre maximal de ligne est dépassé!
 results_getting_ready	Please wait while results are getting ready...	 Veuillez patientez quelques instants le temps que les résultats soient prêts...
+file_format_error	An error occured while trying to import one of the files. Please check files formats.	 Une erreur est survenue lors de l'importation d'un des fichiers. Vérifiez le formattage des fichiers.
+file_nrows_error	The number of rows of one of the files exceeds the limit.	 Le nombre de lignes dans un des fichiers dépasse la limite.
