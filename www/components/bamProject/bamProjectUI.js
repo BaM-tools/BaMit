@@ -27,9 +27,13 @@ class bamProjectUI {
     }
 
     scrollToComponent(component) {
-        this.dom_components.scrollTo({
-            top: component.getTopLocation(),
-            behavior: "smooth"
+        window.requestAnimationFrame(()=>{
+            window.requestAnimationFrame(()=>{
+                this.dom_components.scrollTo({
+                    top: component.getTopLocation(),
+                    behavior: "smooth"
+                })
+            })
         })
     }
 

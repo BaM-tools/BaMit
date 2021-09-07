@@ -265,7 +265,8 @@ class bamProject {
             // only set from xtra component
             this.bam_predictions.set({inputs: config.xtra.inputs, outputs: config.xtra.outputs})
         }
-        this.bam_projectUI.scrollToEnd();
+        // this.bam_projectUI.scrollToEnd();
+        this.bam_projectUI.scrollToComponent(this.bam_results);
     }
 
     setModelName(name) {
