@@ -41,9 +41,11 @@ class bamResultsFiles {
             })
             zip.file(dataset.file.name, dataset.file)
             this.dom_panel_files.append(dataset.getDOM())
+            console.log("<= done.")
         }
-
+        console.log("creating zip file...")
         const zip_file = await zip.generateAsync({type: "blob"})
+        console.log("...done")
         zip_file.name = `${this.name}_${this.all_results}.zip`
         const zip_dataset = new bamFile(zip_file, {
             download: true

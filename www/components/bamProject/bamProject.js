@@ -148,7 +148,8 @@ class bamProject {
             }
             let n_bam_calibration_results = 0
             Shiny.addCustomMessageHandler("bam_calibration_results", (data) => {
-                if (n_bam_calibration_results>10) {
+                console.log("bam_calibration_results", data)
+                if (n_bam_calibration_results>30) {
                     // FIXME: internationalization
                     new bamMessage({
                         message: "An error occured while trying to read BaM result files...",
@@ -166,6 +167,7 @@ class bamProject {
                     }, 250)
                     
                 } else {
+                    console.log("n_bam_calibration_results", n_bam_calibration_results)
                     if (data.failure) {
                         data.mcmc = {}
                         data.density = {}
