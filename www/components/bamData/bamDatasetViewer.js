@@ -57,120 +57,120 @@ class bamDatasetViewer {
         
     }
 
-    divVersion(dataset) {
-        const dom_data = document.createElement("div");
-        dom_data.className = "dataset-table-main"
-        let keys = Object.keys(dataset.data);
-        // header table
-        const dom_table_header = document.createElement("div");
-        dom_table_header.className = "dataset-table-header";
-        const widths = Array(keys.length)
-        for (let j = 0; j < keys.length; j++) {
-            let dom_cell = document.createElement("div");
-            dom_cell.className = "cell"
-            dom_cell.textContent = keys[j];
-            dom_cell.title = keys[j];
-            widths[j] = 100 / keys.length
-            dom_cell.style.width = widths[j] + "%";
-            dom_table_header.append(dom_cell);
-        }
-        dom_data.append(dom_table_header);
+    // divVersion(dataset) {
+    //     const dom_data = document.createElement("div");
+    //     dom_data.className = "dataset-table-main"
+    //     let keys = Object.keys(dataset.data);
+    //     // header table
+    //     const dom_table_header = document.createElement("div");
+    //     dom_table_header.className = "dataset-table-header";
+    //     const widths = Array(keys.length)
+    //     for (let j = 0; j < keys.length; j++) {
+    //         let dom_cell = document.createElement("div");
+    //         dom_cell.className = "cell"
+    //         dom_cell.textContent = keys[j];
+    //         dom_cell.title = keys[j];
+    //         widths[j] = 100 / keys.length
+    //         dom_cell.style.width = widths[j] + "%";
+    //         dom_table_header.append(dom_cell);
+    //     }
+    //     dom_data.append(dom_table_header);
 
-        // to resize header column according to body column size
-        // this will only work to some extent and won't be supported by
-        // old browser or Edge for examples
-        // var ro;
-        // if (typeof ResizeObserver === "function") {
-        //     ro = new ResizeObserver(entries => {
-        //         const tds = dom_table_header_tr.querySelectorAll("td")
-        //         for (let e of entries) {
-        //             let k = +e.target.id;
-        //             tds[k].style.width = e.contentRect.width + "px";
-        //         }
-        //     })
-        // }
+    //     // to resize header column according to body column size
+    //     // this will only work to some extent and won't be supported by
+    //     // old browser or Edge for examples
+    //     // var ro;
+    //     // if (typeof ResizeObserver === "function") {
+    //     //     ro = new ResizeObserver(entries => {
+    //     //         const tds = dom_table_header_tr.querySelectorAll("td")
+    //     //         for (let e of entries) {
+    //     //             let k = +e.target.id;
+    //     //             tds[k].style.width = e.contentRect.width + "px";
+    //     //         }
+    //     //     })
+    //     // }
 
-        // body table
-        const dom_table_data = document.createElement("div");
-        dom_table_data.className = "dataset-table-data";
-        const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
-        // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
-        for (let i = 0; i < n_data_to_display; i++) {
-            let dom_row = document.createElement("div");
-            dom_row.className = "row";
-            for (let j = 0; j < keys.length; j++) {
-                let dom_cell = document.createElement("div");
-                dom_cell.className = "cell"
-                dom_cell.textContent = dataset.data[keys[j]][i];
-                dom_cell.title = dataset.data[keys[j]][i],
-                dom_cell.style.width = widths[j] + "%";
-                dom_row.append(dom_cell);
-                // if (i === 0 && ro) {
-                //     td.id = j;
-                //     ro.observe(td)
-                // }
-            }
-            dom_table_data.append(dom_row);
-        }
-        dom_data.append(dom_table_data);
+    //     // body table
+    //     const dom_table_data = document.createElement("div");
+    //     dom_table_data.className = "dataset-table-data";
+    //     const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
+    //     // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
+    //     for (let i = 0; i < n_data_to_display; i++) {
+    //         let dom_row = document.createElement("div");
+    //         dom_row.className = "row";
+    //         for (let j = 0; j < keys.length; j++) {
+    //             let dom_cell = document.createElement("div");
+    //             dom_cell.className = "cell"
+    //             dom_cell.textContent = dataset.data[keys[j]][i];
+    //             dom_cell.title = dataset.data[keys[j]][i],
+    //             dom_cell.style.width = widths[j] + "%";
+    //             dom_row.append(dom_cell);
+    //             // if (i === 0 && ro) {
+    //             //     td.id = j;
+    //             //     ro.observe(td)
+    //             // }
+    //         }
+    //         dom_table_data.append(dom_row);
+    //     }
+    //     dom_data.append(dom_table_data);
 
-        return dom_data;
-    }
+    //     return dom_data;
+    // }
 
 
-    tableVersion(dataset) {
-        const dom_data = document.createElement("div");
-        dom_data.id = "data";
-        let keys = Object.keys(dataset.data);
-        // header table
-        const dom_table_header = document.createElement("table");
-        dom_table_header.className = "data-header";
-        const dom_table_header_tr = document.createElement("tr");
-        for (let j = 0; j < keys.length; j++) {
-            let td = document.createElement("td");
-            td.textContent = keys[j];
-            td.style.width = 100 / keys.length + "%";
-            dom_table_header_tr.append(td);
-        }
-        dom_table_header.append(dom_table_header_tr);
-        dom_data.append(dom_table_header);
+    // tableVersion(dataset) {
+    //     const dom_data = document.createElement("div");
+    //     dom_data.id = "data";
+    //     let keys = Object.keys(dataset.data);
+    //     // header table
+    //     const dom_table_header = document.createElement("table");
+    //     dom_table_header.className = "data-header";
+    //     const dom_table_header_tr = document.createElement("tr");
+    //     for (let j = 0; j < keys.length; j++) {
+    //         let td = document.createElement("td");
+    //         td.textContent = keys[j];
+    //         td.style.width = 100 / keys.length + "%";
+    //         dom_table_header_tr.append(td);
+    //     }
+    //     dom_table_header.append(dom_table_header_tr);
+    //     dom_data.append(dom_table_header);
 
-        // to resize header column according to body column size
-        // this will only work to some extent and won't be supported by
-        // old browser or Edge for examples
-        var ro;
-        if (typeof ResizeObserver === "function") {
-            ro = new ResizeObserver(entries => {
-                const tds = dom_table_header_tr.querySelectorAll("td")
-                for (let e of entries) {
-                    let k = +e.target.id;
-                    tds[k].style.width = e.contentRect.width + "px";
-                }
-            })
-        }
+    //     // to resize header column according to body column size
+    //     // this will only work to some extent and won't be supported by
+    //     // old browser or Edge for examples
+    //     var ro;
+    //     if (typeof ResizeObserver === "function") {
+    //         ro = new ResizeObserver(entries => {
+    //             const tds = dom_table_header_tr.querySelectorAll("td")
+    //             for (let e of entries) {
+    //                 let k = +e.target.id;
+    //                 tds[k].style.width = e.contentRect.width + "px";
+    //             }
+    //         })
+    //     }
 
-        // body table
-        const dom_table_data = document.createElement("table");
-        dom_table_data.className = "data-table";
-        const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
-        // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
-        for (let i = 0; i < n_data_to_display; i++) {
-            let tr = document.createElement("tr");
-            for (let j = 0; j < keys.length; j++) {
-                let td = document.createElement("td");
-                td.textContent = dataset.data[keys[j]][i];
-                td.style.width = 100 / keys.length + "%";
-                tr.append(td);
-                if (i === 0 && ro) {
-                    td.id = j;
-                    ro.observe(td)
-                }
-            }
-            dom_table_data.append(tr);
-        }
-        dom_data.append(dom_table_data);
+    //     // body table
+    //     const dom_table_data = document.createElement("table");
+    //     dom_table_data.className = "data-table";
+    //     const n_data_to_display = Math.min(dataset.data[keys[0]].length, 50);
+    //     // for (let i = 0; i < dataset.data[keys[0]].length; i++) {
+    //     for (let i = 0; i < n_data_to_display; i++) {
+    //         let tr = document.createElement("tr");
+    //         for (let j = 0; j < keys.length; j++) {
+    //             let td = document.createElement("td");
+    //             td.textContent = dataset.data[keys[j]][i];
+    //             td.style.width = 100 / keys.length + "%";
+    //             tr.append(td);
+    //             if (i === 0 && ro) {
+    //                 td.id = j;
+    //                 ro.observe(td)
+    //             }
+    //         }
+    //         dom_table_data.append(tr);
+    //     }
+    //     dom_data.append(dom_table_data);
 
-        return dom_data;
-    }
+    //     return dom_data;
+    // }
 
 }
