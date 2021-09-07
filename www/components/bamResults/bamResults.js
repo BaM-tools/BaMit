@@ -1,7 +1,7 @@
 /**
  * @description
  * BaM result component class extenting a generic BaM component.
- * Its purpose is to display the generic results of a BaM run in different tabs: 
+ * Its purpose is to display the generic results of a BaM calibration run in different tabs: 
  * (1) Parameter tab where plots are displayed with traces and densities
  * (2) Result files tab where result files can be previewed and downloaded
  * (3) BaM log tab where the console outputs are displayed (in case of errors, this is useful)
