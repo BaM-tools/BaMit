@@ -169,20 +169,6 @@ function loadApp() {
 
     help.setParent(dom_content);
 
-    // **************************************************************
-    // **************************************************************
-    // for debugging
-
-    // const bam_results = new bamResults();
-    // bam_results.setParent(dom_content);
-
-    // const bam_remnant = new bamRemnantErrorModel();
-    // bam_remnant.setParent(dom_content);
-    // bam_remnant.update(["Y1", "Y2"]);
-
-    // const bam_prediction = new bamPrediction();
-    // bam_prediction.setParent(dom_content);
-    // bam_prediction.update(["P1", "P2"]);
 }
 
 // build the NewModel menue
