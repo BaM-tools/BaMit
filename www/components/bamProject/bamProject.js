@@ -158,7 +158,8 @@ class bamProject {
                     n_bam_calibration_results = 0
                     return
                 }
-                if (!data.mcmc && !data.failure) {
+                if ((!data.mcmc || !data.residuals || !data.summary || !data.mcmc_density)
+                     && !data.failure) {
                     n_bam_calibration_results++
                     setTimeout(() => {
                         // Shiny.setInputValue("bam_calibration_results", Math.random()); 
