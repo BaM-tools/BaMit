@@ -112,7 +112,7 @@ class bamProject {
             this.bam_projectUI.addComponent(this.bam_remnant);
         }
         if (!this.bam_runcalib) {
-            this.bam_runcalib = new bamRun();
+            this.bam_runcalib = new bamCalRun();
             this.bam_projectUI.addComponent(this.bam_runcalib);
             // if any change occurs in one of the updstream component
             // check the validity to enable/disable run model button
@@ -212,7 +212,7 @@ class bamProject {
     // AFTER CALIBRATION SECTION CONFIGURATION
     setAfterCalibrationSection(config) {
         if (!this.bam_results) {
-            this.bam_results = new bamResults();
+            this.bam_results = new bamCalResults();
             this.bam_projectUI.addComponent(this.bam_results);
         }
         if (config.calib_res) {

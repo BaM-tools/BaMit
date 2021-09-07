@@ -63,7 +63,7 @@ class bamResultsFiles {
     }
 }
 
-class bamCalibResultsFiles extends bamResultsFiles {
+class bamCalResultsFiles extends bamResultsFiles {
     constructor() {
         super(PROJECT_NAME, `calibration_results`)
     }

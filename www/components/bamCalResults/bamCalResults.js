@@ -12,7 +12,7 @@
  * @todo I would very much like to include the prior distribution here as well; how should this be implemented?
  * @todo Also include the results of a default prediction based on calibration data; need the prediction experiment features in RBaM for that
  */
-class bamResults extends bamComponent {
+class bamCalResults extends bamComponent {
     constructor() {
         super();
         this.title_key = "results_title"
@@ -25,7 +25,7 @@ class bamResults extends bamComponent {
         this.dom_tabs.setParent(this.dom_results)
 
         // parameter tab
-        this.result_parameters = new bamResultsParameters();
+        this.result_parameters = new bamCalResultsPar();
         const result_parameters_tab = this.dom_tabs.newTab();
         // result_parameters_tab.getButton().textContent = "Parameters";
         bamI.set(result_parameters_tab.getButton()).key("results_param_tab").text().apply();
@@ -34,14 +34,14 @@ class bamResults extends bamComponent {
 
         // file tab
         // this.result_files = new bamResultsFiles();
-        this.result_files = new bamCalibResultsFiles();
+        this.result_files = new bamCalResultsFiles();
         const result_files_tab = this.dom_tabs.newTab();
         // result_files_tab.getButton().textContent = "Result files";
         bamI.set(result_files_tab.getButton()).key("results_files_tab").text().apply();
         result_files_tab.setContent(this.result_files.getDOM());
 
         // log tab
-        this.result_log = new bamResultsLog();
+        this.result_log = new bamCalResultsLog ();
         const result_log_tab = this.dom_tabs.newTab();
         // result_log_tab.getButton().textContent = "BaM log";
         bamI.set(result_log_tab.getButton()).key("results_log_tab").text().apply();

@@ -1,4 +1,4 @@
-class bamResultsParameters {
+class bamCalResultsPar {
     constructor() {
 
         this.dom_content = document.createElement("div");

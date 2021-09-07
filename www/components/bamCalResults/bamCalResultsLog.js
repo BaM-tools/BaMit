@@ -1,4 +1,4 @@
-class bamResultsLog{
+class bamCalResultsLog {
     constructor() {
         this.dom_content = document.createElement("div");
         this.dom_content.className = "bam-results-log";

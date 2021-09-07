@@ -12,7 +12,7 @@
  * @todo implement the run options part
  * @todo add checks for prediction experiments; for now prediction experiments are not implemented in the app (nor in the RBaM package)
  */
-class bamRun extends bamComponent {
+class bamCalRun extends bamComponent {
     constructor() {
         super();
 
