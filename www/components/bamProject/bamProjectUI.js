@@ -1,3 +1,4 @@
+let PRINT = false
 class bamProjectUI {
     constructor() {
 
@@ -9,11 +10,65 @@ class bamProjectUI {
         this.dom_components = document.createElement("div");
         this.dom_components.className = "bam-project-components";
 
+        this.onScroll = () => {
+
+            let start, end
+            const n = this.components.length
+            for (let k = 0; k < n; k++) {
+                const c = this.components[k].dom_wrapper
+                const h = c.offsetHeight
+                const t = c.offsetTop
+                const s_t = this.dom_components.scrollTop
+                if ((t + h) > s_t) {
+                    start = {
+                        k: k,
+                        p: (s_t - t) / h,
+                        n: this.components[k].title_key
+                    }
+                    break
+                }
+            }
+            for (let k = n - 1; k >= 0; k--) {
+                const c = this.components[k].dom_wrapper
+                const h = c.offsetHeight
+                const t = c.offsetTop
+                const s_t = this.dom_components.scrollTop
+                const s_h = this.dom_components.clientHeight
+                if (t < (s_t + s_h)) {
+                    end = {
+                        k: k,
+                        p: ((s_t + s_h) - t) / h,
+                        n: this.components[k].title_key
+                    }
+                    break
+                }
+            }
+            const nav_items = [...this.dom_navigation_items.children].map(e=>e.getBoundingClientRect().height)
+            let top = nav_items.slice(0, start.k).reduce((p, c)=>p+c, 0) + 
+                    (nav_items[start.k] * start.p)
+            let bot = nav_items.slice(0, end.k).reduce((p, c)=>p+c, 0) + 
+                    (nav_items[end.k]  * end.p)
+            // console.log("start", start)
+            // console.log("end", end)
+            // console.log("top", top)
+            // console.log("bot", bot)
+            this.navigation_overlay.style.top = top + "px";
+            this.navigation_overlay.style.height = (bot-top) + "px";
+        }
+
+        this.dom_components.addEventListener("scroll", this.onScroll)
         this.components = [];
         this.maximized = false; // navigation type
 
     }
 
+    updateNavigation() {
+        window.requestAnimationFrame(()=>{
+            window.requestAnimationFrame(()=>{
+                this.onScroll()
+            })
+        })
+    }
     setParent(parent) {
         parent.append(this.dom_panel);
         parent.append(this.dom_components);
@@ -41,6 +96,7 @@ class bamProjectUI {
         this.dom_components.innerHTML = "";
         this.dom_navigation_items.innerHTML = "";
         this.components = [];
+        this.updateNavigation()
     }
 
     deleteComponent(component) {
@@ -52,6 +108,7 @@ class bamProjectUI {
         } else {
             throw "deleteComponent: this should not happend if I call this function correctly"
         }
+        this.updateNavigation()
     }
 
     addComponent(component) {
@@ -99,6 +156,7 @@ class bamProjectUI {
         })
         this.components.push(component);
         this.dom_navigation_items.append(dom_nav);
+        this.updateNavigation()
     }
 
     setModelName(name) {
@@ -191,6 +249,7 @@ class bamProjectUI {
         // **********************************************************
         // Project content navigation bar
         const dom_navigation = document.createElement("div");
+        // dom_navigation.classList.add("navigation-container")
         dom_navigation.classList.add("space-above")
         this.dom_panel.append(dom_navigation);
 
@@ -201,9 +260,21 @@ class bamProjectUI {
         bamI.set(dom_navigation_title).key("project_content").text().apply();
         dom_navigation.append(dom_navigation_title);
 
+        // navigation items container
+        this.dom_navigation_items_container = document.createElement("div");
+        this.dom_navigation_items_container.className = "navigation-container"
+        dom_navigation.append(this.dom_navigation_items_container);
+
         // navigation items
         this.dom_navigation_items = document.createElement("div");
         this.dom_navigation_items.id = "navigation-items"
-        dom_navigation.append(this.dom_navigation_items);
+        this.dom_navigation_items_container.append(this.dom_navigation_items);
+
+        // navigation overlay
+        this.navigation_overlay = document.createElement("div");
+        this.navigation_overlay.className = "navigation-overlay"
+        this.dom_navigation_items_container.append(this.navigation_overlay);
+
+        //FIXME: I think I don't need to make "dom_navigation" a class attribute
     }
 }

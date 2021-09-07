@@ -84,3 +84,15 @@
     border: 6px solid transparent;
     border-color: transparent transparent transparent black;
 }
+
+.bam-project-panel .navigation-container {
+    position: relative;
+}
+.bam-project-panel .navigation-container .navigation-overlay {
+    position: absolute;
+    width: calc(100% - 10px);
+    background-color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    transform: translateY(-5px);
+}
