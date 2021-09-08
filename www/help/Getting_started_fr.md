@@ -1,9 +1,8 @@
-<div style="opacity: 0"><style> 
+<style> 
 .link {
     height: 15px;
 }
 </style>
-</div>
 
 # Présentation générale
 
