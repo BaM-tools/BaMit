@@ -11,6 +11,7 @@ class bamRemnantErrorModel extends bamComponent {
 
         // bamI.set(this.dom_header.querySelector(".bam-component-title")).key("remnanterror_title").text().apply();
         this.title_key = "remnanterror_title";
+        this.component_type_id = "err"
         // this.dom_wrapper.toggleAttribute("collapsed");
 
         this.outputs = {};

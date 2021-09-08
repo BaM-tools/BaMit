@@ -15,6 +15,8 @@ class bamXtra extends bamComponent {
     constructor() {
         super();
 
+        this.component_type_id = "mod"
+
         this.modelid;
 
         this.dom_content_top = document.createElement("div");

@@ -16,7 +16,8 @@ class bamCalResults extends bamComponent {
     constructor() {
         super();
         this.title_key = "results_title"
-
+        this.component_type_id = "res"
+        
         // tab system
         this.dom_results = document.createElement("div");
         this.dom_results.className = "bam-results";

@@ -7,6 +7,7 @@
 // });
 // CURRENT PROJECT NAME (so it is accessible everywhere) // FIXME: not an ideal solution, but works well
 let PROJECT_NAME
+let HELP // will store the help object ?
 
 // Object containing all distribution and all possible BaM model
 // (Result in R from RBaM::getCatalogue())
@@ -142,6 +143,21 @@ function loadApp() {
     const dom_options = document.createElement("div");
     dom_header.append(dom_options);
     dom_options.id = "bam-main-options";
+
+
+    // const dom_test = document.createElement("button");
+    // dom_test.className = "bam-btn-simple";
+    // dom_test.innerHTML = "test"
+    // dom_test.addEventListener("click", () => {
+    //     help.show(bamI.getLanguage())
+    //     // #calibration
+    //     console.log(window.location)
+    //     let a = document.createElement("a")
+    //     a.href =  `${window.location.origin}/#calibration`
+    //     a.click()
+    // })
+    // dom_options.appendChild(dom_test);
+
     const dom_get_started = document.createElement("button");
     dom_get_started.className = "bam-btn-simple";
     bamI.set(dom_get_started).key("help_button").text().apply();
@@ -168,7 +184,7 @@ function loadApp() {
     dom_content.id = "bam-main-content";
 
     help.setParent(dom_content);
-
+    HELP = help
 }
 
 // build the NewModel menue

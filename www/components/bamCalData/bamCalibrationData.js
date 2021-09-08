@@ -19,7 +19,8 @@ class bamCalibrationData extends bamComponent {
         
         // change bamComponent name
         // bamI.set(this.dom_header.querySelector(".bam-component-title")).key("caldata_title").text().apply()
-        this.title_key = "caldata_title";
+        this.title_key = "caldata_title"
+        this.component_type_id = "dat"
 
         // **********************************************************
         // main wrapper to manage the layout for this component

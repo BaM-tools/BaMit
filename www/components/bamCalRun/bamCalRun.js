@@ -17,7 +17,8 @@ class bamCalRun extends bamComponent {
         super();
 
         this.title_key = "run_title";
-
+        this.component_type_id = "cal"
+        
         // **********************************************************
         // main wrapper
         this.dom_bamrun = document.createElement("div");

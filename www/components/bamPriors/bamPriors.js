@@ -12,7 +12,8 @@ class bamPriors extends bamComponent {
         
         // bamI.set(this.dom_header.querySelector(".bam-component-title")).key("priors_title").text().apply();
         this.title_key = "priors_title";
-
+        this.component_type_id = "par"
+        
         // Object containing the bamParameter objects
         this.parameters = {};
 

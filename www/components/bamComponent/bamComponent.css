@@ -81,7 +81,7 @@
     display: flex;
     justify-content: flex-end;
 }
-.bam-component .bam-component-actions > div {
+/* .bam-component .bam-component-actions > div {
     width: 0.9rem;
     height: 0.8rem;
     border: 1px solid black;
@@ -96,8 +96,15 @@
 }
 .bam-component[maximized] .bam-component-actions > div:hover {
     border-width: 2px;
+} */
+.bam-component .bam-component-actions .help {
+    font-weight: bold;
+    user-select: none;
+    cursor: pointer;
 }
-
+.bam-component .bam-component-actions .help:hover {
+    color: var(--dark);
+}
 /* 
 .bam-component  >  #bam-component-header > #bam-component-showhide {
     cursor: pointer;

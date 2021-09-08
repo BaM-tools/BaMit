@@ -1,7 +1,7 @@
 class bamPrediction extends bamComponent {
     constructor() {
         super();
-
+        this.component_type_id = "pred"
 
         // **********************************************************
         // editable title

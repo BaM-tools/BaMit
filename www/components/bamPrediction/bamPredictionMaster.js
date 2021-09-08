@@ -3,6 +3,7 @@ class bamPredictionMaster extends bamComponent {
         super();
 
         this.title_key = "prediction_master_title";
+        this.component_type_id = "mpred"
 
         this.dom_predictionmaster = document.createElement("div")
         this.dom_predictionmaster.className = "bam-prediction-master";

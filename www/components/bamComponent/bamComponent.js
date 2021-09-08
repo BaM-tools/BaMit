@@ -21,6 +21,10 @@ class bamComponent {
         this.dom_header.appendChild(dom_actions);
         // const dom_action_maximized = document.createElement("div")
         // dom_actions.append(dom_action_maximized)
+        const dom_action_help = document.createElement("div")
+        dom_action_help.className = "help"
+        dom_action_help.innerHTML = "?"
+        dom_actions.append(dom_action_help)
 
         // content
         this.dom_content = document.createElement("div");
@@ -42,6 +46,9 @@ class bamComponent {
         // dom_action_maximized.addEventListener("click", () => {
         //     this.maximized = !this.maximized
         // })
+        dom_action_help.addEventListener("click", ()=>{
+            HELP.show(bamI.getLanguage(), this.component_type_id)
+        })
 
         this.uptodate_config = undefined;
     }

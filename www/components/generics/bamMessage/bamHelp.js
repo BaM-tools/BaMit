@@ -33,14 +33,24 @@ class bamHelp {
     setParent(parent) {
         this.parent = parent;
     }
-    show(language) {
+    show(language, goto_id) {
         if (this.parent) this.parent.append(this.dom_content_main);
         this.dom_content_main.style.display = "block";
         if (Object.keys(this.marked_documents).indexOf(language)===-1) language="fr"
         this.dom_markedcontent.innerHTML = this.marked_documents[language]
+        this.dealWithImageSrc()
+        if (goto_id) {
+            const a = document.createElement("a")
+            a.href =  `${window.location.origin}/#${goto_id}`
+            a.click()
+        }
     }
     hide() {
         if (this.parent) this.parent.removeChild(this.dom_content_main);
         this.dom_content_main.style.display = "none";
+    }
+    dealWithImageSrc() {
+        const imgs = [...this.dom_markedcontent.querySelectorAll("img")]
+        imgs.forEach(e=>e.src = e.src.replace("www/", ""))
     }
 }
