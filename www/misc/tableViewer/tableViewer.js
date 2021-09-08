@@ -7,7 +7,7 @@ class TableViewer {
         this.ncol = this.headers.length
         this.nrow = data[this.headers[0]] ? data[this.headers[0]].length : 0
         this.row_numbers = Array(this.nrow).fill(0).map((e, i)=>i+1)
-        const MAX_CELL = 1000
+        const MAX_CELL = 2500
         this.n_data = this.ncol * this.nrow
         this.max_row_per_page = this.nrow - 1
         // console.log(this.n_data)
