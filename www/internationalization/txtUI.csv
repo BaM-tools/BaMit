@@ -66,7 +66,7 @@ variable_withoutuncertainty	- Uncertainties	- Incertitudes
 display_trace	Display traces	Afficher les traces
 display_density	Display densities	Afficher les densités
 prediction_master_title	Prediction(s)	Prédiction(s)
-prediction_master_addpred	Add a new prediction	Ajouter un nouvelle prédiction
+prediction_master_addpred	Add a new prediction	Ajouter une nouvelle prédiction
 prediction_add	+ add a prediction	+ ajouter une prédiction
 prediction_name	Prediction's name	Nom de la prédiction
 prediction_none	No prediction	Aucune prédiction
