@@ -10,8 +10,8 @@ server <- function(input, output, session) {
     # ***
     # workspace management: (1) remove old workspace (2) create new workspace 
     all_workspaces <- list.dirs(file.path(getwd(), "www", "bam_workspace"), recursive=FALSE)
-    # workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 60 * 24 # number of minutes after which folders should be removed
-    workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 1 # number of minutes after which folders should be removed
+    workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 60 * 24 # number of minutes after which folders should be removed
+    # workspaces_to_delete <- difftime(Sys.time(), file.mtime(all_workspaces), units="m") > 1 # number of minutes after which folders should be removed
     delete_success <- unlink(all_workspaces[workspaces_to_delete], recursive=TRUE)
     workspace_id <- randomString(7)
     workspace <- file.path(getwd(), "www", "bam_workspace", workspace_id)

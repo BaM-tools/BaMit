@@ -168,7 +168,6 @@ RBaM_runExe <- function(workspace){
     cmd <- ifelse(os == "Windows",
                 paste0(exename, ".exe"), # Windows command
                 paste0("echo 'trying...'; ./", exename)    # Linux command
-                # paste0("echo Irstea69 | sudo -S ./", exename)    # Linux command   echo mypassword | sudo -S command
     )
     message(cmd)
     # call BaM asynchronoustly i.e. on a separate process to free R
