@@ -167,7 +167,7 @@ RBaM_runExe <- function(workspace){
     os  <- Sys.info()["sysname"] # determine OS
     cmd <- ifelse(os == "Windows",
                 paste0(exename, ".exe"), # Windows command
-                paste0("echo 'trying...'; ./", exename)    # Linux command
+                paste0("./", exename)    # Linux command
     )
     message(cmd)
     # call BaM asynchronoustly i.e. on a separate process to free R
