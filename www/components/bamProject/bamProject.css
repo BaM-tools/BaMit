@@ -90,6 +90,7 @@
 }
 .bam-project-panel .navigation-container .navigation-overlay {
     position: absolute;
+    display: none;
     width: calc(100% - 10px);
     background-color: rgba(255, 255, 255, 0.25);
     pointer-events: none;

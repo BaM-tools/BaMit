@@ -52,11 +52,25 @@ class bamProjectUI {
             // console.log("end", end)
             // console.log("top", top)
             // console.log("bot", bot)
+            this.navigation_overlay.style.display = "block";
             this.navigation_overlay.style.top = top + "px";
             this.navigation_overlay.style.height = (bot-top) + "px";
         }
-
+        this.needScroll = () => {
+            const need_scrolling = this.dom_components.scrollHeight > this.dom_components.clientHeight
+            // console.log("need_scrolling", need_scrolling)
+            if (need_scrolling) {
+                this.onScroll();
+            } else {
+                this.navigation_overlay.style.display = "none";
+            }
+        }
         this.dom_components.addEventListener("scroll", this.onScroll)
+        window.addEventListener("resize", () => {
+            // console.log("resizing...")
+            this.needScroll()
+
+        })
         this.components = [];
         this.maximized = false; // navigation type
 
@@ -65,7 +79,7 @@ class bamProjectUI {
     updateNavigation() {
         window.requestAnimationFrame(()=>{
             window.requestAnimationFrame(()=>{
-                this.onScroll()
+                this.needScroll()
             })
         })
     }
