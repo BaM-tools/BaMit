@@ -157,7 +157,7 @@ RBaM_configuration <- function(config, workspace) {
     return(list(bam=configuration, monitoring=monitoring_config))
 }
 
-RBaM_runExe <- function(workspace){
+RBaM_runExe <- function(workspace, workspace_id){
     exedir  <- file.path(path.package("RBaM"), "bin")
     exename <- "BaM"
     saveWD  <- getwd() # remember current working dir
@@ -175,11 +175,18 @@ RBaM_runExe <- function(workspace){
     # this is also used to detect when BaM calibration is done
     # console_file <- file.path(workspace, "bam_console.txt")
     console_file <- file.path(workspace, "stdout.log")
+    # console_file<- paste0(workspace_id, ".log")
+    # message("console_file => ", console_file)
     # run exe (note: input=" " is necessary to close the process it finishes)
-    system2(cmd, stdout = console_file, stderr = console_file, wait = FALSE, input = " ") 
+    # system2(cmd, stdout = console_file, stderr = console_file, wait = FALSE, input = " ") 
+    # system2(cmd, stdout = "console_out.log", stderr = "console_out.log", wait = FALSE, input = " ") 
+    # pid <- sys::exec_background(cmd, std_out = "console_out.log", std_err = "console_out.log") 
+    pid <- sys::exec_background(cmd, std_out = console_file, std_err = console_file, std_in="input.txt") 
+    print(pid)
     message(getwd())
     setwd(saveWD) # move back to initial working directory
     message(getwd())
+    return(pid)
 }
 
 RBaM_readResultFile <- function(workspace, filename, header=TRUE) {
@@ -203,9 +210,9 @@ RBaM_getCalibrationResults <- function(workspace) {
     mcmc <- RBaM_readResultFile(workspace, "Results_Cooking.txt");
     resi <- RBaM_readResultFile(workspace, "Results_Residuals.txt");
     summ <- RBaM_readResultFile(workspace, "Results_Summary.txt");
-    print(summ)
+    # print(summ)
     summ <- cbind(" "=rownames(summ), summ)
-    print(summ)
+    # print(summ)
     log  <- RBaM_getLogFile(workspace)
     mcmc_density <- list();
     if (!is.null(mcmc)) {
@@ -267,9 +274,10 @@ RBaM_hasError <- function(workspace) {
     }, error = function(error) {
         ""
     })
-    print(f)
-    e <- grep("ERROR", f, fixed=TRUE)
-    return(length(e) > 0)
+    e1 <- length(grep("ERROR", f, fixed=TRUE))
+    e2 <- length(grep("Error", f, fixed=TRUE))
+    e3 <- length(grep("error", f, fixed=TRUE))
+    return(e1 > 0 || e2 > 0 || e3 > 0)
 }
 
 RBaM_monitorCalibration <- function(workspace) {

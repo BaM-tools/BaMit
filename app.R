@@ -67,7 +67,9 @@ server <- function(input, output, session) {
             RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
             pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
             workspace=workspace, run=FALSE)
-            RBaM_runExe(workspace)
+            pid <- RBaM_runExe(workspace, workspace_id)
+            # Sys.sleep(60)
+            # tools::pskill(pid)
             session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
         }
     })
