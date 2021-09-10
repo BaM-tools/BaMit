@@ -144,7 +144,7 @@ server <- function(input, output, session) {
 #  "C:\Program Files\Google\Chrome\Application\chrome.exe --kiosk http:\\127.0.0.1:5481"
 # options(browser = "C:/Program Files (x86)/Mozilla Firefox/firefox.exe")
 
-# install.packages("C:/Users/ivan.horner/Documents/Forges/BaM/trunk/R/RBaM_Compiled/Windows_R_4.0.2/RBaM_0.1.0.tar.gz", repos=NULL)
+# install.packages("C:/Users/ivan.horner/Documents/Forges/BaM/trunk/R/RBaM_Compiled/Windows_R_4.0.2/RBaM_0.1.0.tar.gz", repos=NULL) # nolint
 # shiny::runApp(getwd(), launch.browser = FALSE)
 NULL
 shinyApp(htmlTemplate(file.path("www",'index.html')), server, options=list(launch.browser = TRUE, port=5003))
