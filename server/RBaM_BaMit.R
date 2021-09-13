@@ -4,6 +4,7 @@ RBaM_configuration <- function(config, workspace) {
     if(!dir.exists(workspace)){
         message(paste0(" > RBaM configuration: creating wording directory '", workspace, "'"))
         dir.create(workspace, recursive = TRUE)
+        Sys.chmod(workspace,mode='0777',use_umask=FALSE)
     }
 
     message(" > RBaM configuration: xtraModelInfo")
@@ -181,7 +182,7 @@ RBaM_runExe <- function(workspace, workspace_id){
     # system2(cmd, stdout = console_file, stderr = console_file, wait = FALSE, input = " ") 
     # system2(cmd, stdout = "console_out.log", stderr = "console_out.log", wait = FALSE, input = " ") 
     # pid <- sys::exec_background(cmd, std_out = "console_out.log", std_err = "console_out.log") 
-    pid <- sys::exec_background(cmd, std_out = console_file, std_err = console_file, std_in="input.txt") 
+    pid <- sys::exec_background(cmd, std_out = console_file, std_err = console_file) 
     print(pid)
     message(getwd())
     setwd(saveWD) # move back to initial working directory
