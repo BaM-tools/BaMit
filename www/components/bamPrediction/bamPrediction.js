@@ -107,10 +107,11 @@ class bamPrediction extends bamComponent {
                     type: "error",
                     timeout: 4000,
                 })
+            } else {
+                setTimeout(() => (
+                    Shiny.onInputChange("bam_prediction_results", {config: config, r:Math.random()})
+                ), 250)
             }
-            setTimeout(() => (
-                Shiny.onInputChange("bam_prediction_results", {config: config, r:Math.random()})
-            ), 250)
         }
         Shiny.addCustomMessageHandler(listener_name, (data) => {
             console.log(listener_name, data)
