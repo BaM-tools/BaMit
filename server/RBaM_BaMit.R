@@ -111,14 +111,18 @@ RBaM_configuration <- function(config, workspace) {
             return(FALSE)
         }
         message("**********")
-        # print(str(X))
-        # stop()
+
         predFile <- paste0("Pred_", config$prediction$name, "_config.txt")
         inputFiles <- paste0('pred_', config$prediction$name,'_input_', 1:length(X), '.txt')
-        # spagFiles <- paste0('pred_', config$prediction$name,'_output_', outputName,  "_spagh")
-        # envFiles  <- paste0('pred_', config$prediction$name,'_output_', outputName,  "_env")
         spagFiles <- paste0(config$prediction$name,'_', outputName,  "_spagh")
-        envFiles  <- paste0(config$prediction$name,'_', outputName,  "_env")
+
+        # envelop file should be expected only if it is not a maxpost only run
+        if (config$prediction$pred_type != "maxpost") {
+            envFiles  <- paste0(config$prediction$name,'_', outputName,  "_env")
+        } else {
+            envFiles <- c()
+        }
+        
         pred <- RBaM::prediction(X=X, 
                                  data.dir=workspace,
                                  data.fnames=inputFiles, fname=predFile,
@@ -129,6 +133,7 @@ RBaM_configuration <- function(config, workspace) {
                                  transposeSpag=TRUE);
         MCMC <- processData(config$mcmc)
         RBaM_writeMCMC(MCMC, workspace);
+        
         print(str(pred))
     } else {
         pred <- NULL
@@ -225,21 +230,22 @@ RBaM_getCalibrationResults <- function(workspace) {
 }
 
 RBaM_getPredictionResults <- function(workspace, config) {
-
-    inputs <- list()
+    result_files <- list()
+    result_files$inputs <- list()
     for (f in config$inputFiles) {
-        inputs[[strsplit(f, ".", fixed=TRUE)[[1]][1]]] <- RBaM_readResultFile(workspace, f, FALSE)
+        result_files$inputs[[ strsplit(f, ".", fixed=TRUE)[[1]][1] ]] <- RBaM_readResultFile(workspace, f, FALSE)
     }
-
-    outputs_env <- list()
-    for (f in config$envFiles) {
-        outputs_env[[f]] <- RBaM_readResultFile(workspace, f, TRUE)
+    if (length(config$envFiles)>0) { # this condition was added in case there are no envelop files in the results
+        result_files$outputs_env <- list()
+        for (f in config$envFiles) {
+            result_files$outputs_env[[f]] <- RBaM_readResultFile(workspace, f, TRUE)
+        }
     }
-    outputs_spag<- list()
+    result_files$outputs_spag<- list()
     for (f in config$spagFiles) {
-        outputs_spag[[f]] <- RBaM_readResultFile(workspace,f, FALSE)
+        result_files$outputs_spag[[f]] <- RBaM_readResultFile(workspace,f, FALSE)
     }
-    return(list(inputs=inputs, outputs_env=outputs_env, outputs_spag=outputs_spag))
+    return(result_files)
 }
 
 RBaM_getLogFile <- function(workspace) {
