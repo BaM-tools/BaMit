@@ -1,5 +1,6 @@
 sample_data/*
 www/bam_workspace/*
+!www/bam_workspace/readme.md
 speed_test_MCMC_monitoring.xlsx
 image_sources/*
 test-data/*
