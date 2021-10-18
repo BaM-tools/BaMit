@@ -126,7 +126,7 @@ class bamProject {
             this.bam_remnant.onChangeCallback = onChangeCallback
             
             // define what happen when BaM calibration is asked to run
-            this.bam_runcalib.onRunBamCallback = () => {
+            this.bam_runcalib.onRunBamCallback = (config_only=false) => {
                 const BaM_config = {};
                 BaM_config.xtra             = this.bam_xtra.getBaMconfig();
                 BaM_config.parameters       = this.bam_priors.getBaMconfig();
@@ -134,15 +134,36 @@ class bamProject {
                 BaM_config.remnant_errors   = this.bam_remnant.getBaMconfig();
                 BaM_config.project          = {doCalib: true, doPred: false}
                 BaM_config.r = Math.random()
-                // Shiny.setInputValue("run_calibration", BaM_config); 
-                Shiny.onInputChange("run_calibration", BaM_config); 
-                // this sets the default component state (I case it gets outdated)
-                this.bam_priors.setConfig();
-                this.bam_data.setConfig();   
-                this.bam_remnant.setConfig();
-            
-                this.bamMonitoring.onBaMcalibrationDone = () => {
-                    Shiny.onInputChange("bam_calibration_results", Math.random());
+                if (!config_only) {
+                    // Shiny.setInputValue("run_calibration", BaM_config); 
+                    Shiny.onInputChange("run_calibration", BaM_config); 
+                    // this sets the default component state (I case it gets outdated)
+                    this.bam_priors.setConfig();
+                    this.bam_data.setConfig();   
+                    this.bam_remnant.setConfig();
+                
+                    this.bamMonitoring.onBaMcalibrationDone = () => {
+                        Shiny.onInputChange("bam_calibration_results", Math.random());
+                    }
+                } else {
+                    console.log("Configuration only requested")
+                    console.log("BaM_config", BaM_config)
+                    Shiny.onInputChange("get_calibration_config", BaM_config); 
+                    Shiny.addCustomMessageHandler("get_calibration_config", async (data) => {
+                        console.log("workspace_id", data.workspace_id)
+                        console.log("file_list", data.file_list)
+                        const zip = new JSZip();
+                        for (let f of data.file_list) {
+                            let d = await fetch(`/bam_workspace/${data.workspace_id}/${f}`)
+                            let b = await d.blob()
+                            zip.file(f, b)
+                        }
+                        const zip_file = await zip.generateAsync({type: "blob"})
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(zip_file);
+                        a.download = `${this.name}_calibration_config.zip`
+                        a.click()
+                    })
                 }
             }
             let n_bam_calibration_results = 0

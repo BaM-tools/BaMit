@@ -56,7 +56,6 @@ server <- function(input, output, session) {
 
     # ===============================================================
     # listener for when Run BaM for calibration is clicked
-    # observeEvent(input$run_calibration, eval(run_calibration_expr))
     observeEvent(input$run_calibration, {
         message(" > run_calibration")
         config <- RBaM_configuration(input$run_calibration, workspace)
@@ -71,6 +70,31 @@ server <- function(input, output, session) {
             # Sys.sleep(60)
             # tools::pskill(pid)
             session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
+        }
+    })
+    # ===============================================================
+    # listener for when download BaM calibration config files is clicked
+    observeEvent(input$get_calibration_config, {
+        message(" > get_calibration_config")
+        config <- RBaM_configuration(input$get_calibration_config, workspace)
+        if (is.logical(config) && !config) {
+            session$sendCustomMessage("bam_data_length_error", runif(1))
+        } else {
+            message(" > RBaM workspace cleanup")
+            file_list <- list.files(workspace)
+            unlink(file.path(workspace, file_list))
+            message(" > RBaM configuration: Create config files")
+            RBaM::BaM(mod=config$bam$mod, data=config$bam$data, remnant=config$bam$remnant,
+            pred=config$bam$pred, doCalib=config$bam$doCalib, doPred=config$bam$doPred,
+            workspace=workspace, run=FALSE)
+            # pid <- RBaM_runExe(workspace, workspace_id)
+            # Sys.sleep(60)
+            # tools::pskill(pid)
+            # session$sendCustomMessage("bam_monitoring_calibration", list(i=0)) # start monitoring loop
+            message("CONFIG FILES WERE CREATED IN FOLDER '", workspace_id, "'")
+            file_list <- list.files(workspace)
+            print(file_list)
+            session$sendCustomMessage("get_calibration_config", list(workspace_id=workspace_id, file_list=file_list)) # start monitoring loop
         }
     })
 

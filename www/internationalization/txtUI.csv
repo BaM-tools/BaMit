@@ -53,6 +53,7 @@ datasets_viewer_close	Close preview	Fermer l'apercu
 import_dataset	Browse your computer	Rechercher sur votre ordinateur
 run_title	Calibration	Calibration
 run_runbam	Run BaM: calibration	Executer BaM: calibration
+getconfig_runbam	Download BaM configuration files	Télécharger les fichiers de configuration de BaM
 run_config_status	BaM configuration status: 	État de la configuration de BaM:
 run_run_status	Messages of BaM last run:	Messages de la dernière éxecution de BaM :
 results_title	BaM calibration results	Résultats de la calibration de BaM

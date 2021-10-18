@@ -35,6 +35,14 @@ class bamCalRun extends bamComponent {
         dom_actions_div.id = "actions"
         this.dom_bamrun.append(dom_actions_div);
 
+        // export bam config button
+        this.dom_getconf_btn = document.createElement("button");
+        this.dom_getconf_btn.id = "run"
+        bamI.set(this.dom_getconf_btn).key("getconfig_runbam").text().apply();
+        // this.dom_getconf_btn.textContent = "Download BaM configuration files"
+        this.dom_getconf_btn.addEventListener("click", () => {
+            this.onRunBamCallback(true)
+        })
         // run bam button
         this.dom_run_btn = document.createElement("button");
         this.dom_run_btn.id = "run"
@@ -42,6 +50,7 @@ class bamCalRun extends bamComponent {
         this.dom_run_btn.addEventListener("click", () => {
             this.onRunBamCallback()
         })
+        dom_actions_div.append(this.dom_getconf_btn);
         dom_actions_div.append(this.dom_run_btn);
 
         // **********************************************************
