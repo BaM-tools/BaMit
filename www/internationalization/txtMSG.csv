@@ -37,6 +37,7 @@ pred_ask_delete	Are you sure you want to delete this prediction?	 Êtes-vous sû
 config_has_changed_message_warning	Configuration has changed but these changes haven't been taken into account!	 La configuration a été modifiés sans que ces modifications aient été prises en compte!
 config_has_changed_cancel	Cancel changes	 Annuler les modifications
 run_calib_error	An error occured while trying to calibrate the model. See "BaM log" tab for details.	 Une erreur est survenue lors de la calibration de BaM. Voir onglet "Log de BaM" pour plus de détails.
+run_calib_error_unknown	An unknown error occured while trying to calibrate the model. Please try again.	 Une erreur inconnue est survenue lors de la calibration de BaM. Essayez à nouveau.
 run_calib_invalid	Model calibration is invalid.	 La calibration du modèle n'est pas valide.
 number_rows_exceeded	The maximum number of rows is exceeded!	 Le nombre maximal de ligne est dépassé!
 results_getting_ready	Please wait while results are getting ready...	 Veuillez patientez quelques instants le temps que les résultats soient prêts...

@@ -16,8 +16,31 @@ class bamMonitoring {
 
         this.bamMsg = null;
         this.startTime = null;
+        this.progress_info = {}
+
+        const checkProgressValidity = (percentage) => {
+            if (percentage === this.progress_info.percentage) {
+                this.progress_info.iterations++
+            } else {
+                this.progress_info.percentage = percentage
+                this.progress_info.iterations = 0
+            }
+            return this.progress_info.iterations <= 10
+        }
 
         Shiny.addCustomMessageHandler("bam_monitoring_calibration", (data) => {
+            let isValid = checkProgressValidity(data.i)
+            if (!isValid) {
+                if (this.bamMsg) this.bamMsg.destroy(0);
+                this.bamMsg = null;
+                this.onBaMcalibrationDone(false)
+                new bamMessage({
+                    message: bamI.getText("run_calib_error_unknown"),
+                    type: "error",
+                    timeout: 5000,
+                }) 
+                return;
+            }
             if (data.i === -1) {   
                 if (this.bamMsg) this.bamMsg.destroy(0);
                 this.bamMsg = null;
@@ -79,6 +102,13 @@ class bamMonitoring {
             auto_destroy: false
         })
         this.startTime = performance.now()
+        // to monitor progress and identify when it gets stuck
+        // it records the progress percentage as well as the 
+        // the number of times it received this exact percentage
+        this.progress_info = {
+            percentage: 0,
+            iterations: 0
+        }
     }
 
 }
