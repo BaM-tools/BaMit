@@ -17,7 +17,7 @@ class bamFile {
         this.dom_container.append(this.dom_right)
 
         this.dom_icon = document.createElement("img")
-        this.dom_icon.src = "/images/file.svg"
+        this.dom_icon.src = "./images/file.svg"
         this.dom_name = document.createElement("div")
         this.dom_name.className = "name"
         this.dom_name.textContent = this.file.name
