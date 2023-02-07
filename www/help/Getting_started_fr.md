@@ -70,7 +70,8 @@ P2(t, T2) = K2/(1+((K2-P0)/P0)*exp(-r*T2*t))
 
 avec pour variables de sortie `P1` et `P2`, comme variables d'entrée `T1`, `T2` et `t` et comme paramètres `K1`, `K2`, `P0` et `r`. Ce modèle a donc 2 variables de sortie, 3 variables d'entrèe et 4 paramètres. La figure ci-dessous illustre comment ce modèle serait défini dans le composant **Définition du modèle TextFile**.
 
-![Modèle TextFile](/www/help/model_textfile_fr.png)
+
+![Modèle TextFile](./help/model_textfile_fr.png)
 
 <div id='par' class="link"> </div>
 
@@ -85,7 +86,7 @@ Dans l'exemple ci-dessous, il y a 4 paramètres :
  * paramètre `r` avec une valeur initiale de 0.001 et une distribution log Normal (moyenne log de -7 et écart-type log de 1);
 * paramètre `K2` qui n'est pas encore renseigné (les même valeurs que `K1` seront utilisées); notez la présence d'informations sur ce qui est attendue dans les différents champs et les messages d'erreur en bas du composant indiquant ce qu'il reste à faire pour compléter la spécification des *a priori*.
 
-![Paramètres](/www/help/parameters_fr.png)
+![Paramètres](./help/parameters_fr.png)
 
 <div id='dat' class="link"> </div>
 
@@ -106,7 +107,7 @@ Dans l'exemple ci-dessous, un seul fichier (nommé « twoPop.txt ») a été cha
 Celui-ci a 101 lignes et 5 colonnes.
 Sur la droite, les 5 colonnes ont été affectées aux différentes variables d'entrée et de sortie.
 
-![Données de calage](/www/help/data_fr.png)
+![Données de calage](./help/data_fr.png)
 
 <div id='err' class="link"> </div>
 
@@ -139,7 +140,7 @@ Cet onglet liste les différents fichiers résultat qui peuvent être prévisual
 * **Log de *BaM***
 Cet onglet permet de voir les sorties de la console de *BaM* (comme si *BaM* avait été exécuté en ligne de commande). Cet onglet est surtout utile en cas de plantage de *BaM* pour en identifier la cause.
 
-![Résultat de la calibration](/www/help/rescal_fr.png)
+![Résultat de la calibration](./help/rescal_fr.png)
 
 <div id='mpred' class="link"> </div>
 
@@ -165,4 +166,4 @@ La configuration d'une prédiction requiert:
 
 Dans l'exemple présenté ci-dessous, le fichier "twoPop.txt" (le même que celui utilisé lors de la calibration) a été importé (voir à droite). Celui-ci est utilisé pour spécifier les valeurs des variables d'entrée à utiliser lors de la prédiction (à gauche). Les incertitudes paramètriques et structurelles seront prises en compte dans le calcul des variables de sorties et de leurs incertitudes associées.
 
-![Résultat de la calibration](/www/help/pred_fr.png)
+![Résultat de la calibration](./help/pred_fr.png)
