@@ -20,8 +20,14 @@ class bamHelp {
         this.dom_markedcontent.className = "bam-help-content";
         this.marked_documents = { 
         }
-        fetch("/help/Getting_started_fr.md").then(e=>e.text()).then(e=>{
-            this.marked_documents["fr"] = marked(e);
+        fetch("./help/Getting_started_fr.md").then(e=>e.text()).then(e=>{
+            const url = new URL(window.location.pathname, window.location.origin)
+            console.log("url", url)
+            marked.setOptions({
+                baseUrl: url.href
+            })
+            // console.log("window.location", window.location)
+            this.marked_documents["fr"] = marked(e, );
         })
 
         dom_content_header.append(dom_close_btn);
