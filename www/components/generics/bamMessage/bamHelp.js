@@ -20,14 +20,30 @@ class bamHelp {
         this.dom_markedcontent.className = "bam-help-content";
         this.marked_documents = { 
         }
+
+        function removeHashFromUrl(urlString){
+            const dirtyUrl = new URL(urlString)
+            const cleanUrl = new URL(dirtyUrl.pathname, dirtyUrl.origin)
+            return cleanUrl.href
+        }
         fetch("./help/Getting_started_fr.md").then(e=>e.text()).then(e=>{
-            const url = new URL(window.location.pathname, window.location.origin)
-            console.log("url", url)
+            const baseUrl = removeHashFromUrl(window.location.href)
+            console.log("baseUrl", baseUrl)
             marked.setOptions({
-                baseUrl: url.href
+                baseUrl: baseUrl
             })
-            // console.log("window.location", window.location)
-            this.marked_documents["fr"] = marked(e, );
+            const htmlMd = marked(e)
+            const parser = new DOMParser();
+            const domMd = parser.parseFromString(htmlMd, "text/html");
+            // make links with different origin or no hash open in new tab
+            Array.from(domMd.body.querySelectorAll("a")).forEach(a=>{
+                const cleanUrl = removeHashFromUrl(a.href)
+                if (cleanUrl !== baseUrl) {
+                    a.target="_blank"
+                }
+            })
+            const processedMd = domMd.body.innerHTML
+            this.marked_documents["fr"] = processedMd;
         })
 
         dom_content_header.append(dom_close_btn);
