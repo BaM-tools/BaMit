@@ -38,8 +38,8 @@ Ces **composants** sont:
 * **[Modèle(s) des erreurs réstantes](#err)** : composant permettant de modifier les modèles des erreurs restantes associées aux variables de sortie (optionnelle).
 * **[Calibration](#cal)** : composant permettant de lancer *BaM* pour calibrer le modèle.
 * **[Résultat de la calibration de *BaM*](#res)** : composant permettant de visualiser et de télécharger les résultat de la calibration du modèle
-* **Prédiction(s)**
-* **Prédiction**
+* **[Prédiction(s)](#mpred)**: composant permettant d'ajouter des expériences de prédiction.
+* **[Prédiction](#pred)**: composant permettant de configurer une expérience de prédiction, d'éxecuter BaM pour lancer la prédiction et obtenir les résultats.
 
 <div id='mod' style='height: 25px'> </div>
 
@@ -103,7 +103,7 @@ Il est nécessaire de préciser pour chaque variable d’entrée et chaque varia
 Notez que si les noms de colonne dans les jeux de données correspondent aux noms des variables d’entrée/sortie, ces associations sont automatiquement établies.
 Pour les variables de sortie, il est également possible de spécifier des données incertaines en spécifiant des *moyennes* et des *écart-types* associés.
 
-Dans l'exemple ci-dessous, un seul fichier (nommé « twoPop.txt ») a été chargé.
+Dans l'exemple ci-dessous, un seul fichier (nommé « twoPop.txt », téléchargeable [ici](./help/twoPop.txt)) a été chargé.
 Celui-ci a 101 lignes et 5 colonnes.
 Sur la droite, les 5 colonnes ont été affectées aux différentes variables d'entrée et de sortie.
 
@@ -132,7 +132,7 @@ Une barre de progression permet de suivre l'avancé des calcules.
 
 # Résultat de la calibration de *BaM*
 
-A la fin de la calibration du modèle par *BaM*, un nouvel onglet, présentant les résultats et permettant de les télécharger, est ajouté. Il comporte 3 onglets : 
+A la fin de la calibration du modèle par *BaM*, un nouveau composants, présentant les résultats et permettant de les télécharger, est ajouté. Il comporte 3 onglets : 
 * **Paramètres**:
 L’onglet « Paramètres » permet de visualiser les « traces » (série d’échantillons) des simulations MCMC pour chaque paramètre ou bien les densités *a posteriori* (comme dans la figure ci-dessous).
 * **Fichiers résultats**
