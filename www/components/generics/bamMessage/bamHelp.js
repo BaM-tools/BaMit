@@ -46,8 +46,10 @@ class bamHelp {
         this.dom_markedcontent.innerHTML = this.marked_documents[language]
         this.dealWithImageSrc()
         if (goto_id) {
+            const url = new URL(window.location.pathname, window.location.origin)
+            console.log("url", url)
             const a = document.createElement("a")
-            a.href =  `${window.location.origin}/#${goto_id}`
+            a.href =  `${url.href}/#${goto_id}`
             a.click()
         }
     }
