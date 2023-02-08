@@ -185,6 +185,36 @@ function loadApp() {
 
     help.setParent(dom_content);
     HELP = help
+
+    // **************************************************************
+    // **************************************************************
+    // Regularly save BaMProject in the localStorage of the user
+    // and load the project config if there's one in the localStorage
+    if (intervalToSaveProjectToLocalStorage !== null) clearInterval(intervalToSaveProjectToLocalStorage)
+    intervalToSaveProjectToLocalStorage = setInterval(saveProjectToLocalStorage, 5000)
+
+    const configString = localStorage.getItem("project")
+    console.log("configString", configString)
+    if (configString) {
+        const config = JSON.parse(localStorage.getItem("project"))
+        // FIXME: add a message to say the last opened project was restored?
+        // new bamMessage({
+        //     message: "Dernier projet ouvert restauré",
+        //     type: "info",
+        //     timeout: 5000,
+        // }); 
+        createBaMProjectObject(config)
+    }
+
+}
+
+let intervalToSaveProjectToLocalStorage = null
+function saveProjectToLocalStorage() {
+    if (BaMProject === undefined || BaMProject === null) return
+    console.log("Saving project to local storage...")
+    const config = BaMProject.get()
+    localStorage.setItem("project", JSON.stringify(config))
+    console.log("Saving project to local storage done.")
 }
 
 // build the NewModel menue
@@ -278,17 +308,20 @@ function loadBaMproject(f) {
             })
             return;
         }
-        BaMProject = new bamProject(config.name, config.modelid);
-        let content = document.querySelector("#bam-main-content");
-        content.innerHTML = "";
-        content.append(BaMProject.getDOM());
-        BaMProject.set(config);
-        BaMProject.onDeleteCallback = function() {
-            content.innerHTML = "";
-            BaMProject = null;
-        }
+        createBaMProjectObject(config)
     }
 
     fr.readAsText(f);
 }
 
+function createBaMProjectObject(config) {
+    BaMProject = new bamProject(config.name, config.modelid);
+    let content = document.querySelector("#bam-main-content");
+    content.innerHTML = "";
+    content.append(BaMProject.getDOM());
+    BaMProject.set(config);
+    BaMProject.onDeleteCallback = function() {
+        content.innerHTML = "";
+        BaMProject = null;
+    }
+}
