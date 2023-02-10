@@ -65,7 +65,7 @@ class bamHelp {
             const url = new URL(window.location.pathname, window.location.origin)
             console.log("url", url)
             const a = document.createElement("a")
-            a.href =  `${url.href}/#${goto_id}`
+            a.href =  `${url.href}#${goto_id}`
             a.click()
         }
     }
