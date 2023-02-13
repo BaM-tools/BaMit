@@ -154,7 +154,7 @@ class bamProject {
                         console.log("file_list", data.file_list)
                         const zip = new JSZip();
                         for (let f of data.file_list) {
-                            let d = await fetch(`/bam_workspace/${data.workspace_id}/${f}`)
+                            let d = await fetch(`./bam_workspace/${data.workspace_id}/${f}`)
                             let b = await d.blob()
                             zip.file(f, b)
                         }
